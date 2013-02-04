@@ -1,4 +1,6 @@
-
+version 0.1
+        * Updated source to meet PHP >5.3 standards
+        * Added 'if'/'else' tag statement
 version 0.09
 	* added JavaDoc style code comments to the source code.
 	* added developer HTML documentation to the release.

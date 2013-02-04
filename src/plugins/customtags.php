@@ -110,5 +110,24 @@ function ct_add($xmlnode,$inputstar,$thatstar,$topicstar){
 
 }
 */
+function ct_if($xmlnode,$inputstar,$thatstar,$topicstar){
+    $ch = array();
+    $s = false;
+    if(bget($xmlnode['attributes']['name'])==$xmlnode['attributes']['value']){
+        //If condition is satisfied, so we process every child before the 'else' tag (if there is any)
+        foreach($xmlnode["children"] as $i=>$c){
+            if(isset($c['tag']) && $c['tag']=='else') break;
+            else $ch[] = $c;
+        }
+        return recursechildren($ch,$inputstar,$thatstar,$topicstar);
+    }else{
+        //The If condition is not satisfied so be search for anything after an 'else' tag and we process
+        foreach($xmlnode["children"] as $i=>$c){
+            if(isset($c['tag']) && $c['tag']=='else') $s=true;
+            elseif($s) $ch[] = $c;
+        }
+        return recursechildren($ch,$inputstar,$thatstar,$topicstar);
+    }
 
+}
 ?>
