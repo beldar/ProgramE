@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos  -->
+			<title>File Source for experimental-code.php</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+											</head>
+		<body>
+						<h1>Source for file experimental-code.php</h1>
+<p>Documentation is available at <a href="../application/_cms_experimental-code_php.html">experimental-code.php</a></p>
+<div class="src-code">
+<pre><ol><li><a name="a1"></a><span class="src-php">&lt;?</span></li>
+<li><a name="a2"></a><span class="src-var">$page </span>= <span class="src-var">$_GET</span><span class="src-sym">[</span><span class="src-str">&quot;page&quot;</span><span class="src-sym">]</span><span class="src-sym">; </span></li>
+<li><a name="a3"></a>&nbsp;</li>
+<li><a name="a4"></a><span class="src-comm">//Content </span></li>
+<li><a name="a5"></a><span class="src-key">function </span><a href="../application/_cms_experimental-code_php.html#functioncontent">content</a><span class="src-sym">(</span><span class="src-var">$page</span><span class="src-sym">)</span><span class="src-sym">{ </span></li>
+<li><a name="a6"></a>    <span class="src-key">if</span><span class="src-sym">(</span><span class="src-sym">!</span>isset<span class="src-sym">(</span><span class="src-var">$page</span><span class="src-sym">))</span><span class="src-sym">{ </span><span class="src-var">$page </span>= <span class="src-str">&quot;home&quot;</span><span class="src-sym">; </span><span class="src-sym">} </span></li>
+<li><a name="a7"></a>    <span class="src-var">$filename </span>= <span class="src-str">&quot;</span><span class="src-str">./<span class="src-id">page</span>/<span class="src-var">$page</span>.<span class="src-id">php</span></span><span class="src-str">&quot;</span><span class="src-sym">; </span></li>
+<li><a name="a8"></a>&nbsp;</li>
+<li><a name="a9"></a>&nbsp;</li>
+<li><a name="a10"></a>    <span class="src-key">if </span><span class="src-sym">(</span><a href="http://www.php.net/file_exists">file_exists</a><span class="src-sym">(</span><span class="src-var">$filename</span><span class="src-sym">)) </span><span class="src-sym">{ </span></li>
+<li><a name="a11"></a>     </li>
+<li><a name="a12"></a>        <span class="src-inc">include</span><span class="src-sym">(</span><span class="src-var">$filename</span><span class="src-sym">)</span><span class="src-sym">; </span></li>
+<li><a name="a13"></a>&nbsp;</li>
+<li><a name="a14"></a>    <span class="src-sym">} </span><span class="src-key">else </span><span class="src-sym">{ </span></li>
+<li><a name="a15"></a>&nbsp;</li>
+<li><a name="a16"></a>       echo<span class="src-sym">(</span><span class="src-str">&quot;&lt;p&gt;Error: Page not found!&lt;/p&gt;&quot;</span><span class="src-sym">)</span><span class="src-sym">; </span></li>
+<li><a name="a17"></a>&nbsp;</li>
+<li><a name="a18"></a>    <span class="src-sym">} </span></li>
+<li><a name="a19"></a>&nbsp;</li>
+<li><a name="a20"></a><span class="src-sym">}</span></li>
+<li><a name="a21"></a><span class="src-php">?&gt; </span></li>
+<li><a name="a22"></a>&nbsp;</li>
+<li><a name="a23"></a>en in de directery /page/ staat een .htaccess die het verbied om de file daar te lezen</li>
+<li><a name="a24"></a>&nbsp;</li>
+<li><a name="a25"></a>&nbsp;</li>
+<li><a name="a26"></a>Order Deny,Allow</li>
+<li><a name="a27"></a>&nbsp;</li>
+<li><a name="a28"></a>/*</li>
+<li><a name="a29"></a>Program E stores all of the AIML in a relational database.</li>
+<li><a name="a30"></a>&nbsp;</li>
+<li><a name="a31"></a>The key table is the patterns table:</li>
+<li><a name="a32"></a>+--------+--------------+------+-----+---------+-------+</li>
+<li><a name="a33"></a>| Field  | Type         | Null | Key | Default | Extra |</li>
+<li><a name="a34"></a>+--------+--------------+------+-----+---------+-------+</li>
+<li><a name="a35"></a>| id     | int(11)      |      | PRI | 0       |       |</li>
+<li><a name="a36"></a>| word   | varchar(255) | YES  |     | NULL    |       |</li>
+<li><a name="a37"></a>| ordera | tinyint(4)   |      |     | 0       |       |</li>
+<li><a name="a38"></a>| parent | int(11)      |      | MUL | 0       |       |</li>
+<li><a name="a39"></a>| isend  | tinyint(4)   |      |     | 0       |       |</li>
+<li><a name="a40"></a>+--------+--------------+------+-----+---------+-------+</li>
+<li><a name="a41"></a>&nbsp;</li>
+<li><a name="a42"></a>id is just an incremented unique number for each row</li>
+<li><a name="a43"></a>word is a single word or &lt;that&gt; or &lt;topic&gt;</li>
+<li><a name="a44"></a>ordera is 1, 2, or 3. 1 for '_'. 2 for a regular word. 3 for '*'.</li>
+<li><a name="a45"></a>parent is the word that came before this word</li>
+<li><a name="a46"></a>isend (is end) is a flag that says if this word is at the end of the</li>
+<li><a name="a47"></a>&lt;input&gt;, &lt;that&gt;, or &lt;topic&gt;</li>
+<li><a name="a48"></a>&nbsp;</li>
+<li><a name="a49"></a>Then the table is used to go through the user input word by word.</li>
+<li><a name="a50"></a>&nbsp;</li>
+<li><a name="a51"></a>&nbsp;</li>
+<li><a name="a52"></a>*/</li>
+</ol></pre>
+</div>
+	<p class="notes" id="credit">
+		Documentation generated on Tue, 11 Jan 2005 18:41:04 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.3.0RC3</a>
+	</p>
+	</body>
+</html>

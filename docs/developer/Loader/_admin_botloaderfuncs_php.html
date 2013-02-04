@@ -1,0 +1,1413 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos  -->
+			<title>Docs for page botloaderfuncs.php</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+						<script src="../media/lib/classTree.js"></script>
+												<script language="javascript" type="text/javascript">
+				var imgPlus = new Image();
+				var imgMinus = new Image();
+				imgPlus.src = "../media/images/plus.png";
+				imgMinus.src = "../media/images/minus.png";
+				
+				function showNode(Node){
+							switch(navigator.family){
+								case 'nn4':
+									// Nav 4.x code fork...
+							var oTable = document.layers["span" + Node];
+							var oImg = document.layers["img" + Node];
+									break;
+								case 'ie4':
+									// IE 4/5 code fork...
+							var oTable = document.all["span" + Node];
+							var oImg = document.all["img" + Node];
+									break;
+								case 'gecko':
+									// Standards Compliant code fork...
+							var oTable = document.getElementById("span" + Node);
+							var oImg = document.getElementById("img" + Node);
+									break;
+							}
+					oImg.src = imgMinus.src;
+					oTable.style.display = "block";
+				}
+				
+				function hideNode(Node){
+							switch(navigator.family){
+								case 'nn4':
+									// Nav 4.x code fork...
+							var oTable = document.layers["span" + Node];
+							var oImg = document.layers["img" + Node];
+									break;
+								case 'ie4':
+									// IE 4/5 code fork...
+							var oTable = document.all["span" + Node];
+							var oImg = document.all["img" + Node];
+									break;
+								case 'gecko':
+									// Standards Compliant code fork...
+							var oTable = document.getElementById("span" + Node);
+							var oImg = document.getElementById("img" + Node);
+									break;
+							}
+					oImg.src = imgPlus.src;
+					oTable.style.display = "none";
+				}
+				
+				function nodeIsVisible(Node){
+							switch(navigator.family){
+								case 'nn4':
+									// Nav 4.x code fork...
+							var oTable = document.layers["span" + Node];
+									break;
+								case 'ie4':
+									// IE 4/5 code fork...
+							var oTable = document.all["span" + Node];
+									break;
+								case 'gecko':
+									// Standards Compliant code fork...
+							var oTable = document.getElementById("span" + Node);
+									break;
+							}
+					return (oTable && oTable.style.display == "block");
+				}
+				
+				function toggleNodeVisibility(Node){
+					if (nodeIsVisible(Node)){
+						hideNode(Node);
+					}else{
+						showNode(Node);
+					}
+				}
+			</script>
+					</head>
+		<body>
+			<div class="page-body">			
+<h2 class="file-name"><img src="../media/images/Page_logo.png" alt="File" style="vertical-align: middle">/admin/botloaderfuncs.php</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+									<a href="#sec-includes">Includes</a>
+			|											<a href="#sec-functions">Functions</a>
+			</div>
+	<div class="info-box-body">	
+		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">AIML loading functions</p>
+<p class="description"><p>Contains contains the functions for the actual loading of AIML.</p></p>
+	<ul class="tags">
+				<li><span class="field">filesource:</span> <a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html">Source Code for this file</a></li>
+				<li><span class="field">version:</span> 0.0.8</li>
+				<li><span class="field">copyright:</span> 2002</li>
+				<li><span class="field">author:</span> Paul Rydell</li>
+			</ul>
+		
+			</div>
+</div>
+		
+
+	<a name="sec-includes"></a>	
+	<div class="info-box">
+		<div class="info-box-title">Includes</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+						<span class="disabled">Includes</span>
+			|													<a href="#sec-functions">Functions</a>
+					</div>
+		<div class="info-box-body">	
+			<a name="_dbprefs_php"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Page.png" alt=" " />
+		<span class="include-title">
+			<span class="include-type">require_once</span>
+			(<span class="include-name"><a href="../Settings/_admin_dbprefs_php.html">"dbprefs.php"</a></span>)
+			(line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a39">39</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The general preferences and database details.</p>
+	
+</div>
+		</div>
+	</div>
+	
+	
+	
+	<a name="sec-functions"></a>	
+	<div class="info-box">
+		<div class="info-box-title">Functions</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-includes">Includes</a>
+				|												<span class="disabled">Functions</span>
+		</div>
+		<div class="info-box-body">	
+			<a name="functionaddtosubs" id="functionaddtosubs"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">addtosubs</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a155">155</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Write the substitution include file</p>
+<p class="description"><p>Write the substitution arrays back into the subs.inc</p></p>
+	<ul class="tags">
+				<li><span class="field">global:</span> object The $fp: opened subs.inc file, ready to write to.</li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionmakesubscode">makesubscode()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addtosubs
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$string</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$string</span><span class="var-description">: most likely an array or all arrays turned into a big file.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionbotexists" id="functionbotexists"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">botexists</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a655">655</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Checks if a bot already exists.</p>
+<p class="description"><p>Does a check to see if a bot with a particular name already exists. The reliance on unique names if crucial for the bot to work.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> true/false</li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionstartS">startS()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">boolean</span>
+		<span class="method-name">
+			botexists
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: the name of the bot that is checked.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functioncleanforreplace" id="functioncleanforreplace"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">cleanforreplace</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a1389">1389</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add slashes for replacement purposes</p>
+<p class="description"><p>Making a string safe to preform a replacement function on.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> cleaned string.</li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionmakesrphp">makesrphp()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			cleanforreplace
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$input</span><span class="var-description">: string to be cleaned.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functioncleanforsearch" id="functioncleanforsearch"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">cleanforsearch</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a1408">1408</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add slashes for database query purpose</p>
+<p class="description"><p>Making a string safe to put the text in an SQL query.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> cleaned string.</li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionmakesrphp">makesrphp()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			cleanforsearch
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$input</span><span class="var-description">: string to be cleaned.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functioncreatesubfile" id="functioncreatesubfile"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">createsubfile</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a175">175</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create the object for writing the substitution include file</p>
+<p class="description"><p>Creates the object, which is then used by addtosubs() to write to</p></p>
+	<ul class="tags">
+				<li><span class="field">global:</span> object $fp: </li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionmakesubscode">makesubscode()</a></li>
+				<li><span class="field">see:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionmakesubscode">makesubscode()</a></li>
+				<li><span class="field">see:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionaddtosubs">addtosubs()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			createsubfile
+		</span>
+				()
+			</div>
+
+		
+	
+</div>
+<a name="functiondeletebot" id="functiondeletebot"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">deletebot</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a53">53</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Deletes everything about a bot.</p>
+<p class="description"><p>Empties the tables, bot, patterns, templates, bots and gmcache</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionstartS">startS()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			deletebot
+		</span>
+					(<span class="var-type">integer</span>&nbsp;<span class="var-name">$bot</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$bot</span><span class="var-description">: The bot's ID</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functiondeletejustbot" id="functiondeletejustbot"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">deletejustbot</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a93">93</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Deletes information about a bot in the cache and bot tables.</p>
+<p class="description"><p>Used by the incremental bot loader program so it doesn't wipe out the whole  bot on each aiml file load. Deletes everything in bot, bots and gmcache tables.</p></p>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			deletejustbot
+		</span>
+					(<span class="var-type">integer</span>&nbsp;<span class="var-name">$bot</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$bot</span><span class="var-description">: The bot's ID.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionendElement" id="functionendElement"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">endElement</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a827">827</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Used by the AIML XML parser</p>
+<p class="description"><p>Looks for the end tags of 'topic' and 'category'.</p></p>
+	<ul class="tags">
+				<li><span class="field">global:</span> string $whaton: which tag is being processed</li>
+				<li><span class="field">global:</span> string $pattern: </li>
+				<li><span class="field">global:</span> string $template: </li>
+				<li><span class="field">global:</span> integer $recursive: to indicate if recursion is allowed</li>
+				<li><span class="field">global:</span> string $topic: the topic at hand in the AIML file</li>
+				<li><span class="field">global:</span> string $that: the that of the category.</li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionlearn">learn()</a></li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionlearnstring">learnstring()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functioninsertmytemplate">insertmytemplate()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functioninsertmysentence">insertmysentence()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			endElement
+		</span>
+					(<span class="var-type">resource</span>&nbsp;<span class="var-name">$parser</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">resource</span>
+				<span class="var-name">$parser</span><span class="var-description">: SAX XML resource handler</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: name of the encountered tag.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionendS" id="functionendS"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">endS</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a608">608</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Called by the XML parser that is parsing the startup.xml file.</p>
+	<ul class="tags">
+				<li><span class="field">global:</span> string $whaton: Which start tag was processed last</li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionloadstartup">loadstartup()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			endS
+		</span>
+					(<span class="var-type">resource</span>&nbsp;<span class="var-name">$parser</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">resource</span>
+				<span class="var-name">$parser</span><span class="var-description">: SAX XML resource handler</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: name of the encountered tag.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionfindwordid" id="functionfindwordid"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">findwordid</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a198">198</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Find a word in the patterns table given the word and the parent.</p>
+<p class="description"><p>The AIML patterns are stored in the MySQL table in a binary tree format.  This function retrieves the next word details based upon the previous' word's ID.  If this word doesn't exist it returns 0, else it returns it's details.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The ID of the word that was searched</li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functioninsertmysentence">insertmysentence()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionsetnotend">setnotend()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">integer</span>
+		<span class="method-name">
+			findwordid
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$word</span>, <span class="var-type">integer</span>&nbsp;<span class="var-name">$parent</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$word</span><span class="var-description">: The word that is to be searched</span>			</li>
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$parent</span><span class="var-description">: The ID of the parent word</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionfindwordidstar" id="functionfindwordidstar"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">findwordidstar</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a234">234</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Find a wildcard in the patterns table given the word and the parent.</p>
+<p class="description"><p>Similar as findwordid() but this will retrieve the ID if there is a wildcard that fits.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The ID of the word that was searched</li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functioninsertmysentence">insertmysentence()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionsetnotend">setnotend()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">integer</span>
+		<span class="method-name">
+			findwordidstar
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$word</span>, <span class="var-type">integer</span>&nbsp;<span class="var-name">$parent</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$word</span><span class="var-description">: The word that is to be searched, either _ or *</span>			</li>
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$parent</span><span class="var-description">: The ID of the parent word</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionflushcache" id="functionflushcache"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">flushcache</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a117">117</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Deletes the gmcache table.</p>
+<p class="description"><p>This needs to be called whenever the patterns or templates table is updated.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionloadaimlcategory">loadaimlcategory()</a></li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionloadaimlstring">loadaimlstring()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			flushcache
+		</span>
+				()
+			</div>
+
+		
+	
+</div>
+<a name="functiongetbotid" id="functiongetbotid"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">getbotid</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a713">713</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the ID of a bot given its name.</p>
+<p class="description"><p>Gets the ID of a bot given its name</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionstartS">startS()</a></li>
+				<li><span class="field">todo:</span> move this function to a common include file shared by both the Loader and the Interpreter.</li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getbotid
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: <p>The name of the bot</p><p>@ return integer                 The bot's ID.</p></span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functiongetbotvalue" id="functiongetbotvalue"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">getbotvalue</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a683">683</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets a bot's property value.</p>
+<p class="description"><p>Retrieves the value of a particular bot predicate. If the predicate isn't set, then it will return the value 'default'. This has been hardcoded</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the value of the bot predicate.</li>
+				<li><span class="field">global:</span> integer $selectbot: </li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionstartElement">startElement()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getbotvalue
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: the name of the bot predicate to be retrieved.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionhandleme" id="functionhandleme"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">handleme</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a900">900</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Part of the AIML XML parser.</p>
+<p class="description"><p>Checks for start tags of pattern, topic, that, template and CDATA</p></p>
+	<ul class="tags">
+				<li><span class="field">global:</span> string $whaton: </li>
+				<li><span class="field">global:</span> string $pattern: </li>
+				<li><span class="field">global:</span> string $template: </li>
+				<li><span class="field">global:</span> string $topic: </li>
+				<li><span class="field">global:</span> string $that: </li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionlearn">learn()</a></li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionlearnstring">learnstring()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			handleme
+		</span>
+					(<span class="var-type">resource</span>&nbsp;<span class="var-name">$parser</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$data</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">resource</span>
+				<span class="var-name">$parser</span><span class="var-description">: SAX XML resource handler</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$data</span><span class="var-description">: containing what needs to be parsed, I guess.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionhandlemeS" id="functionhandlemeS"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">handlemeS</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a632">632</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Process contents &lt;learn&gt; tag in startup.xml</p>
+<p class="description"><p>Called by the XML parser that is parsing the startup.xml file. * -&gt; all files in directory, or single file.</p></p>
+	<ul class="tags">
+				<li><span class="field">global:</span> string $whaton: </li>
+				<li><span class="field">global:</span> array $learnfiles: contains the AIML files to learn.</li>
+				<li><span class="field">global:</span> integer $selectbot: </li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionloadstartup">loadstartup()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionlearnallfiles">learnallfiles()</a></li>
+				<li><span class="field">todo:</span> When using * it should process AIML in subdirectories too. This is currently only supported by using multiple &lt;learn&gt; tag entries for every folder containing AIML files.</li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			handlemeS
+		</span>
+					(<span class="var-type">resource</span>&nbsp;<span class="var-name">$parser</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$data</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">resource</span>
+				<span class="var-name">$parser</span><span class="var-description">: SAX XML resource handler</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$data</span><span class="var-description">: assuming it contains the path to the file.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functioninsertmysentence" id="functioninsertmysentence"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">insertmysentence</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a298">298</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Inserts the pattern into the patterns table.</p>
+<p class="description"><p>inserts the pattern, that and topic as individual words in binary tree format into the patterns table</p></p>
+	<ul class="tags">
+				<li><span class="field">global:</span> string $selectbot: </li>
+				<li><span class="field">global:</span> integer $annesID: </li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionendElement">endElement()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionfindwordidstar">findwordidstar()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functioninsertwordpattern">insertwordpattern()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionfindwordid">findwordid()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			insertmysentence
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$mybigsentence</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$mybigsentence</span><span class="var-description">: Contains the pattern, that and topic in the following format &lt;input&gt;word word&lt;that&gt;word word&lt;topic&gt;word word.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functioninsertmytemplate" id="functioninsertmytemplate"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">insertmytemplate</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a444">444</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Inserts a template into the template table.</p>
+<p class="description"><p>Insert the template into the template database. <br />  This version has been adapted to also insert the pattern, that and topic into the additionally added columns</p></p>
+	<ul class="tags">
+				<li><span class="field">global:</span> integer $selectbot: </li>
+				<li><span class="field">global:</span> integer $templatesinserted: The ID of the record in the patterns table that links to this table</li>
+				<li><span class="field">global:</span> string $pattern: The pattern, including variables like _ and *.</li>
+				<li><span class="field">global:</span> string $topic: the topic, including variable like _ and *</li>
+				<li><span class="field">global:</span> string $that: the that, including variables like _ and *</li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionendElement">endElement()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functiontemplateexists">templateexists()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			insertmytemplate
+		</span>
+					(<span class="var-type">integer</span>&nbsp;<span class="var-name">$idused</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$template</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$idused</span><span class="var-description">: The ID of the record in the patterns table that links to the template table.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$template</span><span class="var-description">: The contents inbetween &lt;template/&gt; tags.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functioninsertwordpattern" id="functioninsertwordpattern"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">insertwordpattern</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a413">413</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Inserts an entry into the patterns table. Returns the ID of the new row inserted.</p>
+<p class="description"><p>insert a word into the patterns table, returns the id of the record so it can be  used as the parent ID of the next word that's to be inserted.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The record ID of the inserted word.</li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functioninsertmysentence">insertmysentence()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">integer</span>
+		<span class="method-name">
+			insertwordpattern
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$qadd</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$qadd</span><span class="var-description">: The word of the pattern to be inserted</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionlearn" id="functionlearn"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">learn</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a1135">1135</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Learn an AIML file.</p>
+<p class="description"><p>Learn a single AIML XML file. Again, the hardcoded time limit is set to 600, presumably seconds.</p></p>
+	<ul class="tags">
+				<li><span class="field">global:</span> string $rootdir: The root directory</li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionloadstartup">loadstartup()</a></li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionloadstartupinc">loadstartupinc()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionhandleme">handleme()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionendElement">endElement()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionstartElement">startElement()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			learn
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$file</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$file</span><span class="var-description">: The AIML file name.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionlearnallfiles" id="functionlearnallfiles"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">learnallfiles</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a1073">1073</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Learn all the files in a directory ending with &quot;.aiml&quot;</p>
+<p class="description"><p>Read all the AIML filenames into the $learnfile Array. This array is then later on used by <a href="../Loader/_admin_botloaderfuncs_php.html#functionlearn">learn()</a> in <a href="../Loader/_admin_botloaderfuncs_php.html#functionhandlemeS">handlemeS()</a></p></p>
+	<ul class="tags">
+				<li><span class="field">global:</span> string $rootdir: the rootdirectory</li>
+				<li><span class="field">global:</span> array $learnfiles: contains all the filenames that need to be loaded into the bot.</li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionhandlemeS">handlemeS()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			learnallfiles
+		</span>
+					(<span class="var-type">integer</span>&nbsp;<span class="var-name">$curbot</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$curbot</span><span class="var-description">: ID of the current bot.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionlearnstring" id="functionlearnstring"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">learnstring</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a1103">1103</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Learn the AIML string.</p>
+<p class="description"><p>XML parse the AIML string. It seems to have a hardcoded time limit of 600, presume seconds.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionloadaimlcategory">loadaimlcategory()</a></li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionloadaimlstring">loadaimlstring()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionhandleme">handleme()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionendElement">endElement()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionstartElement">startElement()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			learnstring
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$xmlstring</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$xmlstring</span><span class="var-description">: the AIML category XML string</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionloadaimlcategory" id="functionloadaimlcategory"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">loadaimlcategory</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a1326">1326</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Load an AIML string that is just a category.</p>
+<p class="description"><p>This is going to need to take bot as a parameter</p></p>
+	<ul class="tags">
+				<li><span class="field">global:</span> integer $selectbot: bot ID.</li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionlearnstring">learnstring()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionflushcache">flushcache()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			loadaimlcategory
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$aimlstring</span>, <span class="var-type">integer</span>&nbsp;<span class="var-name">$botid</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$aimlstring</span><span class="var-description">: The AIML string to be loaded.</span>			</li>
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$botid</span><span class="var-description">: The bot's ID.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionloadaimlstring" id="functionloadaimlstring"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">loadaimlstring</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a1298">1298</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Load an AIML string. String must be valid XML.</p>
+<p class="description"><p>This is going to need to take bot as a parameter</p></p>
+	<ul class="tags">
+				<li><span class="field">global:</span> integer $selectbot: bot ID.</li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionlearnstring">learnstring()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionflushcache">flushcache()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			loadaimlstring
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$aimlstring</span>, <span class="var-type">integer</span>&nbsp;<span class="var-name">$botid</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$aimlstring</span><span class="var-description">: The AIML string to be loaded.</span>			</li>
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$botid</span><span class="var-description">: The bot's ID.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionloadstartup" id="functionloadstartup"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">loadstartup</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a1020">1020</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Parses startup.xml</p>
+<p class="description"><p>Loads the startup.xml in the botloading process.  XML parses the startup.xml file.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> prints HTML</li>
+				<li><span class="field">global:</span> string $rootdir: the rootdirectory</li>
+				<li><span class="field">global:</span> array $learnfiles: Files to be learned</li>
+				<li><span class="field">global:</span> array $allbots: All the different bots in the startup.xml file</li>
+				<li><span class="field">global:</span> integer $selectbot: ID of the selected bot</li>
+				<li><span class="field">global:</span> boolean $areinc: ????</li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionendS">endS()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionhandlemeS">handlemeS()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionstartS">startS()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionlearn">learn()</a></li>
+				<li><span class="field">see:</span> <a href="../Loader/_admin_botloader_php.html">botloader.php</a></li>
+				<li><span class="field">see:</span> <a href="../Loader/_admin_botloaderinc_php.html">botloaderinc.php</a></li>
+				<li><span class="field">todo:</span> Seperate the XML reading from the processing code. Perhaps making a seperate class for this.</li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			loadstartup
+		</span>
+				()
+			</div>
+
+		
+	
+</div>
+<a name="functionloadstartupinc" id="functionloadstartupinc"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">loadstartupinc</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a937">937</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Parses startup.xml if the bot is loaded incrementally - one file at a time.</p>
+<p class="description"><p>Parses the startup.xml if the bot id loaded incrementally. One file at a time. This is very hacky and may not work properly.</p></p>
+	<ul class="tags">
+				<li><span class="field">global:</span> string $rootdir: The root directory of the AIML files?</li>
+				<li><span class="field">global:</span> array $learnfiles: This array will hold the files to LEARN</li>
+				<li><span class="field">global:</span> boolean $areinc: </li>
+				<li><span class="field">global:</span> array $allbots: Contains all the botnames.</li>
+				<li><span class="field">global:</span> integer $selectbot: contains the selected bot ID.</li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionlearn">learn()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			loadstartupinc
+		</span>
+					(<span class="var-type">integer</span>&nbsp;<span class="var-name">$fileid</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$fileid</span><span class="var-description">: the ID of the file to be processed.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionmakesplitterphp" id="functionmakesplitterphp"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">makesplitterphp</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a1357">1357</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create the array PHP code for the sentence splitters</p>
+<p class="description"><p>In AIML it is custom to return a reply for every sentence the user inputs.  This means the sentence input needs to be split into individual sentences.  However, some people find that the semi-colon should also be added, while  others think it should. The user will define the sentence splitters in  startup.xml and these will then be stored in a PHP file included by the  application.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> PHP array code for storing the sentence splitters</li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionmakesubscode">makesubscode()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			makesplitterphp
+		</span>
+					(<span class="var-type">array</span>&nbsp;<span class="var-name">$splitterarray</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$splitterarray</span><span class="var-description">: containing the sentence splitters found in startup.xml</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionmakesrphp" id="functionmakesrphp"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">makesrphp</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a1247">1247</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Creates the PHP array code for subs.inc.</p>
+<p class="description"><p>Subs.inc contains PHP code written during the bot load process. This function creates the array PHP code and returns the code as a string.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the array PHP code</li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionmakesubscode">makesubscode()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functioncleanforreplace">cleanforreplace()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functioncleanforsearch">cleanforsearch()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			makesrphp
+		</span>
+					(<span class="var-type">array</span>&nbsp;<span class="var-name">$inarray</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$sname</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$inarray</span><span class="var-description">: is an array with either gender, person(2), input and splitter details</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$sname</span><span class="var-description">: which array is being processed, is also the array namein subs.inc.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionmakesubscode" id="functionmakesubscode"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">makesubscode</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a1440">1440</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Creates the subs.inc file.</p>
+<p class="description"><p>Creates the subs.inc file and fills it with 5 arrays that correspond to the 4 substitution sections and sentence splitters.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> Writes a file.</li>
+				<li><span class="field">global:</span> array $genderarray: contains the gender substitutions</li>
+				<li><span class="field">global:</span> array $personarray: contains the person substitutions</li>
+				<li><span class="field">global:</span> array $person2array: contains the person2 substitutions</li>
+				<li><span class="field">global:</span> array $inputarray: ?????</li>
+				<li><span class="field">global:</span> array $splitterarray: contains the sentence splitters</li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionaddtosubs">addtosubs()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functioncreatesubfile">createsubfile()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionmakesplitterphp">makesplitterphp()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionmakesrphp">makesrphp()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			makesubscode
+		</span>
+				()
+			</div>
+
+		
+	
+</div>
+<a name="functionsetnotend" id="functionsetnotend"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">setnotend</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a273">273</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set an entry in the patterns table to not be flagged as the last word in its context.</p>
+<p class="description"><p>Update a record in the patterns table, change isend column from 1 to 0. Given a particular word ID.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionfindwordidstar">findwordidstar()</a></li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionfindwordid">findwordid()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setnotend
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$wordid</span>, <span class="var-type">integer</span>&nbsp;<span class="var-name">$wordid
+</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$wordid
+</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionss_timing_current" id="functionss_timing_current"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">ss_timing_current</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a1216">1216</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Retrieve timer data</p>
+<p class="description"><p>Get the running time the timed script</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the formated running time of the timed stript.</li>
+				<li><span class="field">global:</span> array $ss_timing_start_times: ss_timing_start_times          contains the start and finish moments of the script</li>
+				<li><span class="field">global:</span> array $ss_timing_stop_times: ss_timing_stop_times          contains the stop moments of a script</li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			ss_timing_current
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span> = <span class="var-default">'default'</span>])
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: default value is 'default' Makes it possibe to time more than                                               event in one script.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionss_timing_start" id="functionss_timing_start"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">ss_timing_start</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a1181">1181</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Start a timer</p>
+<p class="description"><p>Save the start time of the to be timed script</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> nothing</li>
+				<li><span class="field">global:</span> array $ss_timing_start_times: ss_timing_start_times          contains the start moments of the script</li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			ss_timing_start
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span> = <span class="var-default">'default'</span>])
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: default value is 'default' Makes it possibe to time more than                                               event in one script.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionss_timing_stop" id="functionss_timing_stop"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">ss_timing_stop</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a1198">1198</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Stop a timer</p>
+<p class="description"><p>Save the stop time of the to be timed script</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> nothing</li>
+				<li><span class="field">global:</span> array $ss_timing_stop_times: ss_timing_stop_times          contains the stop moments of a script</li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			ss_timing_stop
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span> = <span class="var-default">'default'</span>])
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: default value is 'default' Makes it possibe to time more than                                               event in one script.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionstartElement" id="functionstartElement"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">startElement</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a747">747</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Used by the AIML XML parser</p>
+<p class="description"><p>Looks for the start tag used in AIML files for category, template, that, topic.</p></p>
+	<ul class="tags">
+				<li><span class="field">global:</span> string $whaton: which tag is being processed</li>
+				<li><span class="field">global:</span> string $template: </li>
+				<li><span class="field">global:</span> string $pattern: </li>
+				<li><span class="field">global:</span> integer $recursive: to indicate if recursion is allowed</li>
+				<li><span class="field">global:</span> string $topic: the topic at hand in the AIML file</li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionlearn">learn()</a></li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionlearnstring">learnstring()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functiongetbotvalue">getbotvalue()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionupperkeysarray">upperkeysarray()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			startElement
+		</span>
+					(<span class="var-type">resource</span>&nbsp;<span class="var-name">$parser</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$attrs</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">resource</span>
+				<span class="var-name">$parser</span><span class="var-description">: SAX XML resource handler</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: name of the encountered tag.</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$attrs</span><span class="var-description">: contains the additional attribues of a tag, like value, id, find.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionstartS" id="functionstartS"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">startS</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a517">517</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Called by the XML parser that is parsing the startup.xml file.</p>
+<p class="description"><p>startS and endS are two functions that cooperate. startS looks for the start of an XML tag, endS for the end tag.  It fills the global variabls with info to be processed further on. Inserts the bots into the bots table, inserts the bot predicates into its respective table.</p></p>
+	<ul class="tags">
+				<li><span class="field">global:</span> integer $selectbot: </li>
+				<li><span class="field">global:</span> string $whaton: </li>
+				<li><span class="field">global:</span> array $startupwhich: </li>
+				<li><span class="field">global:</span> array $splitterarray: contains the splitter characters which are used to split the sentences. For example period, comma, semi-colon, exclamation mark, question mark.</li>
+				<li><span class="field">global:</span> array $inputarray: contains the input, split into sentences</li>
+				<li><span class="field">global:</span> array $genderarray: contains the gender words or phrases.</li>
+				<li><span class="field">global:</span> array $personarray: contains the person words or phrases</li>
+				<li><span class="field">global:</span> array $person2array: contains the person2 words or phrases</li>
+				<li><span class="field">global:</span> array $allbots: contains the names of all the bots, or their ID's</li>
+				<li><span class="field">global:</span> array $areinc: contains something unknown</li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functiondeletebot">deletebot()</a></li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionloadstartup">loadstartup()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functiongetbotid">getbotid()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionbotexists">botexists()</a></li>
+				<li><span class="field">uses:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionupperkeysarray">upperkeysarray()</a></li>
+				<li><span class="field">todo:</span> Find out what Global $areinc does</li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			startS
+		</span>
+					(<span class="var-type">resource</span>&nbsp;<span class="var-name">$parser</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$attrs</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">resource</span>
+				<span class="var-name">$parser</span><span class="var-description">: SAX XML resource handler</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: name of the encountered tag.</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$attrs</span><span class="var-description">: contains the additional attribues of a tag, like value, id, find.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functiontemplateexists" id="functiontemplateexists"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">templateexists</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a471">471</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Checks if a template exists for a given pattern</p>
+<p class="description"><p>Does a query on the database to see if an ID is used by a template in the templates table.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> true/false</li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functioninsertmytemplate">insertmytemplate()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">boolean</span>
+		<span class="method-name">
+			templateexists
+		</span>
+					(<span class="var-type">integer</span>&nbsp;<span class="var-name">$idused</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$idused</span><span class="var-description">: The ID number that corresponds to the number in the ID column, if it exists.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionupperkeysarray" id="functionupperkeysarray"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">upperkeysarray</span> (line <span class="line-number"><a href="..//__filesource/fsource_Loader__adminbotloaderfuncs.php.html#a134">134</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Makes the keys of an array uppercase.</p>
+<p class="description"><p>Makes the keys of an array uppercase.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> An array with only uppercase keys.</li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionstartElement">startElement()</a></li>
+				<li><span class="field">usedby:</span> <a href="../Loader/_admin_botloaderfuncs_php.html#functionstartS">startS()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			upperkeysarray
+		</span>
+					(<span class="var-type">array</span>&nbsp;<span class="var-name">$testa</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$testa</span><span class="var-description">: The array where the keys need to be changed into uppercase.</span>			</li>
+				</ul>
+		
+	
+</div>
+		</div>
+	</div>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Wed, 12 Jan 2005 12:24:42 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.3.0RC3</a>
+	</p>
+	</div></body>
+</html>

@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos  -->
+			<title>Docs for page respond.php</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+						<script src="../media/lib/classTree.js"></script>
+												<script language="javascript" type="text/javascript">
+				var imgPlus = new Image();
+				var imgMinus = new Image();
+				imgPlus.src = "../media/images/plus.png";
+				imgMinus.src = "../media/images/minus.png";
+				
+				function showNode(Node){
+							switch(navigator.family){
+								case 'nn4':
+									// Nav 4.x code fork...
+							var oTable = document.layers["span" + Node];
+							var oImg = document.layers["img" + Node];
+									break;
+								case 'ie4':
+									// IE 4/5 code fork...
+							var oTable = document.all["span" + Node];
+							var oImg = document.all["img" + Node];
+									break;
+								case 'gecko':
+									// Standards Compliant code fork...
+							var oTable = document.getElementById("span" + Node);
+							var oImg = document.getElementById("img" + Node);
+									break;
+							}
+					oImg.src = imgMinus.src;
+					oTable.style.display = "block";
+				}
+				
+				function hideNode(Node){
+							switch(navigator.family){
+								case 'nn4':
+									// Nav 4.x code fork...
+							var oTable = document.layers["span" + Node];
+							var oImg = document.layers["img" + Node];
+									break;
+								case 'ie4':
+									// IE 4/5 code fork...
+							var oTable = document.all["span" + Node];
+							var oImg = document.all["img" + Node];
+									break;
+								case 'gecko':
+									// Standards Compliant code fork...
+							var oTable = document.getElementById("span" + Node);
+							var oImg = document.getElementById("img" + Node);
+									break;
+							}
+					oImg.src = imgPlus.src;
+					oTable.style.display = "none";
+				}
+				
+				function nodeIsVisible(Node){
+							switch(navigator.family){
+								case 'nn4':
+									// Nav 4.x code fork...
+							var oTable = document.layers["span" + Node];
+									break;
+								case 'ie4':
+									// IE 4/5 code fork...
+							var oTable = document.all["span" + Node];
+									break;
+								case 'gecko':
+									// Standards Compliant code fork...
+							var oTable = document.getElementById("span" + Node);
+									break;
+							}
+					return (oTable && oTable.style.display == "block");
+				}
+				
+				function toggleNodeVisibility(Node){
+					if (nodeIsVisible(Node)){
+						hideNode(Node);
+					}else{
+						showNode(Node);
+					}
+				}
+			</script>
+					</head>
+		<body>
+			<div class="page-body">			
+<h2 class="file-name"><img src="../media/images/Page_logo.png" alt="File" style="vertical-align: middle">/respond.php</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+									<a href="#sec-includes">Includes</a>
+			|											<a href="#sec-functions">Functions</a>
+			</div>
+	<div class="info-box-body">	
+		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Respond functions</p>
+<p class="description"><p>Second layer functions that are prior to entering the AIML match routine.</p></p>
+	<ul class="tags">
+				<li><span class="field">filesource:</span> <a href="..//__filesource/fsource_Interpreter__respond.php.html">Source Code for this file</a></li>
+				<li><span class="field">version:</span> 0.0.8</li>
+				<li><span class="field">copyright:</span> 2002</li>
+				<li><span class="field">author:</span> Paul Rydell</li>
+			</ul>
+		
+			</div>
+</div>
+		
+
+	<a name="sec-includes"></a>	
+	<div class="info-box">
+		<div class="info-box-title">Includes</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+						<span class="disabled">Includes</span>
+			|													<a href="#sec-functions">Functions</a>
+					</div>
+		<div class="info-box-body">	
+			<a name="_admin/dbprefs_php"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Page.png" alt=" " />
+		<span class="include-title">
+			<span class="include-type">require_once</span>
+			(<span class="include-name"><a href="../Settings/_____________admin_dbprefs_php.html">"admin/dbprefs.php"</a></span>)
+			(line <span class="line-number"><a href="..//__filesource/fsource_Interpreter__respond.php.html#a37">37</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The general preferences and database details.</p>
+	
+</div>
+<a name="_plugins/customtags_php"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Page.png" alt=" " />
+		<span class="include-title">
+			<span class="include-type">require_once</span>
+			(<span class="include-name"><a href="../Interpreter/_____plugins_customtags_php.html">"plugins/customtags.php"</a></span>)
+			(line <span class="line-number"><a href="..//__filesource/fsource_Interpreter__respond.php.html#a52">52</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The file containing the function that process custom, non AIML 1.0.x specified, tags.</p>
+	
+</div>
+<a name="_util_php"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Page.png" alt=" " />
+		<span class="include-title">
+			<span class="include-type">require_once</span>
+			(<span class="include-name"><a href="../Interpreter/_util_php.html">"util.php"</a></span>)
+			(line <span class="line-number"><a href="..//__filesource/fsource_Interpreter__respond.php.html#a47">47</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">A collection of generally useful utility functions</p>
+	
+</div>
+<a name="_graphnew_php"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Page.png" alt=" " />
+		<span class="include-title">
+			<span class="include-type">require_once</span>
+			(<span class="include-name"><a href="../Interpreter/Engine/_______________graphnew_php.html">"graphnew.php"</a></span>)
+			(line <span class="line-number"><a href="..//__filesource/fsource_Interpreter__respond.php.html#a42">42</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The matching engine functions of the AIML interpreter.</p>
+	
+</div>
+		</div>
+	</div>
+	
+	
+	
+	<a name="sec-functions"></a>	
+	<div class="info-box">
+		<div class="info-box-title">Functions</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-includes">Includes</a>
+				|												<span class="disabled">Functions</span>
+		</div>
+		<div class="info-box-body">	
+			<a name="functionhandlenode" id="functionhandlenode"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">handlenode</span> (line <span class="line-number"><a href="..//__filesource/fsource_Interpreter__respond.php.html#a388">388</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Handles the actual XML between the &lt;template/&gt; tags.</p>
+<p class="description"><p>Recognises the different tags, access the different functions to process each individual tag. Notes by the original developer: <br />  Why isn't this a huge switch statement? Because it has to do more comlicated checking than just string comparison to figure out what it should do. <br />  How can I organize this better? Good question.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The bot's response.</li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functioninsertgossip">insertgossip()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functionbset">bset()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functiongetinput">getinput()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functionfirstthird">firstthird()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functionfirstsecond">firstsecond()</a></li>
+				<li><span class="field">usedby:</span> <a href="../Interpreter/_respond_php.html#functionrecursechildren">recursechildren()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_respond_php.html#functionrealchild">realchild()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functiongetthat">getthat()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functiongender">gender()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functionbotget">botget()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functiongetsize">getsize()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functiongetfdate">getfdate()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functiongetid">getid()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functionupperkeysarray">upperkeysarray()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/Engine/_graphnew_php.html#functiondebugger">debugger()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_respond_php.html#functionrespond">respond()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_respond_php.html#functionrecursechildren">recursechildren()</a></li>
+				<li><span class="field">todo:</span> It seems to me that this function could modelled similarly to the custom tag system. Where there is a seperate function for each tag.</li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			handlenode
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$xmlnode</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$inputstar</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$thatstar</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$topicstar</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$xmlnode</span><span class="var-description">: Getting either a string or an array from recursechildren() func.</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$inputstar</span><span class="var-description">: If a matched pattern includes *'s then what is covere by the * is found here.</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$thatstar</span><span class="var-description">: if a used that contains a star, then what is covered by the * is found here.</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$topicstar</span><span class="var-description">: if a used topic contains a star, then what is covered by the * is found here.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionrealchild" id="functionrealchild"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">realchild</span> (line <span class="line-number"><a href="..//__filesource/fsource_Interpreter__respond.php.html#a327">327</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the real XML child</p>
+<p class="description"><p>Get the real XML child which is used for processing AIML tags that may contain other AIML tags, such as SRAI, CONDITION etc.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../Interpreter/_respond_php.html#functionhandlenode">handlenode()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			realchild
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$xmlnode</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$xmlnode
+</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$xmlnode
+</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionrecursechildren" id="functionrecursechildren"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">recursechildren</span> (line <span class="line-number"><a href="..//__filesource/fsource_Interpreter__respond.php.html#a286">286</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Third level response processing</p>
+<p class="description"><p>This function is the 'manager' function of the template processing.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The bot's response.</li>
+				<li><span class="field">usedby:</span> <a href="../Interpreter/_respond_php.html#functionhandlenode">handlenode()</a></li>
+				<li><span class="field">usedby:</span> <a href="../Interpreter/_respond_php.html#functionrespond">respond()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_respond_php.html#functionhandlenode">handlenode()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			recursechildren
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$xmlnode</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$inputstar</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$thatstar</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$topicstar</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$xmlnode</span><span class="var-description">: Getting either a string or an array from respond() func.</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$inputstar</span><span class="var-description">: If a matched pattern includes *'s then what is covere by the * is found here.</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$thatstar</span><span class="var-description">: if a used that contains a star, then what is covered by the * is found here.</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$topicstar</span><span class="var-description">: if a used topic contains a star, then what is covered by the * is found here.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionreply" id="functionreply"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">reply</span> (line <span class="line-number"><a href="..//__filesource/fsource_Interpreter__respond.php.html#a115">115</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Main container function in creating the bot's reply.</p>
+<p class="description"><p>This function is the 'manager' of all the sub-funtions that do the real processing. It creates a class  called Response that is used throughout the application.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> class link to 'Response'.</li>
+				<li><span class="field">global:</span> string $that: that                   The conversation's previous bot output</li>
+				<li><span class="field">global:</span> string $topic: topic                  The contents of the AIML tag 'Topic'</li>
+				<li><span class="field">global:</span> integer $uid: uid                   The session ID of the user (previously $uniqueid)</li>
+				<li><span class="field">global:</span> integer $loopcounter: loopcounter           Counts the number of time a particular category is used in the same match trace.</li>
+				<li><span class="field">global:</span> array $patternmatched: patternmatched          The pattern's that matched the</li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functionss_timing_current">ss_timing_current()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_respond_php.html#functionrespond">respond()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functionss_timing_start">ss_timing_start()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functionss_timing_stop">ss_timing_stop()</a></li>
+				<li><span class="field">usedby:</span> <a href="../Interpreter/_respond_php.html#functionreplybotname">replybotname()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functionnormalsentences">normalsentences()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functionlogconversation">logconversation()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functionbget">bget()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functionaddthats">addthats()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functioncleanup">cleanup()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functiongetthat">getthat()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functionloadcustomtags">loadcustomtags()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functionaddinputs">addinputs()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">object A</span>
+		<span class="method-name">
+			reply
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$userinput</span>, <span class="var-type">integer</span>&nbsp;<span class="var-name">$uniqueid</span>, [<span class="var-type">integer</span>&nbsp;<span class="var-name">$bot</span> = <span class="var-default">1</span>])
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$userinput</span><span class="var-description">: The user's input.</span>			</li>
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$uniqueid</span><span class="var-description">: The user's session ID.</span>			</li>
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$bot</span><span class="var-description">: The bot's ID.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionreplybotname" id="functionreplybotname"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">replybotname</span> (line <span class="line-number"><a href="..//__filesource/fsource_Interpreter__respond.php.html#a70">70</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Start function for retrieving bot reply</p>
+<p class="description"><p>Checks to see if bot exists, if so calls reply() to get the repons to the user's input.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The bot's reply.</li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_respond_php.html#functionreply">reply()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functionlookupbotid">lookupbotid()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			replybotname
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$userinput</span>, <span class="var-type">integer</span>&nbsp;<span class="var-name">$uniqueid</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$botname</span> = <span class="var-default">"TestBot"</span>])
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$userinput</span><span class="var-description">: The user's input</span>			</li>
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$uniqueid</span><span class="var-description">: The user's session ID</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$botname</span><span class="var-description">: The bot's name, if no name selected the default value is &quot;TestBot&quot;.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionrespond" id="functionrespond"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">respond</span> (line <span class="line-number"><a href="..//__filesource/fsource_Interpreter__respond.php.html#a200">200</a></span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">This is the second level response function.</p>
+<p class="description"><p>After reply() this function is the second level function to get the answer to the user's input.</p></p>
+	<ul class="tags">
+				<li><span class="field">global:</span> string $that: </li>
+				<li><span class="field">global:</span> integer $loopcounter: </li>
+				<li><span class="field">global:</span> array $patternmatched: </li>
+				<li><span class="field">global:</span> array $inputmatched: </li>
+				<li><span class="field">usedby:</span> <a href="../Interpreter/_respond_php.html#functionreply">reply()</a></li>
+				<li><span class="field">usedby:</span> <a href="../Interpreter/_respond_php.html#functionhandlenode">handlenode()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_respond_php.html#functionrecursechildren">recursechildren()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functionGetXMLTree">GetXMLTree()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/Engine/_graphnew_php.html#functiondebugger">debugger()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/Engine/_graphnew_php.html#functiongettemplate">gettemplate()</a></li>
+				<li><span class="field">uses:</span> <a href="../Interpreter/_util_php.html#functionbget">bget()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			respond
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$sentence</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$sentence</span><span class="var-description">: <p>The sentence to be matched.</p><p>#return string                 The response to the user's input.</p></span>			</li>
+				</ul>
+		
+	
+</div>
+		</div>
+	</div>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Wed, 12 Jan 2005 12:24:47 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.3.0RC3</a>
+	</p>
+	</div></body>
+</html>

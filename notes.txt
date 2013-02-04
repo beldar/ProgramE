@@ -1,0 +1,22 @@
+
+What should come in the next version:
+* Installation script.
+* Improved debug/error handling.
+* Organize code better.
+* Make Program E OO.
+
+
+Other ideas:
+* Improve speed of <SRAI>
+* Web based tools for building AIML and inserting it into Program E.
+* Control panel to manage instances of Program E.
+* Tools to view the chat logs and change the responses for future user input.
+* Collection of custom tags and code to allow for interfacing Program E with other information sources.
+* Interfaces for e-mail, instant messgengers, chat boxes, etc.
+* Users can access their own chat session.
+* AIML validator -- which nodes will never be reached?
+* Spell suggestions based on graph.
+* XML-RPC interface to addaiml, findtemplate, processtemplate. Then Program E can be distributed across servers.
+* Markov chains
+
+

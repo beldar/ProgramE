@@ -1,0 +1,22 @@
+
+version 0.09
+	* added JavaDoc style code comments to the source code.
+	* added developer HTML documentation to the release.
+	* added option to disable GMcache in dbprefs.php when needed.
+	* added onload focus() in talk.php and talk.html.
+	* added pattern, that and topic columns to the templates tabel.
+	* changed botloader to add information in the aforementioned columns.
+	
+
+
+version 0.08:
+	* Multiple bots supported. Up to 255 unique bots.
+	* Fixed some deprecated function pass by reference calls.
+	* Changed patterns table to use auto_increment tag instead of an application level counter.
+	* Changed various database fields to use less space.
+	* Changed the way the gmcache works. Returns template IDs instead of complete templates.
+	* Javascript tag works thanks to code contribution by Jon Baer. See code in response.php for details on how to get it to work.
+	* flash.php included so Program E will work with the Alicebot Flash Toolkit (http://www.graphpaper.com/stuff/alicebot/alicebotflash.zip) by Chris Fahey.
+	* JSRS code removed in this release. Will be making a return though.
+	* Stefan Humnig submitted many fixes. Fixes include changing topic mid-response, allowing attributes in HTML tags in templates, and including CDATA in templates.
+	* Richard Schut contributed code and ideas for the multiple bots.

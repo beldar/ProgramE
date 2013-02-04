@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos  -->
+			<title>Todo List</title>
+			<link rel="stylesheet" href="media/stylesheet.css" />
+											</head>
+		<body>
+						<div align="center"><h1>Todo List</h1></div>
+<h2>Loader</h2>
+<h3><a href="Loader/_admin_botloaderfuncs_php.html#functiongetbotid">getbotid()</a></h3>
+<ul>
+    <li>move this function to a common include file shared by both the Loader and the Interpreter.</li>
+</ul>
+<h3><a href="Loader/_admin_botloaderfuncs_php.html#functionhandlemeS">handlemeS()</a></h3>
+<ul>
+    <li>When using * it should process AIML in subdirectories too. This is currently only supported by using multiple &lt;learn&gt; tag entries for every folder containing AIML files.</li>
+</ul>
+<h3><a href="Loader/_admin_botloaderfuncs_php.html#functionloadstartup">loadstartup()</a></h3>
+<ul>
+    <li>Seperate the XML reading from the processing code. Perhaps making a seperate class for this.</li>
+</ul>
+<h3><a href="Loader/_admin_botloaderfuncs_php.html#functionstartS">startS()</a></h3>
+<ul>
+    <li>Find out what Global $areinc does</li>
+</ul>
+<h2>Interpreter</h2>
+<h3><a href="Interpreter/Engine/_graphnew_php.html#functiondebugger">debugger()</a></h3>
+<ul>
+    <li>the entire debug mechanism should be overhauled, this simple one line function doesn't cut it. Perhaps make use of several levels, function names and or timing to spefiy which part to debug.</li>
+</ul>
+<h3><a href="Interpreter/Engine/_graphnew_php.html#functiondographquery">dographquery()</a></h3>
+<ul>
+    <li>The array returned is also returned via call-by-reference. Investigate which should be chosen.</li>
+</ul>
+<h3><a href="Interpreter/Engine/_graphnew_php.html#functionfastforward">fastforward()</a></h3>
+<ul>
+    <li>$newremains is a variable that is created, and filled but not returned. It is perhaps old code that        pre dates <a href="Interpreter/Engine/_graphnew_php.html#functionaddtostar">addtostar()</a> that saves the returned value in graphmaster().</li>
+</ul>
+<h3><a href="Interpreter/Engine/_graphnew_php.html#functionfindtemplate">findtemplate()</a></h3>
+<ul>
+    <li>The name <a href="Interpreter/Engine/_graphnew_php.html#functiongettemplate">gettemplate()</a> and findtemplate() are too similar.</li>
+</ul>
+<h3><a href="Interpreter/Engine/_graphnew_php.html#functiongettemplate">gettemplate()</a></h3>
+<ul>
+    <li>The name gettemplate() and <a href="Interpreter/Engine/_graphnew_php.html#functionfindtemplate">findtemplate()</a> are too similar.</li>
+</ul>
+<h3><a href="Interpreter/_respond_php.html#functionhandlenode">handlenode()</a></h3>
+<ul>
+    <li>It seems to me that this function could modelled similarly to the custom tag system. Where there is a seperate function for each tag.</li>
+</ul>
+<h3><a href="Interpreter/_util_php.html#functionmyfunc">myfunc()</a></h3>
+<ul>
+    <li>Analyse if a straight replace will be more effective and efficient. Hard to see why this two-stage replace has any advantages. If not, then rename the function.</li>
+</ul>
+	<p class="notes" id="credit">
+		Documentation generated on Wed, 12 Jan 2005 12:24:52 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.3.0RC3</a>
+	</p>
+	</body>
+</html>

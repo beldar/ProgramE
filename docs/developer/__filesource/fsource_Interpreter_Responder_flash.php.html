@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos  -->
+			<title>File Source for flash.php</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+											</head>
+		<body>
+						<h1>Source for file flash.php</h1>
+<p>Documentation is available at <a href="../Interpreter/Responder/_flash_php.html">flash.php</a></p>
+<div class="src-code">
+<pre><ol><li><a name="a1"></a><span class="src-php">&lt;?php</span></li>
+<li><a name="a2"></a>&nbsp;</li>
+<li><a name="a3"></a><span class="src-comm">/*</span></li>
+<li><a name="a4"></a><span class="src-comm">    Program E</span></li>
+<li><a name="a5"></a><span class="src-comm">    Copyright 2002, Paul Rydell</span></li>
+<li><a name="a6"></a>    </li>
+<li><a name="a7"></a><span class="src-comm">    This file is part of Program E.</span></li>
+<li><a name="a8"></a>    </li>
+<li><a name="a9"></a><span class="src-comm">    Program E is free software; you can redistribute it and/or modify</span></li>
+<li><a name="a10"></a><span class="src-comm">    it under the terms of the GNU General Public License as published by</span></li>
+<li><a name="a11"></a><span class="src-comm">    the Free Software Foundation; either version 2 of the License, or</span></li>
+<li><a name="a12"></a><span class="src-comm">    (at your option) any later version.</span></li>
+<li><a name="a13"></a>&nbsp;</li>
+<li><a name="a14"></a><span class="src-comm">    Program E is distributed in the hope that it will be useful,</span></li>
+<li><a name="a15"></a><span class="src-comm">    but WITHOUT ANY WARRANTY; without even the implied warranty of</span></li>
+<li><a name="a16"></a><span class="src-comm">    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></li>
+<li><a name="a17"></a><span class="src-comm">    GNU General Public License for more details.</span></li>
+<li><a name="a18"></a>&nbsp;</li>
+<li><a name="a19"></a><span class="src-comm">    You should have received a copy of the GNU General Public License</span></li>
+<li><a name="a20"></a><span class="src-comm">    along with Program E; if not, write to the Free Software</span></li>
+<li><a name="a21"></a><span class="src-comm">    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</span></li>
+<li><a name="a22"></a><span class="src-comm">*/</span></li>
+<li><a name="a23"></a>&nbsp;</li>
+<li><a name="a24"></a><span class="src-doc">/**</span></li>
+<li><a name="a25"></a><span class="src-doc"> * Flash User Interface</span></li>
+<li><a name="a26"></a><span class="src-doc"> * </span></li>
+<li><a name="a27"></a><span class="src-doc"> * Contains the basics of Flash communication</span></li>
+<li><a name="a28"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@author</span><span class="src-doc"> Paul Rydell</span></li>
+<li><a name="a29"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@copyright</span><span class="src-doc"> 2002</span></li>
+<li><a name="a30"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@version</span><span class="src-doc"> 0.0.8</span></li>
+<li><a name="a31"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@package</span><span class="src-doc"> Interpreter</span></li>
+<li><a name="a32"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@subpackage</span><span class="src-doc"> Responder</span></li>
+<li><a name="a33"></a><span class="src-doc"> */</span></li>
+<li><a name="a34"></a>&nbsp;</li>
+<li><a name="a35"></a>&nbsp;</li>
+<li><a name="a36"></a><span class="src-doc">/**</span></li>
+<li><a name="a37"></a><span class="src-doc">* Include the guts of the program.</span></li>
+<li><a name="a38"></a><span class="src-doc">*/</span></li>
+<li><a name="a39"></a><span class="src-inc">include </span><span class="src-str">&quot;respond.php&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a40"></a>&nbsp;</li>
+<li><a name="a41"></a><span class="src-var">$numselects</span>=<span class="src-num">0</span><span class="src-sym">;</span></li>
+<li><a name="a42"></a>&nbsp;</li>
+<li><a name="a43"></a><span class="src-comm">// Start the session or get the existing session.</span></li>
+<li><a name="a44"></a><a href="http://www.php.net/session_start">session_start</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a45"></a><span class="src-var">$myuniqueid</span>=<a href="http://www.php.net/session_id">session_id</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a46"></a>&nbsp;</li>
+<li><a name="a47"></a><span class="src-comm">// Here is where we get the reply. Make sure you fill in testbot with your bot's name</span></li>
+<li><a name="a48"></a><span class="src-var">$botresponse</span>=<a href="../Interpreter/_respond_php.html#functionreply">reply</a><span class="src-sym">(</span><span class="src-var">$HTTP_POST_VARS</span><span class="src-sym">[</span><span class="src-str">'input'</span><span class="src-sym">]</span><span class="src-sym">,</span><span class="src-var">$myuniqueid</span><span class="src-sym">,</span><span class="src-str">&quot;TestBot&quot;</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a49"></a>&nbsp;</li>
+<li><a name="a50"></a><span class="src-comm">// Print the results.</span></li>
+<li><a name="a51"></a>print <span class="src-str">&quot;&amp;bot_name=Test Agent\n&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a52"></a>print <span class="src-str">&quot;&amp;alice_out=&quot; </span>. <span class="src-var">$botresponse</span><span class="src-sym">-&gt;</span><span class="src-id">response </span>. <span class="src-str">&quot;\n&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a53"></a>print <span class="src-str">&quot;&amp;textLoaded=1&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a54"></a>&nbsp;</li>
+<li><a name="a55"></a>&nbsp;</li>
+<li><a name="a56"></a><span class="src-php">?&gt;</span></li>
+</ol></pre>
+</div>
+	<p class="notes" id="credit">
+		Documentation generated on Wed, 12 Jan 2005 12:24:46 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.3.0RC3</a>
+	</p>
+	</body>
+</html>

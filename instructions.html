@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>Program E - v0.08 Instructions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+<b><font size="+2">Program E<br>
+</font>An AIML compliant chat bot written using PHP and MySQL.<br>
+</b><a href="mailto:paul@rydell.com">Paul Rydell </a> 
+<hr noshade>
+<p></p>
+<p><b>Known bugs</b><br>
+  Matching of multiple consecutive wildcards *'s and _'s can slow down performance 
+  significantly if there are more than 3-4 in a row. Try compressing consecutive 
+  wildcards into single wildcards.<BR>
+  Matching *'s in conditions might not work perfectly.<br>
+  Use only the startup.xml that comes with Program E as a starting point for your startup.xml file.<br>
+  If you are getting an error about "get_defined_functions" then comment out line 565 in util.php. After you do that custom tags cannot be defined.<br>
+  <br>
+</p>
+<p><b>Installation Instructions</b> </p>
+<p>-1. If you have a previous version of Program E delete 
+  all of its files and wipe its database.</p>
+<p>0. Prerequisites: PHP (4.0.4+) compiled --with-mysql and --with-xml and a recent 
+  version of MySQL 3.23.xx and Apache. PHP version 4.2.2 recommended.</p>
+<p>1. Unzip all the files into a web directory. </p>
+<p>2. Create a database for the program to use in MySQL.</p>
+<p>3. Create the tables in the new database using db.sql which is in the sql directory.</p>
+<p>4. By default, AIML files and startup.xml are in the aiml directory. <b>Use 
+  the startup.xml file included in the distribution -- do not use the startup.xml 
+  you get with AIML files from alicebot.org</b>. AIML files that work well with 
+  Program E can be found at <a href="http://sourceforge.net/project/showfiles.php?group_id=43190">http://sourceforge.net/project/showfiles.php?group_id=43190</a></p>
+<p>5. Edit dbprefs.php with your database information and aiml directory information. 
+  If you left your AIML files in the default directory you do not have to change 
+  this. See dbprefs.php for other options you can configure.</p>
+<p>6. The src/admin directory must be writable by the web server because botloader.php 
+  will attempt to create a file subs.inc. Or you can also create an empty subs.inc 
+  file and make it writable.</p>
+<p>7. From your web browser, access botloader.php (in src/admin directory) to 
+  load the AIML into the database. This might take a few minutes (On a dual PIII 
+  it takes approx. 1 minute for 10,000 categories). If your PHP is running in 
+  safe mode you might need to use botloaderinc.php to load the AIML files one 
+  at a time. <b>IMPORTANT NOTE:</b> Whenever botloader.php is loaded it deletes 
+  all the existing patterns/templates in the database and then loads them from 
+  the AIML files.</p>
+<p>8. Access talk.html from your web browser and say something to the bot.</p>
+<p>9. Or access jsrschat.html in the jsrs directory from your web browser and 
+  say something to the bot.</p>
+<p>10. Password protect your admin directory with a .htaccess file so no one can 
+  mess around with reloading your bot.</p>
+</body>
+</html>

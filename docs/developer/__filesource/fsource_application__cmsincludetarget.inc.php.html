@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos  -->
+			<title>File Source for target.inc.php</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+											</head>
+		<body>
+						<h1>Source for file target.inc.php</h1>
+<p>Documentation is available at <a href="../application/_cms_include_target_inc_php.html">target.inc.php</a></p>
+<div class="src-code">
+<pre><ol><li><a name="a1"></a><span class="src-php">&lt;?php</span></li>
+<li><a name="a2"></a>&nbsp;</li>
+<li><a name="a3"></a><span class="src-comm">/*</span></li>
+<li><a name="a4"></a><span class="src-comm">    Program E related AIML knowledgebase tools</span></li>
+<li><a name="a5"></a><span class="src-comm">    Copyright 2004, Anne Kootstra [anne@aiml.info]</span></li>
+<li><a name="a6"></a><span class="src-comm">    http://www.AIML.info</span></li>
+<li><a name="a7"></a>    </li>
+<li><a name="a8"></a><span class="src-comm">    Program E is free software; you can redistribute it and/or modify</span></li>
+<li><a name="a9"></a><span class="src-comm">    it under the terms of the GNU General Public License as published by</span></li>
+<li><a name="a10"></a><span class="src-comm">    the Free Software Foundation; either version 2 of the License, or</span></li>
+<li><a name="a11"></a><span class="src-comm">    (at your option) any later version.</span></li>
+<li><a name="a12"></a>&nbsp;</li>
+<li><a name="a13"></a><span class="src-comm">    Program E is distributed in the hope that it will be useful,</span></li>
+<li><a name="a14"></a><span class="src-comm">    but WITHOUT ANY WARRANTY; without even the implied warranty of</span></li>
+<li><a name="a15"></a><span class="src-comm">    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></li>
+<li><a name="a16"></a><span class="src-comm">    GNU General Public License for more details.</span></li>
+<li><a name="a17"></a>&nbsp;</li>
+<li><a name="a18"></a><span class="src-comm">    You should have received a copy of the GNU General Public License</span></li>
+<li><a name="a19"></a><span class="src-comm">    along with Program E; if not, write to the Free Software</span></li>
+<li><a name="a20"></a><span class="src-comm">    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</span></li>
+<li><a name="a21"></a><span class="src-comm">*/</span></li>
+<li><a name="a22"></a>&nbsp;</li>
+<li><a name="a23"></a>&nbsp;</li>
+<li><a name="a24"></a><span class="src-doc">/**</span></li>
+<li><a name="a25"></a><span class="src-doc">* Retrieve the GMcache record.</span></li>
+<li><a name="a26"></a><span class="src-doc">*</span></li>
+<li><a name="a27"></a><span class="src-doc">* Get the record using it's unique ID.</span></li>
+<li><a name="a28"></a><span class="src-doc">*</span></li>
+<li><a name="a29"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">integer </span><span class="src-doc-var">$id </span><span class="src-doc">         ID of the GMcache entry to be retrieved</span></li>
+<li><a name="a30"></a><span class="src-doc">* </span></li>
+<li><a name="a31"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">array </span><span class="src-doc">              [pattern] pattern of the category that</span></li>
+<li><a name="a32"></a><span class="src-doc">*                              matched the user's input and [input] the</span></li>
+<li><a name="a33"></a><span class="src-doc">*                              actual input of the user.</span></li>
+<li><a name="a34"></a><span class="src-doc">*/</span></li>
+<li><a name="a35"></a><span class="src-key">function </span><a href="../application/_cms_include_target_inc_php.html#functionfindtarget">findtarget</a><span class="src-sym">(</span><span class="src-var">$id</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a36"></a>&nbsp;</li>
+<li><a name="a37"></a>    <span class="src-var">$query</span>=<span class="src-str">&quot;</span><span class="src-str"><span class="src-id">select</span> <span class="src-id">patternmatched</span>, <span class="src-id">inputmatched</span> <span class="src-id">from</span> <span class="src-id">gmcache</span> <span class="src-id">where</span> <span class="src-id">id</span>='<span class="src-var">$id</span>'</span><span class="src-str">&quot;</span><span class="src-sym">;    </span></li>
+<li><a name="a38"></a>&nbsp;</li>
+<li><a name="a39"></a>    <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a40"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a41"></a>        <span class="src-key">if</span><span class="src-sym">(</span><span class="src-sym">!</span><a href="http://www.php.net/mysql_numrows">mysql_numrows</a><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a42"></a>            <span class="src-key">return </span><span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a43"></a>        <span class="src-sym">}</span></li>
+<li><a name="a44"></a>        <span class="src-key">else</span><span class="src-sym">{</span></li>
+<li><a name="a45"></a>            <span class="src-key">while </span><span class="src-sym">(</span><span class="src-var">$q </span>= <a href="http://www.php.net/mysql_fetch_array">mysql_fetch_array</a><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a46"></a>                <span class="src-var">$matched</span><span class="src-sym">[</span><span class="src-str">'pattern'</span><span class="src-sym">] </span>= <span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a47"></a>                <span class="src-var">$matched</span><span class="src-sym">[</span><span class="src-str">'input'</span><span class="src-sym">] </span>= <span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">1</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a48"></a>                <span class="src-key">return </span><span class="src-var">$matched</span><span class="src-sym">;</span></li>
+<li><a name="a49"></a>            <span class="src-sym">}</span></li>
+<li><a name="a50"></a>        <span class="src-sym">}</span></li>
+<li><a name="a51"></a>    <span class="src-sym">}</span></li>
+<li><a name="a52"></a>    <span class="src-key">return </span><span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a53"></a>&nbsp;</li>
+<li><a name="a54"></a><span class="src-sym">}</span></li>
+<li><a name="a55"></a>&nbsp;</li>
+<li><a name="a56"></a>&nbsp;</li>
+<li><a name="a57"></a><span class="src-doc">/**</span></li>
+<li><a name="a58"></a><span class="src-doc">* Retrieve the first GMcache record.</span></li>
+<li><a name="a59"></a><span class="src-doc">*</span></li>
+<li><a name="a60"></a><span class="src-doc">* Retrieve the ID of the first record in the GMcache table. To be used when</span></li>
+<li><a name="a61"></a><span class="src-doc">* no targetID was selected for editing.</span></li>
+<li><a name="a62"></a><span class="src-doc">*</span></li>
+<li><a name="a63"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$botid </span><span class="src-doc">       the bot's ID, in case there are more than one bot.</span></li>
+<li><a name="a64"></a><span class="src-doc">* </span></li>
+<li><a name="a65"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">integer </span><span class="src-doc">            id of the First record</span></li>
+<li><a name="a66"></a><span class="src-doc">*</span></li>
+<li><a name="a67"></a><span class="src-doc">*/</span></li>
+<li><a name="a68"></a><span class="src-key">function </span><a href="../application/_cms_include_target_inc_php.html#functionfindFirsttarget">findFirsttarget</a><span class="src-sym">(</span><span class="src-var">$botid</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a69"></a>&nbsp;</li>
+<li><a name="a70"></a>    <span class="src-var">$query</span>=<span class="src-str">&quot;select id from gmcache where bot='&quot;</span>.<span class="src-var">$botid</span>.<span class="src-str">&quot;' order by id asc limit 0,1&quot;</span><span class="src-sym">;    </span></li>
+<li><a name="a71"></a>&nbsp;</li>
+<li><a name="a72"></a>    <a href="../application/_cms_include_common_inc_php.html#functiondebugger">debugger</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">,</span><span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a73"></a>    <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a74"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a75"></a>        <span class="src-key">if</span><span class="src-sym">(</span><span class="src-sym">!</span><a href="http://www.php.net/mysql_numrows">mysql_numrows</a><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a76"></a>            <span class="src-key">return </span><span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a77"></a>        <span class="src-sym">}</span></li>
+<li><a name="a78"></a>        <span class="src-key">else</span><span class="src-sym">{</span></li>
+<li><a name="a79"></a>            <span class="src-key">while </span><span class="src-sym">(</span><span class="src-var">$q </span>= <a href="http://www.php.net/mysql_fetch_array">mysql_fetch_array</a><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a80"></a>                <span class="src-key">return </span><span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a81"></a>            <span class="src-sym">}</span></li>
+<li><a name="a82"></a>        <span class="src-sym">}</span></li>
+<li><a name="a83"></a>    <span class="src-sym">}</span></li>
+<li><a name="a84"></a>&nbsp;</li>
+<li><a name="a85"></a>    <span class="src-key">return </span><span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a86"></a><span class="src-sym">}</span></li>
+<li><a name="a87"></a>&nbsp;</li>
+<li><a name="a88"></a><span class="src-doc">/**</span></li>
+<li><a name="a89"></a><span class="src-doc">* Delete GMcached record.</span></li>
+<li><a name="a90"></a><span class="src-doc">*</span></li>
+<li><a name="a91"></a><span class="src-doc">* Delete the GMcache record that has that particular ID.</span></li>
+<li><a name="a92"></a><span class="src-doc">*</span></li>
+<li><a name="a93"></a><span class="src-doc">* </span><span class="src-doc-coretag">@uses</span><span class="src-doc"> debugger()</span></li>
+<li><a name="a94"></a><span class="src-doc">*</span></li>
+<li><a name="a95"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">interger </span><span class="src-doc-var">$id </span><span class="src-doc">       the ID of the GMcache record to be deleted.</span></li>
+<li><a name="a96"></a><span class="src-doc">* </span></li>
+<li><a name="a97"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">void </span></li>
+<li><a name="a98"></a><span class="src-doc">*/</span></li>
+<li><a name="a99"></a><span class="src-key">function </span><a href="../application/_cms_include_target_inc_php.html#functiondeletetarget">deletetarget</a><span class="src-sym">(</span><span class="src-var">$id</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a100"></a>&nbsp;</li>
+<li><a name="a101"></a>    <span class="src-var">$query </span>= <span class="src-str">&quot;delete from gmcache where id='&quot;</span>.<span class="src-var">$id</span>.<span class="src-str">&quot;'&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a102"></a>    <a href="../application/_cms_include_common_inc_php.html#functiondebugger">debugger</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">,</span><span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a103"></a>    <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a104"></a>    <span class="src-key">return </span><span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a105"></a><span class="src-sym">}</span></li>
+<li><a name="a106"></a>&nbsp;</li>
+<li><a name="a107"></a>&nbsp;</li>
+<li><a name="a108"></a>&nbsp;</li>
+<li><a name="a109"></a><span class="src-php">?&gt;</span></li>
+</ol></pre>
+</div>
+	<p class="notes" id="credit">
+		Documentation generated on Tue, 11 Jan 2005 18:41:11 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.3.0RC3</a>
+	</p>
+	</body>
+</html>

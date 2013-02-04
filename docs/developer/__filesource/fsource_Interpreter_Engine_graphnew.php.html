@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos  -->
+			<title>File Source for graphnew.php</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+											</head>
+		<body>
+						<h1>Source for file graphnew.php</h1>
+<p>Documentation is available at <a href="../Interpreter/Engine/_graphnew_php.html">graphnew.php</a></p>
+<div class="src-code">
+<pre><ol><li><a name="a1"></a><span class="src-php">&lt;?php</span></li>
+<li><a name="a2"></a>&nbsp;</li>
+<li><a name="a3"></a><span class="src-comm">/*</span></li>
+<li><a name="a4"></a><span class="src-comm">    Program E</span></li>
+<li><a name="a5"></a><span class="src-comm">    Copyright 2002, Paul Rydell</span></li>
+<li><a name="a6"></a>    </li>
+<li><a name="a7"></a><span class="src-comm">    This file is part of Program E.</span></li>
+<li><a name="a8"></a>    </li>
+<li><a name="a9"></a><span class="src-comm">    Program E is free software; you can redistribute it and/or modify</span></li>
+<li><a name="a10"></a><span class="src-comm">    it under the terms of the GNU General Public License as published by</span></li>
+<li><a name="a11"></a><span class="src-comm">    the Free Software Foundation; either version 2 of the License, or</span></li>
+<li><a name="a12"></a><span class="src-comm">    (at your option) any later version.</span></li>
+<li><a name="a13"></a>&nbsp;</li>
+<li><a name="a14"></a><span class="src-comm">    Program E is distributed in the hope that it will be useful,</span></li>
+<li><a name="a15"></a><span class="src-comm">    but WITHOUT ANY WARRANTY; without even the implied warranty of</span></li>
+<li><a name="a16"></a><span class="src-comm">    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></li>
+<li><a name="a17"></a><span class="src-comm">    GNU General Public License for more details.</span></li>
+<li><a name="a18"></a>&nbsp;</li>
+<li><a name="a19"></a><span class="src-comm">    You should have received a copy of the GNU General Public License</span></li>
+<li><a name="a20"></a><span class="src-comm">    along with Program E; if not, write to the Free Software</span></li>
+<li><a name="a21"></a><span class="src-comm">    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</span></li>
+<li><a name="a22"></a><span class="src-comm">*/</span></li>
+<li><a name="a23"></a>&nbsp;</li>
+<li><a name="a24"></a><span class="src-comm">/*</span></li>
+<li><a name="a25"></a><span class="src-comm"> SPEED IMPROVEMENTS.</span></li>
+<li><a name="a26"></a><span class="src-comm"> change logging to better understand what it is doing. then it will be easier to see where it is wasting time</span></li>
+<li><a name="a27"></a><span class="src-comm">*/</span></li>
+<li><a name="a28"></a>&nbsp;</li>
+<li><a name="a29"></a><span class="src-doc">/**</span></li>
+<li><a name="a30"></a><span class="src-doc"> * GraphMaster</span></li>
+<li><a name="a31"></a><span class="src-doc"> * </span></li>
+<li><a name="a32"></a><span class="src-doc"> * Contains the AIML matching functions for Program E</span></li>
+<li><a name="a33"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@author</span><span class="src-doc"> Paul Rydell</span></li>
+<li><a name="a34"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@copyright</span><span class="src-doc"> 2002</span></li>
+<li><a name="a35"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@version</span><span class="src-doc"> 0.0.8</span></li>
+<li><a name="a36"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@package</span><span class="src-doc"> Interpreter</span></li>
+<li><a name="a37"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@subpackage</span><span class="src-doc"> Engine</span></li>
+<li><a name="a38"></a><span class="src-doc"> */</span></li>
+<li><a name="a39"></a>&nbsp;</li>
+<li><a name="a40"></a><span class="src-doc">/**</span></li>
+<li><a name="a41"></a><span class="src-doc">* The debugger function</span></li>
+<li><a name="a42"></a><span class="src-doc">*</span></li>
+<li><a name="a43"></a><span class="src-doc">* When uncommented, it will print the messages several functions will call.</span></li>
+<li><a name="a44"></a><span class="src-doc">* </span></li>
+<li><a name="a45"></a><span class="src-doc">* </span><span class="src-doc-coretag">@todo</span><span class="src-doc"> the entire debug mechanism should be overhauled, this simple one line function doesn't cut it. Perhaps make use of several levels, function names and or timing to spefiy which part to debug.</span></li>
+<li><a name="a46"></a><span class="src-doc">*</span></li>
+<li><a name="a47"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$msg </span><span class="src-doc">            The message to be printed in debugger mode</span></li>
+<li><a name="a48"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">integer </span><span class="src-doc-var">$val </span><span class="src-doc">           no idea what this does, it's used in every function call but not in the function itself</span></li>
+<li><a name="a49"></a><span class="src-doc">*</span></li>
+<li><a name="a50"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">void </span><span class="src-doc">                  Prints to HTML.</span></li>
+<li><a name="a51"></a><span class="src-doc">*/</span></li>
+<li><a name="a52"></a><span class="src-key">function </span><a href="../Interpreter/Engine/_graphnew_php.html#functiondebugger">debugger</a><span class="src-sym">(</span><span class="src-var">$msg</span><span class="src-sym">,</span><span class="src-var">$val</span><span class="src-sym">)</span></li>
+<li><a name="a53"></a><span class="src-sym">{</span></li>
+<li><a name="a54"></a>    <span class="src-comm">#print &quot;$msg\n&quot;;</span></li>
+<li><a name="a55"></a><span class="src-sym">}</span></li>
+<li><a name="a56"></a>&nbsp;</li>
+<li><a name="a57"></a><span class="src-doc">/**</span></li>
+<li><a name="a58"></a><span class="src-doc">* Get the template for the input, that, and topic</span></li>
+<li><a name="a59"></a><span class="src-doc">*</span></li>
+<li><a name="a60"></a><span class="src-doc">* Get the template for a paticular pattern and dialogue situation. If the pattern, including topic and that, was found in the cache, the mathcing routine is circumvented and that template used. This saves time.</span></li>
+<li><a name="a61"></a><span class="src-doc">*</span></li>
+<li><a name="a62"></a><span class="src-doc">* </span><span class="src-doc-coretag">@todo</span><span class="src-doc"> The name gettemplate() and </span><span class="src-doc-inlinetag">{@link findtemplate()}</span><span class="src-doc"> are too similar.</span></li>
+<li><a name="a63"></a><span class="src-doc">* </span></li>
+<li><a name="a64"></a><span class="src-doc">* </span><span class="src-doc-coretag">@uses</span><span class="src-doc"> debugger()</span></li>
+<li><a name="a65"></a><span class="src-doc">* </span><span class="src-doc-coretag">@uses</span><span class="src-doc"> checkcache()</span></li>
+<li><a name="a66"></a><span class="src-doc">* </span><span class="src-doc-coretag">@uses</span><span class="src-doc"> graphwalker()</span></li>
+<li><a name="a67"></a><span class="src-doc">* </span><span class="src-doc-coretag">@uses</span><span class="src-doc"> findtemplate()</span></li>
+<li><a name="a68"></a><span class="src-doc">* </span><span class="src-doc-coretag">@uses</span><span class="src-doc"> fillcache()</span></li>
+<li><a name="a69"></a><span class="src-doc">* </span></li>
+<li><a name="a70"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">integer </span><span class="src-doc">               the Bot's ID.</span></li>
+<li><a name="a71"></a><span class="src-doc">*</span></li>
+<li><a name="a72"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$input </span><span class="src-doc">          The user's input</span></li>
+<li><a name="a73"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$that </span><span class="src-doc">           The bot's previous output</span></li>
+<li><a name="a74"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$topic </span><span class="src-doc">          The contents of the AIML tag &lt;topic&gt;</span></li>
+<li><a name="a75"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">array </span><span class="src-doc-var">&amp;$inputstarvals </span><span class="src-doc">  contains the contents of the *'s when they are part of the matching pattern input string</span></li>
+<li><a name="a76"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">array </span><span class="src-doc-var">&amp;$thatstarvals </span><span class="src-doc">   contains the contents of the *'s when they are part of the matching pattern that string</span></li>
+<li><a name="a77"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">array </span><span class="src-doc-var">&amp;$topicstarvals </span><span class="src-doc">  contains the contents of the *'s when they are part of the matching pattern topic string</span></li>
+<li><a name="a78"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">array </span><span class="src-doc-var">&amp;$patternmatched </span><span class="src-doc"> contains all patterns that were found. An input can have more than one sentence which are processed seperately.</span></li>
+<li><a name="a79"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">array </span><span class="src-doc-var">&amp;$inputmatched </span><span class="src-doc">   contains all the individual sentences of a user's input.</span></li>
+<li><a name="a80"></a><span class="src-doc">*</span></li>
+<li><a name="a81"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">string </span><span class="src-doc">                The template belonging to the matching pattern.</span></li>
+<li><a name="a82"></a><span class="src-doc">*/</span></li>
+<li><a name="a83"></a><span class="src-key">function </span><a href="../Interpreter/Engine/_graphnew_php.html#functiongettemplate">gettemplate</a><span class="src-sym">(</span><span class="src-var">$input</span><span class="src-sym">,</span><span class="src-var">$that</span><span class="src-sym">,</span><span class="src-var">$topic</span><span class="src-sym">,</span><span class="src-sym">&amp;</span><span class="src-var">$inputstarvals</span><span class="src-sym">,</span><span class="src-sym">&amp;</span><span class="src-var">$thatstarvals</span><span class="src-sym">,</span><span class="src-sym">&amp;</span><span class="src-var">$topicstarvals</span><span class="src-sym">,</span><span class="src-sym">&amp;</span><span class="src-var">$patternmatched</span><span class="src-sym">,</span><span class="src-sym">&amp;</span><span class="src-var">$inputmatched</span><span class="src-sym">)</span></li>
+<li><a name="a84"></a><span class="src-sym">{</span></li>
+<li><a name="a85"></a>    <span class="src-key">global </span><span class="src-var">$selectbot</span><span class="src-sym">;    </span></li>
+<li><a name="a86"></a>&nbsp;</li>
+<li><a name="a87"></a>    <span class="src-comm">// Put the input, that, and topic together into a single sentence to find a match for</span></li>
+<li><a name="a88"></a>    <span class="src-var">$combined </span>= <span class="src-str">&quot;&lt;input&gt; &quot; </span>. <a href="http://www.php.net/trim">trim</a><span class="src-sym">(</span><span class="src-var">$input</span><span class="src-sym">) </span>. <span class="src-str">&quot; &lt;that&gt; &quot; </span>. <a href="http://www.php.net/trim">trim</a><span class="src-sym">(</span><span class="src-var">$that</span><span class="src-sym">) </span>. <span class="src-str">&quot; &lt;topic&gt; &quot; </span>. <a href="http://www.php.net/trim">trim</a><span class="src-sym">(</span><span class="src-var">$topic</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a89"></a>    <a href="../Interpreter/Engine/_graphnew_php.html#functiondebugger">debugger</a><span class="src-sym">(</span><span class="src-str">&quot;</span><span class="src-str"><span class="src-id">Combined</span>: <span class="src-var">$combined</span></span><span class="src-str">&quot;</span><span class="src-sym">,</span><span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a90"></a>&nbsp;</li>
+<li><a name="a91"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-id"><a href="../Settings/_admin_dbprefs_php.html#defineCACHE_CONTROL">CACHE_CONTROL</a> </span>== <span class="src-num">1 </span>&amp;&amp; <a href="../Interpreter/Engine/_graphnew_php.html#functioncheckcache">checkcache</a><span class="src-sym">(</span><span class="src-var">$combined</span><span class="src-sym">,</span><span class="src-var">$template</span><span class="src-sym">,</span><span class="src-var">$inputstarvals</span><span class="src-sym">,</span><span class="src-var">$thatstarvals</span><span class="src-sym">,</span><span class="src-var">$topicstarvals</span><span class="src-sym">,</span><span class="src-var">$patternmatched</span><span class="src-sym">,</span><span class="src-var">$inputmatched</span><span class="src-sym">)) </span><span class="src-sym">{</span></li>
+<li><a name="a92"></a>        <a href="../Interpreter/Engine/_graphnew_php.html#functiondebugger">debugger</a><span class="src-sym">(</span><span class="src-str">&quot;&lt;BR&gt;&lt;b&gt;HIT CACHE!&lt;/b&gt;&lt;br&gt;&quot;</span><span class="src-sym">,</span><span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a93"></a>        <span class="src-key">return </span><span class="src-var">$template</span><span class="src-sym">;</span></li>
+<li><a name="a94"></a>    <span class="src-sym">}</span></li>
+<li><a name="a95"></a>    <span class="src-key">else </span><span class="src-sym">{</span></li>
+<li><a name="a96"></a>&nbsp;</li>
+<li><a name="a97"></a>        <span class="src-var">$inputmatched</span>=<span class="src-key">array</span><span class="src-sym">(</span><a href="http://www.php.net/trim">trim</a><span class="src-sym">(</span><span class="src-var">$input</span><span class="src-sym">)</span><span class="src-sym">,</span><span class="src-str">&quot; : &quot;</span><span class="src-sym">,</span><a href="http://www.php.net/trim">trim</a><span class="src-sym">(</span><span class="src-var">$that</span><span class="src-sym">)</span><span class="src-sym">,</span><span class="src-str">&quot; : &quot;</span><span class="src-sym">,</span><a href="http://www.php.net/trim">trim</a><span class="src-sym">(</span><span class="src-var">$topic</span><span class="src-sym">))</span><span class="src-sym">;</span></li>
+<li><a name="a98"></a>        </li>
+<li><a name="a99"></a>        <span class="src-comm">// These arrays will hold the words that matched the wildcards in the pattern</span></li>
+<li><a name="a100"></a>        <span class="src-var">$inputstarvals</span>=<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a101"></a>        <span class="src-var">$thatstarvals</span>=<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a102"></a>        <span class="src-var">$topicstarvals</span>=<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a103"></a>&nbsp;</li>
+<li><a name="a104"></a>        <span class="src-var">$patternmatched</span>=<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a105"></a>&nbsp;</li>
+<li><a name="a106"></a>        <span class="src-comm">// Get the template with graphwalker function.</span></li>
+<li><a name="a107"></a>        <span class="src-var">$mytemplateid</span>=<a href="../Interpreter/Engine/_graphnew_php.html#functiongraphwalker">graphwalker</a><span class="src-sym">(</span><span class="src-var">$combined</span><span class="src-sym">, </span>-<span class="src-var">$selectbot </span><span class="src-sym">, </span><span class="src-num">1</span><span class="src-sym">, </span><span class="src-num">0</span><span class="src-sym">, </span><span class="src-str">&quot;&quot;</span><span class="src-sym">, </span><span class="src-var">$inputstarvals</span><span class="src-sym">, </span><span class="src-var">$thatstarvals</span><span class="src-sym">, </span><span class="src-var">$topicstarvals</span><span class="src-sym">, </span><span class="src-var">$patternmatched</span><span class="src-sym">)</span><span class="src-sym">;    </span></li>
+<li><a name="a108"></a>&nbsp;</li>
+<li><a name="a109"></a>        <span class="src-var">$mytemplate</span>=<a href="../Interpreter/Engine/_graphnew_php.html#functionfindtemplate">findtemplate</a><span class="src-sym">(</span><span class="src-var">$mytemplateid</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a110"></a>&nbsp;</li>
+<li><a name="a111"></a>        <span class="src-var">$s_patternmatched</span>=<span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a112"></a>        <span class="src-var">$s_inputmatched</span>=<span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a113"></a>&nbsp;</li>
+<li><a name="a114"></a>        <span class="src-key">foreach </span><span class="src-sym">(</span><span class="src-var">$patternmatched </span><span class="src-key">as </span><span class="src-var">$value</span><span class="src-sym">) </span><span class="src-var">$s_patternmatched </span>.= <span class="src-str">&quot; &quot; </span>. <span class="src-var">$value</span><span class="src-sym">;</span></li>
+<li><a name="a115"></a>        <span class="src-key">foreach </span><span class="src-sym">(</span><span class="src-var">$inputmatched </span><span class="src-key">as </span><span class="src-var">$value</span><span class="src-sym">) </span><span class="src-var">$s_inputmatched </span>.= <span class="src-var">$value</span><span class="src-sym">;</span></li>
+<li><a name="a116"></a>&nbsp;</li>
+<li><a name="a117"></a>        <span class="src-var">$patternmatched </span>= <span class="src-var">$s_patternmatched</span><span class="src-sym">;</span></li>
+<li><a name="a118"></a>        <span class="src-var">$inputmatched </span>= <span class="src-var">$s_inputmatched</span><span class="src-sym">;</span></li>
+<li><a name="a119"></a>&nbsp;</li>
+<li><a name="a120"></a>        <span class="src-key">if </span><span class="src-sym">(</span><span class="src-id"><a href="../Settings/_admin_dbprefs_php.html#defineCACHE_CONTROL">CACHE_CONTROL</a> </span>== <span class="src-num">1</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a121"></a>            <a href="../Interpreter/Engine/_graphnew_php.html#functionfillcache">fillcache</a><span class="src-sym">(</span><span class="src-var">$combined</span><span class="src-sym">, </span><span class="src-var">$mytemplateid</span><span class="src-sym">, </span><span class="src-var">$inputstarvals</span><span class="src-sym">, </span><span class="src-var">$thatstarvals</span><span class="src-sym">, </span><span class="src-var">$topicstarvals</span><span class="src-sym">, </span><span class="src-var">$patternmatched</span><span class="src-sym">, </span><span class="src-var">$inputmatched</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a122"></a>        <span class="src-sym">}</span></li>
+<li><a name="a123"></a>&nbsp;</li>
+<li><a name="a124"></a>        <span class="src-key">return </span><span class="src-var">$mytemplate</span><span class="src-sym">;</span></li>
+<li><a name="a125"></a>    </li>
+<li><a name="a126"></a>    <span class="src-sym">}</span></li>
+<li><a name="a127"></a><span class="src-sym">}</span></li>
+<li><a name="a128"></a>&nbsp;</li>
+<li><a name="a129"></a><span class="src-doc">/**</span></li>
+<li><a name="a130"></a><span class="src-doc">* The graphwalker function finds the pattern that matches the combined input of input, that, and topic.</span></li>
+<li><a name="a131"></a><span class="src-doc">*</span></li>
+<li><a name="a132"></a><span class="src-doc">* Then it returns the template that matches. It is recursive.</span></li>
+<li><a name="a133"></a><span class="src-doc">*</span></li>
+<li><a name="a134"></a><span class="src-doc">* </span><span class="src-doc-coretag">@uses</span><span class="src-doc"> debugger()</span></li>
+<li><a name="a135"></a><span class="src-doc">* </span><span class="src-doc-coretag">@uses</span><span class="src-doc"> dographquery()</span></li>
+<li><a name="a136"></a><span class="src-doc">* </span><span class="src-doc-coretag">@uses</span><span class="src-doc"> fastforward()</span></li>
+<li><a name="a137"></a><span class="src-doc">* </span><span class="src-doc-coretag">@uses</span><span class="src-doc"> addtostar()</span></li>
+<li><a name="a138"></a><span class="src-doc">* </span><span class="src-doc-coretag">@uses</span><span class="src-doc"> graphwalker()</span></li>
+<li><a name="a139"></a><span class="src-doc">*</span></li>
+<li><a name="a140"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$input </span><span class="src-doc">          The user's input</span></li>
+<li><a name="a141"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$parent </span><span class="src-doc">         The word's parent ID</span></li>
+<li><a name="a142"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$timesthrough </span><span class="src-doc">   Number of recursions????</span></li>
+<li><a name="a143"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">boolean </span><span class="src-doc-var">$onwild </span><span class="src-doc">        whether or not a wildcard is processed (Anne: I think)</span></li>
+<li><a name="a144"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$parton </span><span class="src-doc">         Can be input, that, topic.</span></li>
+<li><a name="a145"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">array </span><span class="src-doc-var">&amp;$inputstarvals </span><span class="src-doc">  contents of the *'s when they are part of the matching pattern input string</span></li>
+<li><a name="a146"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">array </span><span class="src-doc-var">&amp;$thatstarvals </span><span class="src-doc">   contents of the *'s when they are part of the matching pattern that string</span></li>
+<li><a name="a147"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">array </span><span class="src-doc-var">&amp;$topicstarvals </span><span class="src-doc">  contents of the *'s when they are part of the matching pattern topic string</span></li>
+<li><a name="a148"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">array </span><span class="src-doc-var">&amp;$patternmatched </span><span class="src-doc"> contains all patterns that were found. A user's input can have more than one sentence.</span></li>
+<li><a name="a149"></a><span class="src-doc">*</span></li>
+<li><a name="a150"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">integer </span><span class="src-doc">               the Template ID to be returned.</span></li>
+<li><a name="a151"></a><span class="src-doc">*/</span></li>
+<li><a name="a152"></a><span class="src-key">function </span><a href="../Interpreter/Engine/_graphnew_php.html#functiongraphwalker">graphwalker</a><span class="src-sym">(</span><span class="src-var">$input</span><span class="src-sym">,</span><span class="src-var">$parent</span><span class="src-sym">,</span><span class="src-var">$timesthrough</span><span class="src-sym">,</span><span class="src-var">$onwild</span><span class="src-sym">,</span><span class="src-var">$parton</span><span class="src-sym">,</span><span class="src-sym">&amp;</span><span class="src-var">$inputstarvals</span><span class="src-sym">,</span><span class="src-sym">&amp;</span><span class="src-var">$thatstarvals</span><span class="src-sym">,</span><span class="src-sym">&amp;</span><span class="src-var">$topicstarvals</span><span class="src-sym">,</span><span class="src-sym">&amp;</span><span class="src-var">$patternmatched</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a153"></a>&nbsp;</li>
+<li><a name="a154"></a>    <span class="src-var">$curpmsize</span>=<span class="src-num">0</span><span class="src-sym">;</span></li>
+<li><a name="a155"></a>    </li>
+<li><a name="a156"></a>    <span class="src-comm">//print &quot;input: $input&lt;BR&gt;&quot;;</span></li>
+<li><a name="a157"></a>    <a href="../Interpreter/Engine/_graphnew_php.html#functiondebugger">debugger</a><span class="src-sym">(</span><span class="src-str">&quot;</span><span class="src-str"><span class="src-id">Graphwalker</span> <span class="src-id">called</span>. <span class="src-id">Input</span>|<span class="src-var">$input</span>| <span class="src-id">Parent</span>: <span class="src-var">$parent</span> <span class="src-id">Timesthrough</span>: <span class="src-var">$timesthrough</span> <span class="src-id">Onwild</span>: <span class="src-var">$onwild</span> <span class="src-id">Parton</span>: <span class="src-var">$parton</span></span><span class="src-str">&quot;</span><span class="src-sym">,</span><span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a158"></a>&nbsp;</li>
+<li><a name="a159"></a>    <span class="src-var">$continuenode</span>=<span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a160"></a>&nbsp;</li>
+<li><a name="a161"></a>    <span class="src-var">$oinputstarvals</span>=<span class="src-var">$inputstarvals</span><span class="src-sym">;</span></li>
+<li><a name="a162"></a>    <span class="src-var">$othatstarvals</span>=<span class="src-var">$thatstarvals</span><span class="src-sym">;</span></li>
+<li><a name="a163"></a>    <span class="src-var">$otopicstarvals</span>=<span class="src-var">$topicstarvals</span><span class="src-sym">;</span></li>
+<li><a name="a164"></a>&nbsp;</li>
+<li><a name="a165"></a>    <span class="src-var">$input</span>=<a href="http://www.php.net/trim">trim</a><span class="src-sym">(</span><span class="src-var">$input</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a166"></a>&nbsp;</li>
+<li><a name="a167"></a>    <span class="src-comm">// If there is not a space in the input then use the whole input. Else get the first word from the input and put the rest of the input into $remains variable.</span></li>
+<li><a name="a168"></a>    <span class="src-key">if </span><span class="src-sym">(</span><a href="http://www.php.net/strpos">strpos</a><span class="src-sym">(</span><span class="src-var">$input</span><span class="src-sym">,</span><span class="src-str">&quot; &quot;</span><span class="src-sym">)</span>===<span class="src-id">false</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a169"></a>        <span class="src-var">$word</span>=<span class="src-var">$input</span><span class="src-sym">;</span></li>
+<li><a name="a170"></a>        <span class="src-var">$remains</span>=<span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a171"></a>    <span class="src-sym">}</span></li>
+<li><a name="a172"></a>    <span class="src-key">else </span><span class="src-sym">{</span></li>
+<li><a name="a173"></a>        <span class="src-var">$word</span>=<a href="http://www.php.net/substr">substr</a><span class="src-sym">(</span><span class="src-var">$input</span><span class="src-sym">,</span><span class="src-num">0</span><span class="src-sym">,</span><a href="http://www.php.net/strpos">strpos</a><span class="src-sym">(</span><span class="src-var">$input</span><span class="src-sym">,</span><span class="src-str">&quot; &quot;</span><span class="src-sym">))</span><span class="src-sym">;</span></li>
+<li><a name="a174"></a>        <span class="src-var">$remains</span>=<a href="http://www.php.net/substr">substr</a><span class="src-sym">(</span><span class="src-var">$input</span><span class="src-sym">,</span><a href="http://www.php.net/strpos">strpos</a><span class="src-sym">(</span><span class="src-var">$input</span><span class="src-sym">,</span><span class="src-str">&quot; &quot;</span><span class="src-sym">))</span><span class="src-sym">;</span></li>
+<li><a name="a175"></a>    <span class="src-sym">}</span></li>
+<li><a name="a176"></a>&nbsp;</li>
+<li><a name="a177"></a>    <a href="../Interpreter/Engine/_graphnew_php.html#functiondebugger">debugger</a><span class="src-sym">(</span><span class="src-str">&quot;</span><span class="src-str"><span class="src-id">Word</span>|<span class="src-var">$word</span>|</span><span class="src-str">&quot;</span><span class="src-sym">,</span><span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a178"></a>    <a href="../Interpreter/Engine/_graphnew_php.html#functiondebugger">debugger</a><span class="src-sym">(</span><span class="src-str">&quot;</span><span class="src-str"><span class="src-id">Remains</span>|<span class="src-var">$remains</span>|</span><span class="src-str">&quot;</span><span class="src-sym">,</span><span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a179"></a>&nbsp;</li>
+<li><a name="a180"></a>    <span class="src-comm">// Figure out which part we are on: input, that, or topic.</span></li>
+<li><a name="a181"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$word</span>==<span class="src-str">&quot;&lt;input&gt;&quot;</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a182"></a>        <span class="src-var">$parton</span>=<span class="src-str">&quot;input&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a183"></a>    <span class="src-sym">}</span></li>
+<li><a name="a184"></a>    <span class="src-key">elseif </span><span class="src-sym">(</span><span class="src-var">$word</span>==<span class="src-str">&quot;&lt;that&gt;&quot;</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a185"></a>        <span class="src-var">$parton</span>=<span class="src-str">&quot;that&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a186"></a>        <span class="src-var">$patternmatched</span><span class="src-sym">[</span><span class="src-sym">]</span>=<span class="src-str">&quot;:&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a187"></a>    <span class="src-sym">}</span></li>
+<li><a name="a188"></a>    <span class="src-key">elseif </span><span class="src-sym">(</span><span class="src-var">$word</span>==<span class="src-str">&quot;&lt;topic&gt;&quot;</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a189"></a>        <span class="src-var">$parton</span>=<span class="src-str">&quot;topic&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a190"></a>        <span class="src-var">$patternmatched</span><span class="src-sym">[</span><span class="src-sym">]</span>=<span class="src-str">&quot;:&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a191"></a>    <span class="src-sym">}</span></li>
+<li><a name="a192"></a>&nbsp;</li>
+<li><a name="a193"></a>    <span class="src-comm">// See if the word we are on comes next in the graph we are walking or if a wildcard exists.</span></li>
+<li><a name="a194"></a>    <span class="src-comm">//$query=&quot;select id,ordera,isend from patterns where (word='&quot; . addslashes($word) . &quot;' or word is null) and parent=$parent&quot;;</span></li>
+<li><a name="a195"></a>    <span class="src-comm">//dographquery($query,$whichresult);</span></li>
+<li><a name="a196"></a>&nbsp;</li>
+<li><a name="a197"></a>    <a href="../Interpreter/Engine/_graphnew_php.html#functiondographquery">dographquery</a><span class="src-sym">(</span><span class="src-var">$whichresult</span><span class="src-sym">, </span><span class="src-var">$word</span><span class="src-sym">, </span><span class="src-var">$parent</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a198"></a>&nbsp;</li>
+<li><a name="a199"></a>    <span class="src-comm">// Look for _ wildcard first because it is first &quot;alphabetically&quot;</span></li>
+<li><a name="a200"></a>    <span class="src-key">if </span><span class="src-sym">((</span><span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span>!=-<span class="src-num">1</span><span class="src-sym">)</span>&amp;&amp;<span class="src-sym">(</span><span class="src-var">$word</span>!=<span class="src-str">&quot;&lt;input&gt;&quot;</span><span class="src-sym">)</span>&amp;&amp;<span class="src-sym">(</span><span class="src-var">$word</span>!=<span class="src-str">&quot;&lt;that&gt;&quot;</span><span class="src-sym">)</span>&amp;&amp;<span class="src-sym">(</span><span class="src-var">$word</span>!=<span class="src-str">&quot;&lt;topic&gt;&quot;</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a201"></a>        </li>
+<li><a name="a202"></a>        <span class="src-comm">// Don't keep looking in this portion of the graph - don't check for atomic or * because we matched already.</span></li>
+<li><a name="a203"></a>        <span class="src-var">$continuenode</span>=-<span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a204"></a>&nbsp;</li>
+<li><a name="a205"></a>        <a href="../Interpreter/Engine/_graphnew_php.html#functiondebugger">debugger</a><span class="src-sym">(</span><span class="src-str">&quot;processing an '_' here&quot;</span><span class="src-sym">,</span><span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a206"></a>&nbsp;</li>
+<li><a name="a207"></a>        <span class="src-var">$patternmatched</span><span class="src-sym">[</span><span class="src-sym">]</span>=<span class="src-str">&quot;_&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a208"></a>        <span class="src-var">$curpmsize</span>=<a href="http://www.php.net/sizeof">sizeof</a><span class="src-sym">(</span><span class="src-var">$patternmatched</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a209"></a>&nbsp;</li>
+<li><a name="a210"></a>        <span class="src-comm">// If it is the last word in its context</span></li>
+<li><a name="a211"></a>        <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-num">3</span><span class="src-sym">]</span>==<span class="src-num">1</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a212"></a>            </li>
+<li><a name="a213"></a>            <span class="src-comm">// The word we were on matched a wildcard so add the word to the star array.</span></li>
+<li><a name="a214"></a>            <span class="src-comm">// Also it is the last word in this context so add everything up to the next context to the star.</span></li>
+<li><a name="a215"></a>            <span class="src-var">$ffremains</span>=<span class="src-var">$remains</span><span class="src-sym">;</span></li>
+<li><a name="a216"></a>            <span class="src-var">$newword</span>=<a href="../Interpreter/Engine/_graphnew_php.html#functionfastforward">fastforward</a><span class="src-sym">(</span><span class="src-var">$word</span><span class="src-sym">,</span><span class="src-var">$ffremains</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a217"></a>            <a href="../Interpreter/Engine/_graphnew_php.html#functionaddtostar">addtostar</a><span class="src-sym">(</span><span class="src-var">$parton</span><span class="src-sym">,</span><span class="src-var">$newword</span><span class="src-sym">,</span><span class="src-var">$inputstarvals</span><span class="src-sym">,</span><span class="src-var">$thatstarvals</span><span class="src-sym">,</span><span class="src-var">$topicstarvals</span><span class="src-sym">,</span><span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a218"></a>&nbsp;</li>
+<li><a name="a219"></a>            <span class="src-comm">// Now we take off the first word and everything up to the next context because it matched and call the graphwalker</span></li>
+<li><a name="a220"></a>            <span class="src-var">$retvalue </span>= <a href="../Interpreter/Engine/_graphnew_php.html#functiongraphwalker">graphwalker</a><span class="src-sym">(</span><span class="src-var">$ffremains</span><span class="src-sym">,</span><span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span><span class="src-sym">,</span><span class="src-num">1</span><span class="src-sym">,</span><span class="src-num">1</span><span class="src-sym">,</span><span class="src-var">$parton</span><span class="src-sym">,</span><span class="src-var">$inputstarvals</span><span class="src-sym">,</span><span class="src-var">$thatstarvals</span><span class="src-sym">,</span><span class="src-var">$topicstarvals</span><span class="src-sym">,</span><span class="src-var">$patternmatched</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a221"></a>        <span class="src-sym">}</span></li>
+<li><a name="a222"></a>        <span class="src-key">else </span><span class="src-sym">{</span></li>
+<li><a name="a223"></a>&nbsp;</li>
+<li><a name="a224"></a>            <span class="src-comm">// The word we were on matched a wildcard so add the word to the star array.s</span></li>
+<li><a name="a225"></a>            <a href="../Interpreter/Engine/_graphnew_php.html#functionaddtostar">addtostar</a><span class="src-sym">(</span><span class="src-var">$parton</span><span class="src-sym">,</span><span class="src-var">$word</span><span class="src-sym">,</span><span class="src-var">$inputstarvals</span><span class="src-sym">,</span><span class="src-var">$thatstarvals</span><span class="src-sym">,</span><span class="src-var">$topicstarvals</span><span class="src-sym">,</span><span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a226"></a>&nbsp;</li>
+<li><a name="a227"></a>            <span class="src-comm">// Now we take off the first word because it matched and call the graphwalker</span></li>
+<li><a name="a228"></a>            <span class="src-var">$retvalue </span>= <a href="../Interpreter/Engine/_graphnew_php.html#functiongraphwalker">graphwalker</a><span class="src-sym">(</span><span class="src-var">$remains</span><span class="src-sym">,</span><span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span><span class="src-sym">,</span><span class="src-num">1</span><span class="src-sym">,</span><span class="src-num">1</span><span class="src-sym">,</span><span class="src-var">$parton</span><span class="src-sym">,</span><span class="src-var">$inputstarvals</span><span class="src-sym">,</span><span class="src-var">$thatstarvals</span><span class="src-sym">,</span><span class="src-var">$topicstarvals</span><span class="src-sym">,</span><span class="src-var">$patternmatched</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a229"></a>        <span class="src-sym">}</span></li>
+<li><a name="a230"></a>&nbsp;</li>
+<li><a name="a231"></a>        <span class="src-comm">// If the graphwalker returns blank then it never found a match. If it got a match we return it.</span></li>
+<li><a name="a232"></a>        <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$retvalue</span>!=<span class="src-str">&quot;&quot;</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a233"></a>            <a href="../Interpreter/Engine/_graphnew_php.html#functiondebugger">debugger</a><span class="src-sym">(</span><span class="src-str">&quot;Retvalue from graphwalker not blank. Returning it&quot;</span><span class="src-sym">,</span><span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a234"></a>            <span class="src-key">return </span><span class="src-var">$retvalue</span><span class="src-sym">;</span></li>
+<li><a name="a235"></a>        <span class="src-sym">}</span></li>
+<li><a name="a236"></a>        <span class="src-comm">// If it didn't match then we continue on down the current node but next check for an atomic match.</span></li>
+<li><a name="a237"></a>        <span class="src-key">else </span><span class="src-sym">{</span></li>
+<li><a name="a238"></a>            <a href="../Interpreter/Engine/_graphnew_php.html#functiondebugger">debugger</a><span class="src-sym">(</span><span class="src-str">&quot;</span><span class="src-str"><span class="src-id">Returning</span> <span class="src-id">a</span> <span class="src-id">new</span> <span class="src-id">call</span> <span class="src-id">to</span> <span class="src-id">graphwalker1</span>. <span class="src-id">Input</span>: <span class="src-var">$input</span> <span class="src-id">Parent</span>: <span class="src-var">$parent</span></span><span class="src-str">&quot;</span><span class="src-sym">,</span><span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a239"></a>&nbsp;</li>
+<li><a name="a240"></a>            <span class="src-comm">// Revert back to our original starvals</span></li>
+<li><a name="a241"></a>            <span class="src-var">$inputstarvals</span>=<span class="src-var">$oinputstarvals</span><span class="src-sym">;</span></li>
+<li><a name="a242"></a>            <span class="src-var">$thatstarvals</span>=<span class="src-var">$othatstarvals</span><span class="src-sym">;</span></li>
+<li><a name="a243"></a>            <span class="src-var">$topicstarvals</span>=<span class="src-var">$otopicstarvals</span><span class="src-sym">;</span></li>
+<li><a name="a244"></a>&nbsp;</li>
+<li><a name="a245"></a>            <span class="src-var">$curpdiff</span>=<a href="http://www.php.net/sizeof">sizeof</a><span class="src-sym">(</span><span class="src-var">$patternmatched</span><span class="src-sym">) </span>- <span class="src-var">$curpmsize</span><span class="src-sym">;</span></li>
+<li><a name="a246"></a>&nbsp;</li>
+<li><a name="a247"></a>            <span class="src-key">for </span><span class="src-sym">(</span><span class="src-var">$curpc</span>=<span class="src-num">0</span><span class="src-sym">;</span><span class="src-var">$curpc</span>&lt;=<span class="src-var">$curpdiff</span><span class="src-sym">;</span><span class="src-var">$curpc</span>++<span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a248"></a>                <a href="http://www.php.net/array_pop">array_pop</a><span class="src-sym">(</span><span class="src-var">$patternmatched</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a249"></a>            <span class="src-sym">}</span></li>
+<li><a name="a250"></a>&nbsp;</li>
+<li><a name="a251"></a>            <span class="src-comm">// Ensure that we continue looking for a match.</span></li>
+<li><a name="a252"></a>            <span class="src-var">$continuenode</span>=<span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a253"></a>        <span class="src-sym">}</span></li>
+<li><a name="a254"></a>&nbsp;</li>
+<li><a name="a255"></a>    <span class="src-sym">}</span></li>
+<li><a name="a256"></a>&nbsp;</li>
+<li><a name="a257"></a>    <span class="src-comm">// Look for an atomic match. Atomic match is where the whole word matches identically.</span></li>
+<li><a name="a258"></a>    <span class="src-key">if </span><span class="src-sym">((</span><span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-num">1</span><span class="src-sym">]</span>!=-<span class="src-num">1</span><span class="src-sym">)</span>&amp;&amp;<span class="src-sym">(</span><span class="src-var">$continuenode</span>==<span class="src-num">1</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a259"></a>        </li>
+<li><a name="a260"></a>        <span class="src-var">$continuenode</span>=-<span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a261"></a>&nbsp;</li>
+<li><a name="a262"></a>        <span class="src-comm">// If we found a result and our word was &quot;&quot; then we have reached the end of the pattern so we return the template associated.</span></li>
+<li><a name="a263"></a>        <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$word</span>==<span class="src-str">&quot;&quot;</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a264"></a>            <a href="../Interpreter/Engine/_graphnew_php.html#functiondebugger">debugger</a><span class="src-sym">(</span><span class="src-str">&quot;Result not blank and word is. Returning the found temlate&quot;</span><span class="src-sym">,</span><span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a265"></a>            <span class="src-comm">#return findtemplate($whichresult[1]);</span></li>
+<li><a name="a266"></a>            <span class="src-key">return </span><span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-num">1</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a267"></a>        <span class="src-sym">}</span></li>
+<li><a name="a268"></a>        <span class="src-comm">// If it is not the end of the pattern we keep going</span></li>
+<li><a name="a269"></a>        <span class="src-key">else </span><span class="src-sym">{</span></li>
+<li><a name="a270"></a>&nbsp;</li>
+<li><a name="a271"></a>            <span class="src-key">if </span><span class="src-sym">((</span><span class="src-var">$word</span>!=<span class="src-str">&quot;&lt;input&gt;&quot;</span><span class="src-sym">)</span>&amp;&amp;<span class="src-sym">(</span><span class="src-var">$word</span>!=<span class="src-str">&quot;&lt;that&gt;&quot;</span><span class="src-sym">)</span>&amp;&amp;<span class="src-sym">(</span><span class="src-var">$word</span>!=<span class="src-str">&quot;&lt;topic&gt;&quot;</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a272"></a>&nbsp;</li>
+<li><a name="a273"></a>                <span class="src-var">$patternmatched</span><span class="src-sym">[</span><span class="src-sym">]</span>=<span class="src-var">$word</span><span class="src-sym">;</span></li>
+<li><a name="a274"></a>                <span class="src-var">$curpmsize</span>=<a href="http://www.php.net/sizeof">sizeof</a><span class="src-sym">(</span><span class="src-var">$patternmatched</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a275"></a>            <span class="src-sym">}</span></li>
+<li><a name="a276"></a>&nbsp;</li>
+<li><a name="a277"></a>            <a href="../Interpreter/Engine/_graphnew_php.html#functiondebugger">debugger</a><span class="src-sym">(</span><span class="src-str">&quot;Result not blank and word is not blank. Calling graphwalker.&quot;</span><span class="src-sym">,</span><span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a278"></a>            </li>
+<li><a name="a279"></a>            <span class="src-comm">// We take off the first word and call the graphwalker again.</span></li>
+<li><a name="a280"></a>            <span class="src-var">$retvalue </span>= <a href="../Interpreter/Engine/_graphnew_php.html#functiongraphwalker">graphwalker</a><span class="src-sym">(</span><span class="src-var">$remains</span><span class="src-sym">,</span><span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-num">1</span><span class="src-sym">]</span><span class="src-sym">,</span><span class="src-num">1</span><span class="src-sym">,</span><span class="src-num">0</span><span class="src-sym">,</span><span class="src-var">$parton</span><span class="src-sym">,</span><span class="src-var">$inputstarvals</span><span class="src-sym">,</span><span class="src-var">$thatstarvals</span><span class="src-sym">,</span><span class="src-var">$topicstarvals</span><span class="src-sym">,</span><span class="src-var">$patternmatched</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a281"></a>&nbsp;</li>
+<li><a name="a282"></a>            <span class="src-comm">// If we got a match we return it</span></li>
+<li><a name="a283"></a>            <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$retvalue</span>!=<span class="src-str">&quot;&quot;</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a284"></a>                <a href="../Interpreter/Engine/_graphnew_php.html#functiondebugger">debugger</a><span class="src-sym">(</span><span class="src-str">&quot;Retvalue from graphwalker not blank. Returning it&quot;</span><span class="src-sym">,</span><span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">;                    </span></li>
+<li><a name="a285"></a>                <span class="src-key">return </span><span class="src-var">$retvalue</span><span class="src-sym">;</span></li>
+<li><a name="a286"></a>            <span class="src-sym">}</span></li>
+<li><a name="a287"></a>            <span class="src-comm">// Else we continue down our current node alphabetically to *</span></li>
+<li><a name="a288"></a>            <span class="src-key">else </span><span class="src-sym">{</span></li>
+<li><a name="a289"></a>                </li>
+<li><a name="a290"></a>                <span class="src-var">$curpdiff</span>=<a href="http://www.php.net/sizeof">sizeof</a><span class="src-sym">(</span><span class="src-var">$patternmatched</span><span class="src-sym">) </span>- <span class="src-var">$curpmsize</span><span class="src-sym">;</span></li>
+<li><a name="a291"></a>&nbsp;</li>
+<li><a name="a292"></a>                <span class="src-key">for </span><span class="src-sym">(</span><span class="src-var">$curpc</span>=<span class="src-num">0</span><span class="src-sym">;</span><span class="src-var">$curpc</span>&lt;=<span class="src-var">$curpdiff</span><span class="src-sym">;</span><span class="src-var">$curpc</span>++<span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a293"></a>                    <a href="http://www.php.net/array_pop">array_pop</a><span class="src-sym">(</span><span class="src-var">$patternmatched</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a294"></a>                <span class="src-sym">}</span></li>
+<li><a name="a295"></a>                </li>
+<li><a name="a296"></a>                <span class="src-var">$continuenode</span>=<span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a297"></a>&nbsp;</li>
+<li><a name="a298"></a>            <span class="src-sym">}</span></li>
+<li><a name="a299"></a>        <span class="src-sym">}</span></li>
+<li><a name="a300"></a>    <span class="src-sym">}</span></li>
+<li><a name="a301"></a>&nbsp;</li>
+<li><a name="a302"></a>    <span class="src-comm">// Will this if statement make things much faster???</span></li>
+<li><a name="a303"></a>    <span class="src-comm">//if (($word==&quot;&lt;input&gt;&quot;)||($word==&quot;&lt;that&gt;&quot;)||($word==&quot;&lt;topic&gt;&quot;)){</span></li>
+<li><a name="a304"></a>    <span class="src-comm">//    debugger(&quot;WORD MATCHED INPUT THAT OR TOPIC - RETURNING BLANK&quot;);</span></li>
+<li><a name="a305"></a>    <span class="src-comm">//    return &quot;&quot;;</span></li>
+<li><a name="a306"></a>    <span class="src-comm">//}</span></li>
+<li><a name="a307"></a>&nbsp;</li>
+<li><a name="a308"></a>&nbsp;</li>
+<li><a name="a309"></a>&nbsp;</li>
+<li><a name="a310"></a>    <span class="src-comm">// Look for *</span></li>
+<li><a name="a311"></a>    <span class="src-key">if </span><span class="src-sym">((</span><span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-num">2</span><span class="src-sym">]</span>!=-<span class="src-num">1</span><span class="src-sym">)</span>&amp;&amp;<span class="src-sym">(</span><span class="src-var">$continuenode</span>==<span class="src-num">1</span><span class="src-sym">)</span>&amp;&amp;<span class="src-sym">(</span><span class="src-var">$word</span>!=<span class="src-str">&quot;&lt;input&gt;&quot;</span><span class="src-sym">)</span>&amp;&amp;<span class="src-sym">(</span><span class="src-var">$word</span>!=<span class="src-str">&quot;&lt;that&gt;&quot;</span><span class="src-sym">)</span>&amp;&amp;<span class="src-sym">(</span><span class="src-var">$word</span>!=<span class="src-str">&quot;&lt;topic&gt;&quot;</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a312"></a>        </li>
+<li><a name="a313"></a>        <a href="../Interpreter/Engine/_graphnew_php.html#functiondebugger">debugger</a><span class="src-sym">(</span><span class="src-str">&quot;Looking for a '*' here&quot;</span><span class="src-sym">,</span><span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">;        </span></li>
+<li><a name="a314"></a>        <a href="../Interpreter/Engine/_graphnew_php.html#functiondebugger">debugger</a><span class="src-sym">(</span><span class="src-str">&quot;Result not blank and word is not blank. Calling graphwalker.&quot;</span><span class="src-sym">,</span><span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a315"></a>&nbsp;</li>
+<li><a name="a316"></a>        <span class="src-var">$patternmatched</span><span class="src-sym">[</span><span class="src-sym">]</span>=<span class="src-str">&quot;*&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a317"></a>        <span class="src-var">$curpmsize</span>=<a href="http://www.php.net/sizeof">sizeof</a><span class="src-sym">(</span><span class="src-var">$patternmatched</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a318"></a>&nbsp;</li>
+<li><a name="a319"></a>        <span class="src-comm">// If it is the last word in its context</span></li>
+<li><a name="a320"></a>        <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-num">5</span><span class="src-sym">]</span>==<span class="src-num">1</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a321"></a>&nbsp;</li>
+<li><a name="a322"></a>            <span class="src-var">$ffremains</span>=<span class="src-var">$remains</span><span class="src-sym">;</span></li>
+<li><a name="a323"></a>            <span class="src-var">$newword</span>=<a href="../Interpreter/Engine/_graphnew_php.html#functionfastforward">fastforward</a><span class="src-sym">(</span><span class="src-var">$word</span><span class="src-sym">,</span><span class="src-var">$ffremains</span><span class="src-sym">)</span><span class="src-sym">;            </span></li>
+<li><a name="a324"></a>&nbsp;</li>
+<li><a name="a325"></a>            <a href="../Interpreter/Engine/_graphnew_php.html#functionaddtostar">addtostar</a><span class="src-sym">(</span><span class="src-var">$parton</span><span class="src-sym">,</span><span class="src-var">$newword</span><span class="src-sym">,</span><span class="src-var">$inputstarvals</span><span class="src-sym">,</span><span class="src-var">$thatstarvals</span><span class="src-sym">,</span><span class="src-var">$topicstarvals</span><span class="src-sym">,</span><span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a326"></a>&nbsp;</li>
+<li><a name="a327"></a>            <span class="src-comm">// Call graphwalker with the first word removed from input</span></li>
+<li><a name="a328"></a>            <span class="src-var">$retvalue </span>= <a href="../Interpreter/Engine/_graphnew_php.html#functiongraphwalker">graphwalker</a><span class="src-sym">(</span><span class="src-var">$ffremains</span><span class="src-sym">,</span><span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-num">2</span><span class="src-sym">]</span><span class="src-sym">,</span><span class="src-num">1</span><span class="src-sym">,</span><span class="src-num">1</span><span class="src-sym">,</span><span class="src-var">$parton</span><span class="src-sym">,</span><span class="src-var">$inputstarvals</span><span class="src-sym">,</span><span class="src-var">$thatstarvals</span><span class="src-sym">,</span><span class="src-var">$topicstarvals</span><span class="src-sym">,</span><span class="src-var">$patternmatched</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a329"></a>        <span class="src-sym">}</span></li>
+<li><a name="a330"></a>        <span class="src-key">else </span><span class="src-sym">{</span></li>
+<li><a name="a331"></a>&nbsp;</li>
+<li><a name="a332"></a>            <a href="../Interpreter/Engine/_graphnew_php.html#functionaddtostar">addtostar</a><span class="src-sym">(</span><span class="src-var">$parton</span><span class="src-sym">,</span><span class="src-var">$word</span><span class="src-sym">,</span><span class="src-var">$inputstarvals</span><span class="src-sym">,</span><span class="src-var">$thatstarvals</span><span class="src-sym">,</span><span class="src-var">$topicstarvals</span><span class="src-sym">,</span><span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a333"></a>&nbsp;</li>
+<li><a name="a334"></a>            <span class="src-comm">// Call graphwalker with the first word removed from input</span></li>
+<li><a name="a335"></a>            <span class="src-var">$retvalue </span>= <a href="../Interpreter/Engine/_graphnew_php.html#functiongraphwalker">graphwalker</a><span class="src-sym">(</span><span class="src-var">$remains</span><span class="src-sym">,</span><span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-num">2</span><span class="src-sym">]</span><span class="src-sym">,</span><span class="src-num">1</span><span class="src-sym">,</span><span class="src-num">1</span><span class="src-sym">,</span><span class="src-var">$parton</span><span class="src-sym">,</span><span class="src-var">$inputstarvals</span><span class="src-sym">,</span><span class="src-var">$thatstarvals</span><span class="src-sym">,</span><span class="src-var">$topicstarvals</span><span class="src-sym">,</span><span class="src-var">$patternmatched</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a336"></a>        <span class="src-sym">}</span></li>
+<li><a name="a337"></a>        </li>
+<li><a name="a338"></a>&nbsp;</li>
+<li><a name="a339"></a>        <span class="src-comm">// If found result then return it up.</span></li>
+<li><a name="a340"></a>        <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$retvalue</span>!=<span class="src-str">&quot;&quot;</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a341"></a>            <a href="../Interpreter/Engine/_graphnew_php.html#functiondebugger">debugger</a><span class="src-sym">(</span><span class="src-str">&quot;Retvalue from graphwalker not blank. Returning it&quot;</span><span class="src-sym">,</span><span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a342"></a>            <span class="src-key">return </span><span class="src-var">$retvalue</span><span class="src-sym">;</span></li>
+<li><a name="a343"></a>        <span class="src-sym">}</span></li>
+<li><a name="a344"></a>        <span class="src-key">else </span><span class="src-sym">{</span></li>
+<li><a name="a345"></a>            </li>
+<li><a name="a346"></a>            <span class="src-var">$curpdiff</span>=<a href="http://www.php.net/sizeof">sizeof</a><span class="src-sym">(</span><span class="src-var">$patternmatched</span><span class="src-sym">) </span>- <span class="src-var">$curpmsize</span><span class="src-sym">;</span></li>
+<li><a name="a347"></a>&nbsp;</li>
+<li><a name="a348"></a>            <span class="src-key">for </span><span class="src-sym">(</span><span class="src-var">$curpc</span>=<span class="src-num">0</span><span class="src-sym">;</span><span class="src-var">$curpc</span>&lt;=<span class="src-var">$curpdiff</span><span class="src-sym">;</span><span class="src-var">$curpc</span>++<span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a349"></a>                <a href="http://www.php.net/array_pop">array_pop</a><span class="src-sym">(</span><span class="src-var">$patternmatched</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a350"></a>            <span class="src-sym">}</span></li>
+<li><a name="a351"></a>        <span class="src-sym">}</span></li>
+<li><a name="a352"></a>&nbsp;</li>
+<li><a name="a353"></a>    <span class="src-sym">}</span></li>
+<li><a name="a354"></a>&nbsp;</li>
+<li><a name="a355"></a>    <span class="src-comm">// Else no match found...</span></li>
+<li><a name="a356"></a>    <span class="src-key">if </span><span class="src-sym">(((</span><span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span>==-<span class="src-num">1</span><span class="src-sym">)</span>&amp;&amp;<span class="src-sym">(</span><span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-num">1</span><span class="src-sym">]</span>==-<span class="src-num">1</span><span class="src-sym">)</span>&amp;&amp;<span class="src-sym">(</span><span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-num">2</span><span class="src-sym">]</span>==-<span class="src-num">1</span><span class="src-sym">))</span>||<span class="src-sym">(</span><span class="src-var">$continuenode</span>==<span class="src-num">1</span><span class="src-sym">)) </span><span class="src-sym">{            </span></li>
+<li><a name="a357"></a>        <span class="src-comm">//If we were most recently on a wildcard (*,_) then we are still matching it.</span></li>
+<li><a name="a358"></a>        <span class="src-key">if </span><span class="src-sym">((</span><span class="src-var">$onwild</span>==<span class="src-num">1</span><span class="src-sym">)</span>&amp;&amp;<span class="src-sym">(</span><span class="src-var">$word</span>!=<span class="src-str">&quot;&quot;</span><span class="src-sym">)</span>&amp;&amp;<span class="src-sym">(</span><span class="src-var">$word</span>!=<span class="src-str">&quot;&lt;that&gt;&quot;</span><span class="src-sym">)</span>&amp;&amp;<span class="src-sym">(</span><span class="src-var">$word</span>!=<span class="src-str">&quot;&lt;topic&gt;&quot;</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a359"></a>            <a href="../Interpreter/Engine/_graphnew_php.html#functiondebugger">debugger</a><span class="src-sym">(</span><span class="src-str">&quot;On wild and in *. keep going with graphwalker.&quot;</span><span class="src-sym">,</span><span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a360"></a>&nbsp;</li>
+<li><a name="a361"></a>            <a href="../Interpreter/Engine/_graphnew_php.html#functionaddtostar">addtostar</a><span class="src-sym">(</span><span class="src-var">$parton</span><span class="src-sym">,</span><span class="src-var">$word</span><span class="src-sym">,</span><span class="src-var">$inputstarvals</span><span class="src-sym">,</span><span class="src-var">$thatstarvals</span><span class="src-sym">,</span><span class="src-var">$topicstarvals</span><span class="src-sym">,</span><span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">;                </span></li>
+<li><a name="a362"></a>&nbsp;</li>
+<li><a name="a363"></a>            <span class="src-key">return </span><a href="../Interpreter/Engine/_graphnew_php.html#functiongraphwalker">graphwalker</a><span class="src-sym">(</span><span class="src-var">$remains</span><span class="src-sym">,</span><span class="src-var">$parent</span><span class="src-sym">,</span><span class="src-num">1</span><span class="src-sym">,</span><span class="src-num">1</span><span class="src-sym">,</span><span class="src-var">$parton</span><span class="src-sym">,</span><span class="src-var">$inputstarvals</span><span class="src-sym">,</span><span class="src-var">$thatstarvals</span><span class="src-sym">,</span><span class="src-var">$topicstarvals</span><span class="src-sym">,</span><span class="src-var">$patternmatched</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a364"></a>        <span class="src-sym">}</span></li>
+<li><a name="a365"></a>        <span class="src-key">else </span><span class="src-sym">{</span></li>
+<li><a name="a366"></a>            <span class="src-comm">//We didn't find anything. We need to come back out</span></li>
+<li><a name="a367"></a>            <a href="../Interpreter/Engine/_graphnew_php.html#functiondebugger">debugger</a><span class="src-sym">(</span><span class="src-str">&quot;Result is blank from query in *. Returning blank&quot;</span><span class="src-sym">,</span><span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">;    </span></li>
+<li><a name="a368"></a>            <span class="src-key">return </span><span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a369"></a>        <span class="src-sym">}</span></li>
+<li><a name="a370"></a>&nbsp;</li>
+<li><a name="a371"></a>    <span class="src-sym">}</span></li>
+<li><a name="a372"></a>&nbsp;</li>
+<li><a name="a373"></a><span class="src-sym">}</span></li>
+<li><a name="a374"></a>&nbsp;</li>
+<li><a name="a375"></a><span class="src-doc">/**</span></li>
+<li><a name="a376"></a><span class="src-doc">* Does a database query for </span><span class="src-doc-inlinetag">{@link graphwalker()}</span></li>
+<li><a name="a377"></a><span class="src-doc">*</span></li>
+<li><a name="a378"></a><span class="src-doc">* Retrieves the ID, ordera, isend of the word to be searched</span></li>
+<li><a name="a379"></a><span class="src-doc">* $query=&quot;select id,ordera,isend from patterns where word='&quot; . addslashes($word) . &quot;' or word is null and parent=$parent&quot;;</span></li>
+<li><a name="a380"></a><span class="src-doc">*</span></li>
+<li><a name="a381"></a><span class="src-doc">* </span><span class="src-doc-coretag">@todo</span><span class="src-doc"> The array returned is also returned via call-by-reference. Investigate which should be chosen.</span></li>
+<li><a name="a382"></a><span class="src-doc">*</span></li>
+<li><a name="a383"></a><span class="src-doc">* </span><span class="src-doc-coretag">@uses</span><span class="src-doc"> debugger()</span></li>
+<li><a name="a384"></a><span class="src-doc">*</span></li>
+<li><a name="a385"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">integer </span><span class="src-doc">                  The number of queries that have been executed</span></li>
+<li><a name="a386"></a><span class="src-doc">*</span></li>
+<li><a name="a387"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$query </span><span class="src-doc">             The SQL code to be executed</span></li>
+<li><a name="a388"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">array </span><span class="src-doc-var">&amp;$whichresult </span><span class="src-doc">       contains ID, ordera and isend from the query. note: call-by-reference</span></li>
+<li><a name="a389"></a><span class="src-doc">*</span></li>
+<li><a name="a390"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">array </span><span class="src-doc">                    contains ID, ordera and isend from the query. note: call-by-reference array exists too.</span></li>
+<li><a name="a391"></a><span class="src-doc">*/</span></li>
+<li><a name="a392"></a><span class="src-key">function </span><a href="../Interpreter/Engine/_graphnew_php.html#functiondographquery">dographquery</a><span class="src-sym">(</span><span class="src-sym">&amp;</span><span class="src-var">$whichresult</span><span class="src-sym">, </span><span class="src-var">$word</span><span class="src-sym">, </span><span class="src-var">$parent</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a393"></a>&nbsp;</li>
+<li><a name="a394"></a>    <span class="src-var">$query</span>=<span class="src-str">&quot;select id,ordera,isend from patterns where (word='&quot; </span>. <a href="http://www.php.net/addslashes">addslashes</a><span class="src-sym">(</span><span class="src-var">$word</span><span class="src-sym">) </span>. <span class="src-str">&quot;</span><span class="src-str">' <span class="src-id">or</span> <span class="src-id">word</span> <span class="src-id">is</span> <span class="src-id">null</span>) <span class="src-id">and</span> <span class="src-id">parent</span>=<span class="src-var">$parent</span></span><span class="src-str">&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a395"></a>&nbsp;</li>
+<li><a name="a396"></a>&nbsp;</li>
+<li><a name="a397"></a>    <span class="src-key">global </span><span class="src-var">$numselects</span><span class="src-sym">;</span></li>
+<li><a name="a398"></a>    </li>
+<li><a name="a399"></a>    <span class="src-var">$numselects</span>++<span class="src-sym">;</span></li>
+<li><a name="a400"></a>    <a href="../Interpreter/Engine/_graphnew_php.html#functiondebugger">debugger</a><span class="src-sym">(</span><span class="src-str">&quot;</span><span class="src-str"><span class="src-id">dographquery</span>: <span class="src-var">$query</span>\n</span><span class="src-str">&quot;</span><span class="src-sym">,</span><span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a401"></a>&nbsp;</li>
+<li><a name="a402"></a>    <span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-sym">]</span>=-<span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a403"></a>    <span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-sym">]</span>=-<span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a404"></a>    <span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-sym">]</span>=-<span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a405"></a>&nbsp;</li>
+<li><a name="a406"></a>    <span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-sym">]</span>=-<span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a407"></a>    <span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-sym">]</span>=-<span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a408"></a>    <span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-sym">]</span>=-<span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a409"></a>&nbsp;</li>
+<li><a name="a410"></a>    <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a411"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a412"></a>        <span class="src-key">if</span><span class="src-sym">(</span><span class="src-sym">!</span><a href="http://www.php.net/mysql_numrows">mysql_numrows</a><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a413"></a>            <span class="src-key">return </span><span class="src-var">$whichresult</span><span class="src-sym">;</span></li>
+<li><a name="a414"></a>        <span class="src-sym">}</span></li>
+<li><a name="a415"></a>        <span class="src-key">else</span><span class="src-sym">{</span></li>
+<li><a name="a416"></a>            <span class="src-key">while </span><span class="src-sym">(</span><span class="src-var">$q </span>= <a href="http://www.php.net/mysql_fetch_array">mysql_fetch_array</a><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a417"></a>                <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">1</span><span class="src-sym">]</span>==<span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a418"></a>                    <span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span>=<span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a419"></a>&nbsp;</li>
+<li><a name="a420"></a>                    <span class="src-comm">// If it is the last word in its context.</span></li>
+<li><a name="a421"></a>                    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">2</span><span class="src-sym">]</span>==<span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a422"></a>                        <span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-num">3</span><span class="src-sym">]</span>=<span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a423"></a>                    <span class="src-sym">}</span></li>
+<li><a name="a424"></a>&nbsp;</li>
+<li><a name="a425"></a>                <span class="src-sym">}</span></li>
+<li><a name="a426"></a>                <span class="src-key">elseif </span><span class="src-sym">(</span><span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">1</span><span class="src-sym">]</span>==<span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a427"></a>                    <span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-num">1</span><span class="src-sym">]</span>=<span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a428"></a>&nbsp;</li>
+<li><a name="a429"></a>                    <span class="src-comm">// If it is the last word in its context.</span></li>
+<li><a name="a430"></a>                    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">2</span><span class="src-sym">]</span>==<span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a431"></a>                        <span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-num">4</span><span class="src-sym">]</span>=<span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a432"></a>                    <span class="src-sym">}</span></li>
+<li><a name="a433"></a>&nbsp;</li>
+<li><a name="a434"></a>                <span class="src-sym">}</span></li>
+<li><a name="a435"></a>                <span class="src-key">elseif </span><span class="src-sym">(</span><span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">1</span><span class="src-sym">]</span>==<span class="src-num">3</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a436"></a>                    <span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-num">2</span><span class="src-sym">]</span>=<span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a437"></a>&nbsp;</li>
+<li><a name="a438"></a>                    <span class="src-comm">// If it is the last word in its context.</span></li>
+<li><a name="a439"></a>                    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">2</span><span class="src-sym">]</span>==<span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a440"></a>                        <span class="src-var">$whichresult</span><span class="src-sym">[</span><span class="src-num">5</span><span class="src-sym">]</span>=<span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a441"></a>                    <span class="src-sym">}</span></li>
+<li><a name="a442"></a>&nbsp;</li>
+<li><a name="a443"></a>                <span class="src-sym">}</span></li>
+<li><a name="a444"></a>                </li>
+<li><a name="a445"></a>&nbsp;</li>
+<li><a name="a446"></a>&nbsp;</li>
+<li><a name="a447"></a>            <span class="src-sym">}</span></li>
+<li><a name="a448"></a>            <span class="src-key">return </span><span class="src-var">$whichresult</span><span class="src-sym">;</span></li>
+<li><a name="a449"></a>        <span class="src-sym">}</span></li>
+<li><a name="a450"></a>    <span class="src-sym">}</span></li>
+<li><a name="a451"></a>&nbsp;</li>
+<li><a name="a452"></a><span class="src-sym">}</span></li>
+<li><a name="a453"></a>&nbsp;</li>
+<li><a name="a454"></a>&nbsp;</li>
+<li><a name="a455"></a>&nbsp;</li>
+<li><a name="a456"></a><span class="src-doc">/**</span></li>
+<li><a name="a457"></a><span class="src-doc">* Retrieve the template from the templates table</span></li>
+<li><a name="a458"></a><span class="src-doc">*</span></li>
+<li><a name="a459"></a><span class="src-doc">* Get the template from the templates table. and return it.</span></li>
+<li><a name="a460"></a><span class="src-doc">* </span></li>
+<li><a name="a461"></a><span class="src-doc">* </span><span class="src-doc-coretag">@todo</span><span class="src-doc"> The name </span><span class="src-doc-inlinetag">{@link gettemplate()}</span><span class="src-doc"> and findtemplate() are too similar.</span></li>
+<li><a name="a462"></a><span class="src-doc">*</span></li>
+<li><a name="a463"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">integer </span><span class="src-doc-var">$id </span><span class="src-doc">                 The ID of the template to be returned</span></li>
+<li><a name="a464"></a><span class="src-doc">*</span></li>
+<li><a name="a465"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">string </span><span class="src-doc">                     The contents of &lt;template/&gt; for this category.</span></li>
+<li><a name="a466"></a><span class="src-doc">*/</span></li>
+<li><a name="a467"></a><span class="src-key">function </span><a href="../Interpreter/Engine/_graphnew_php.html#functionfindtemplate">findtemplate</a><span class="src-sym">(</span><span class="src-var">$id</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a468"></a>&nbsp;</li>
+<li><a name="a469"></a>    <span class="src-var">$query </span>= <span class="src-str">&quot;</span><span class="src-str"><span class="src-id">select</span> <span class="src-id">template</span> <span class="src-id">from</span> <span class="src-id">templates</span> <span class="src-id">where</span> <span class="src-id">id</span>=<span class="src-var">$id</span></span><span class="src-str">&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a470"></a>    <a href="../Interpreter/Engine/_graphnew_php.html#functiondebugger">debugger</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">,</span><span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a471"></a>    <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a472"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a473"></a>        <span class="src-key">if</span><span class="src-sym">(</span><span class="src-sym">!</span><a href="http://www.php.net/mysql_numrows">mysql_numrows</a><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a474"></a>            <span class="src-key">return </span><span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a475"></a>        <span class="src-sym">}</span></li>
+<li><a name="a476"></a>        <span class="src-key">else</span><span class="src-sym">{</span></li>
+<li><a name="a477"></a>            <span class="src-key">while </span><span class="src-sym">(</span><span class="src-var">$q </span>= <a href="http://www.php.net/mysql_fetch_array">mysql_fetch_array</a><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a478"></a>                <span class="src-key">return </span><span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a479"></a>            <span class="src-sym">}</span></li>
+<li><a name="a480"></a>        <span class="src-sym">}</span></li>
+<li><a name="a481"></a>    <span class="src-sym">}</span></li>
+<li><a name="a482"></a>&nbsp;</li>
+<li><a name="a483"></a>    <span class="src-key">return </span><span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a484"></a><span class="src-sym">}</span></li>
+<li><a name="a485"></a>&nbsp;</li>
+<li><a name="a486"></a>&nbsp;</li>
+<li><a name="a487"></a><span class="src-doc">/**</span></li>
+<li><a name="a488"></a><span class="src-doc">* Deals with creating and adding to the star arrays</span></li>
+<li><a name="a489"></a><span class="src-doc">*</span></li>
+<li><a name="a490"></a><span class="src-doc">* If a * or _ is part of the matched pattern, what is covered by that variable is then stored in the 'star arrays'. This function creates and adds words to that array or array element.</span></li>
+<li><a name="a491"></a><span class="src-doc">*</span></li>
+<li><a name="a492"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$parton </span><span class="src-doc">         Can be input, that, topic.</span></li>
+<li><a name="a493"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$word </span><span class="src-doc">           The word that needs to be stored</span></li>
+<li><a name="a494"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">array </span><span class="src-doc-var">&amp;$inputstarvals </span><span class="src-doc">  contents of the *'s when they are part of the matching pattern input string</span></li>
+<li><a name="a495"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">array </span><span class="src-doc-var">&amp;$thatstarvals </span><span class="src-doc">   contents of the *'s when they are part of the matching pattern that string</span></li>
+<li><a name="a496"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">array </span><span class="src-doc-var">&amp;$topicstarvals </span><span class="src-doc">  contents of the *'s when they are part of the matching pattern topic string</span></li>
+<li><a name="a497"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">integer </span><span class="src-doc-var">$action </span><span class="src-doc">        what action needs to be done, append to existing or create new.</span></li>
+<li><a name="a498"></a><span class="src-doc">*</span></li>
+<li><a name="a499"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">void </span><span class="src-doc">                  info is returned via call-by-reference variables.</span></li>
+<li><a name="a500"></a><span class="src-doc">*/</span></li>
+<li><a name="a501"></a><span class="src-key">function </span><a href="../Interpreter/Engine/_graphnew_php.html#functionaddtostar">addtostar</a><span class="src-sym">(</span><span class="src-var">$parton</span><span class="src-sym">,</span><span class="src-var">$word</span><span class="src-sym">,</span><span class="src-sym">&amp;</span><span class="src-var">$inputstarvals</span><span class="src-sym">,</span><span class="src-sym">&amp;</span><span class="src-var">$thatstarvals</span><span class="src-sym">,</span><span class="src-sym">&amp;</span><span class="src-var">$topicstarvals</span><span class="src-sym">,</span><span class="src-var">$action</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a502"></a>&nbsp;</li>
+<li><a name="a503"></a>    <span class="src-key">if </span><span class="src-sym">((</span><span class="src-var">$word</span>!=<span class="src-str">&quot;&lt;nothing&gt;&quot;</span><span class="src-sym">)</span>&amp;&amp;<span class="src-sym">(</span><span class="src-var">$word</span>!=<span class="src-str">&quot;&lt;that&gt;&quot;</span><span class="src-sym">)</span>&amp;&amp;<span class="src-sym">(</span><span class="src-var">$word</span>!=<span class="src-str">&quot;&lt;topic&gt;&quot;</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a504"></a>&nbsp;</li>
+<li><a name="a505"></a>        <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$parton</span>==<span class="src-str">&quot;input&quot;</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a506"></a>&nbsp;</li>
+<li><a name="a507"></a>            <span class="src-comm">// Action 1 is adding a new star</span></li>
+<li><a name="a508"></a>            <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$action</span>==<span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a509"></a>                <span class="src-var">$inputstarvals</span><span class="src-sym">[</span><span class="src-sym">]</span>=<span class="src-var">$word</span><span class="src-sym">;</span></li>
+<li><a name="a510"></a>            <span class="src-sym">}</span></li>
+<li><a name="a511"></a>            <span class="src-comm">// Action 2 is appending to existing star</span></li>
+<li><a name="a512"></a>            <span class="src-key">elseif </span><span class="src-sym">(</span><span class="src-var">$action</span>==<span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a513"></a>                <span class="src-var">$inputstarvals</span><span class="src-sym">[</span><a href="http://www.php.net/sizeof">sizeof</a><span class="src-sym">(</span><span class="src-var">$inputstarvals</span><span class="src-sym">)</span>-<span class="src-num">1</span><span class="src-sym">]</span>.= <span class="src-str">&quot; &quot; </span>. <span class="src-var">$word</span><span class="src-sym">;</span></li>
+<li><a name="a514"></a>            <span class="src-sym">}</span></li>
+<li><a name="a515"></a>        </li>
+<li><a name="a516"></a>        <span class="src-sym">}</span></li>
+<li><a name="a517"></a>        <span class="src-key">elseif </span><span class="src-sym">(</span><span class="src-var">$parton</span>==<span class="src-str">&quot;that&quot;</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a518"></a>&nbsp;</li>
+<li><a name="a519"></a>            <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$action</span>==<span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a520"></a>                <span class="src-var">$thatstarvals</span><span class="src-sym">[</span><span class="src-sym">]</span>=<span class="src-var">$word</span><span class="src-sym">;</span></li>
+<li><a name="a521"></a>            <span class="src-sym">}</span></li>
+<li><a name="a522"></a>            <span class="src-key">elseif </span><span class="src-sym">(</span><span class="src-var">$action</span>==<span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a523"></a>                <span class="src-var">$thatstarvals</span><span class="src-sym">[</span><a href="http://www.php.net/sizeof">sizeof</a><span class="src-sym">(</span><span class="src-var">$thatstarvals</span><span class="src-sym">)</span>-<span class="src-num">1</span><span class="src-sym">]</span>.= <span class="src-str">&quot; &quot; </span>. <span class="src-var">$word</span><span class="src-sym">;</span></li>
+<li><a name="a524"></a>            <span class="src-sym">}</span></li>
+<li><a name="a525"></a>&nbsp;</li>
+<li><a name="a526"></a>        <span class="src-sym">}</span></li>
+<li><a name="a527"></a>        <span class="src-key">elseif </span><span class="src-sym">(</span><span class="src-var">$parton</span>==<span class="src-str">&quot;topic&quot;</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a528"></a>&nbsp;</li>
+<li><a name="a529"></a>            <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$action</span>==<span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a530"></a>                <span class="src-var">$topicstarvals</span><span class="src-sym">[</span><span class="src-sym">]</span>=<span class="src-var">$word</span><span class="src-sym">;</span></li>
+<li><a name="a531"></a>            <span class="src-sym">}</span></li>
+<li><a name="a532"></a>            <span class="src-key">elseif </span><span class="src-sym">(</span><span class="src-var">$action</span>==<span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a533"></a>                <span class="src-var">$topicstarvals</span><span class="src-sym">[</span><a href="http://www.php.net/sizeof">sizeof</a><span class="src-sym">(</span><span class="src-var">$topicstarvals</span><span class="src-sym">)</span>-<span class="src-num">1</span><span class="src-sym">]</span>.= <span class="src-str">&quot; &quot; </span>. <span class="src-var">$word</span><span class="src-sym">;</span></li>
+<li><a name="a534"></a>            <span class="src-sym">}</span></li>
+<li><a name="a535"></a>&nbsp;</li>
+<li><a name="a536"></a>        <span class="src-sym">}</span></li>
+<li><a name="a537"></a>&nbsp;</li>
+<li><a name="a538"></a>    <span class="src-sym">}</span></li>
+<li><a name="a539"></a><span class="src-sym">}</span></li>
+<li><a name="a540"></a>&nbsp;</li>
+<li><a name="a541"></a>&nbsp;</li>
+<li><a name="a542"></a><span class="src-doc">/**</span></li>
+<li><a name="a543"></a><span class="src-doc">* Fast forward to the processing of the next context</span></li>
+<li><a name="a544"></a><span class="src-doc">*</span></li>
+<li><a name="a545"></a><span class="src-doc">* Remainder of the user's input covered by a *. So so add everything up to the next context (&lt;that&gt; &amp; &lt;topic&gt;) to the star.</span></li>
+<li><a name="a546"></a><span class="src-doc">*</span></li>
+<li><a name="a547"></a><span class="src-doc">* </span><span class="src-doc-coretag">@todo</span><span class="src-doc"> $newremains is a variable that is created, and filled but not returned. It is perhaps old code that</span></li>
+<li><a name="a548"></a><span class="src-doc">*        pre dates </span><span class="src-doc-inlinetag">{@link addtostar()}</span><span class="src-doc"> that saves the returned value in </span><span class="src-doc-inlinetag">{@link graphmaster()}</span><span class="src-doc">.</span></li>
+<li><a name="a549"></a><span class="src-doc">* </span></li>
+<li><a name="a550"></a><span class="src-doc">*</span></li>
+<li><a name="a551"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$word </span><span class="src-doc">                    Current processed word</span></li>
+<li><a name="a552"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$ffremains </span><span class="src-doc">               Words that remain to be processed.</span></li>
+<li><a name="a553"></a><span class="src-doc">*</span></li>
+<li><a name="a554"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">string </span><span class="src-doc">                         words to be saved by </span><span class="src-doc-inlinetag">{@link addtostar()}</span></li>
+<li><a name="a555"></a><span class="src-doc">*/</span></li>
+<li><a name="a556"></a><span class="src-key">function </span><a href="../Interpreter/Engine/_graphnew_php.html#functionfastforward">fastforward</a><span class="src-sym">(</span><span class="src-var">$word</span><span class="src-sym">,</span><span class="src-var">$ffremains</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a557"></a>&nbsp;</li>
+<li><a name="a558"></a>    <span class="src-var">$starwords</span>=<span class="src-var">$word</span><span class="src-sym">;</span></li>
+<li><a name="a559"></a>&nbsp;</li>
+<li><a name="a560"></a>    <span class="src-var">$newremains</span>=<span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a561"></a>&nbsp;</li>
+<li><a name="a562"></a>    <span class="src-var">$ffremains</span>=<a href="http://www.php.net/trim">trim</a><span class="src-sym">(</span><span class="src-var">$ffremains</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a563"></a>    <span class="src-var">$ffar</span>=<a href="http://www.php.net/split">split</a><span class="src-sym">(</span><span class="src-str">&quot; &quot;</span><span class="src-sym">,</span><span class="src-var">$ffremains</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a564"></a>&nbsp;</li>
+<li><a name="a565"></a>    <span class="src-var">$x</span>=<span class="src-num">0</span><span class="src-sym">;</span></li>
+<li><a name="a566"></a>    <span class="src-var">$currentword</span>=<span class="src-var">$ffar</span><span class="src-sym">[</span><span class="src-var">$x</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a567"></a>&nbsp;</li>
+<li><a name="a568"></a>    <span class="src-key">while </span><span class="src-sym">((</span><span class="src-var">$currentword</span>!=<span class="src-str">&quot;&lt;that&gt;&quot;</span><span class="src-sym">)</span>&amp;&amp;<span class="src-sym">(</span><span class="src-var">$currentword</span>!=<span class="src-str">&quot;&lt;topic&gt;&quot;</span><span class="src-sym">)</span>&amp;&amp;<span class="src-sym">(</span><span class="src-var">$currentword</span>!=<span class="src-str">&quot;&quot;</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a569"></a>&nbsp;</li>
+<li><a name="a570"></a>        <span class="src-var">$starwords </span>= <span class="src-var">$starwords </span>. <span class="src-str">&quot; &quot; </span>. <span class="src-var">$currentword</span><span class="src-sym">;</span></li>
+<li><a name="a571"></a>        <span class="src-var">$x</span>++<span class="src-sym">;</span></li>
+<li><a name="a572"></a>&nbsp;</li>
+<li><a name="a573"></a>        <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$x</span>&gt;=<a href="http://www.php.net/sizeof">sizeof</a><span class="src-sym">(</span><span class="src-var">$ffar</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a574"></a>            <span class="src-key">break</span><span class="src-sym">;</span></li>
+<li><a name="a575"></a>        <span class="src-sym">} </span><span class="src-key">else </span><span class="src-sym">{</span></li>
+<li><a name="a576"></a>            <span class="src-var">$currentword</span>=<span class="src-var">$ffar</span><span class="src-sym">[</span><span class="src-var">$x</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a577"></a>        <span class="src-sym">}</span></li>
+<li><a name="a578"></a>&nbsp;</li>
+<li><a name="a579"></a>    <span class="src-sym">}</span></li>
+<li><a name="a580"></a>&nbsp;</li>
+<li><a name="a581"></a>    <span class="src-key">for </span><span class="src-sym">(</span><span class="src-var">$y</span>=<span class="src-var">$x</span><span class="src-sym">;</span><span class="src-var">$y</span>&lt;<a href="http://www.php.net/sizeof">sizeof</a><span class="src-sym">(</span><span class="src-var">$ffar</span><span class="src-sym">)</span><span class="src-sym">;</span><span class="src-var">$y</span>++<span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a582"></a>        <span class="src-var">$newremains </span>=  <span class="src-var">$newremains </span>. <span class="src-str">&quot; &quot; </span>. <span class="src-var">$ffar</span><span class="src-sym">[</span><span class="src-var">$y</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a583"></a>    <span class="src-sym">}</span></li>
+<li><a name="a584"></a>&nbsp;</li>
+<li><a name="a585"></a>    <span class="src-var">$ffremains</span>=<a href="http://www.php.net/trim">trim</a><span class="src-sym">(</span><span class="src-var">$newremains</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a586"></a>    </li>
+<li><a name="a587"></a>    <span class="src-key">return </span><span class="src-var">$starwords</span><span class="src-sym">;</span></li>
+<li><a name="a588"></a>&nbsp;</li>
+<li><a name="a589"></a><span class="src-sym">}</span></li>
+<li><a name="a590"></a>&nbsp;</li>
+<li><a name="a591"></a>&nbsp;</li>
+<li><a name="a592"></a><span class="src-doc">/**</span></li>
+<li><a name="a593"></a><span class="src-doc">* Check to see if exact input-that-topic exists in cache</span></li>
+<li><a name="a594"></a><span class="src-doc">*</span></li>
+<li><a name="a595"></a><span class="src-doc">* GmCache is a log that contains all unique entries. If the exact same input-that-topic is requested that is found in GmCache, then it's template reference is used instead of traversing the binary AIML tree. Saving response time.</span></li>
+<li><a name="a596"></a><span class="src-doc">*</span></li>
+<li><a name="a597"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$combined </span><span class="src-doc">                 the complete input in &lt;input&gt;word word&lt;that&gt;word word&lt;topic&gt;word word format.</span></li>
+<li><a name="a598"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">array </span><span class="src-doc-var">&amp;$inputstarvals </span><span class="src-doc">  contents of the *'s when they are part of the matching pattern input string</span></li>
+<li><a name="a599"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">array </span><span class="src-doc-var">&amp;$thatstarvals </span><span class="src-doc">   contents of the *'s when they are part of the matching pattern that string</span></li>
+<li><a name="a600"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">array </span><span class="src-doc-var">&amp;$topicstarvals </span><span class="src-doc">  contents of the *'s when they are part of the matching pattern topic string</span></li>
+<li><a name="a601"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">array </span><span class="src-doc-var">&amp;$patternmatched </span><span class="src-doc"> all the patterns that match input, i.e. multiple sentences are kept seperate.</span></li>
+<li><a name="a602"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">array </span><span class="src-doc-var">&amp;$inputmatched </span><span class="src-doc">   all the matched input.</span></li>
+<li><a name="a603"></a><span class="src-doc">*</span></li>
+<li><a name="a604"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">boolean </span><span class="src-doc">               true/false Note, info is also transfere through the call-by-reference variables.</span></li>
+<li><a name="a605"></a><span class="src-doc">*/</span></li>
+<li><a name="a606"></a>&nbsp;</li>
+<li><a name="a607"></a><span class="src-key">function </span><a href="../Interpreter/Engine/_graphnew_php.html#functioncheckcache">checkcache</a><span class="src-sym">(</span><span class="src-var">$combined</span><span class="src-sym">,</span><span class="src-sym">&amp;</span><span class="src-var">$template</span><span class="src-sym">,</span><span class="src-sym">&amp;</span><span class="src-var">$inputstarvals</span><span class="src-sym">,</span><span class="src-sym">&amp;</span><span class="src-var">$thatstarvals</span><span class="src-sym">,</span><span class="src-sym">&amp;</span><span class="src-var">$topicstarvals</span><span class="src-sym">,</span><span class="src-sym">&amp;</span><span class="src-var">$patternmatched</span><span class="src-sym">,</span><span class="src-sym">&amp;</span><span class="src-var">$inputmatched</span><span class="src-sym">)</span></li>
+<li><a name="a608"></a><span class="src-sym">{</span></li>
+<li><a name="a609"></a>    <span class="src-var">$ccquery</span>=<span class="src-str">&quot;select template,inputstarvals,thatstarvals,topicstarvals,patternmatched,inputmatched from gmcache where combined='&quot; </span>. <a href="http://www.php.net/addslashes">addslashes</a><span class="src-sym">(</span><span class="src-var">$combined</span><span class="src-sym">) </span>. <span class="src-str">&quot;' and &quot; </span>. <a href="../Interpreter/_util_php.html#functionwhichbots">whichbots</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;    </span></li>
+<li><a name="a610"></a>&nbsp;</li>
+<li><a name="a611"></a>    <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$ccquery</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a612"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a613"></a>        <span class="src-key">if</span><span class="src-sym">(</span><span class="src-sym">!</span><a href="http://www.php.net/mysql_numrows">mysql_numrows</a><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a614"></a>            <span class="src-key">return </span><span class="src-id">false</span><span class="src-sym">;</span></li>
+<li><a name="a615"></a>        <span class="src-sym">}</span></li>
+<li><a name="a616"></a>        <span class="src-key">else</span><span class="src-sym">{</span></li>
+<li><a name="a617"></a>            <span class="src-key">while </span><span class="src-sym">(</span><span class="src-var">$q </span>= <a href="http://www.php.net/mysql_fetch_array">mysql_fetch_array</a><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a618"></a>&nbsp;</li>
+<li><a name="a619"></a>                <span class="src-var">$template</span>=<a href="../Interpreter/Engine/_graphnew_php.html#functionfindtemplate">findtemplate</a><span class="src-sym">(</span><span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a620"></a>                <span class="src-var">$inputstarvals</span>=<a href="http://www.php.net/split">split</a><span class="src-sym">(</span><span class="src-str">&quot;,&quot;</span><span class="src-sym">,</span><span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">1</span><span class="src-sym">]</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a621"></a>                <span class="src-var">$thatstarvals</span>=<a href="http://www.php.net/split">split</a><span class="src-sym">(</span><span class="src-str">&quot;,&quot;</span><span class="src-sym">,</span><span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">2</span><span class="src-sym">]</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a622"></a>                <span class="src-var">$topicstarvals</span>=<a href="http://www.php.net/split">split</a><span class="src-sym">(</span><span class="src-str">&quot;,&quot;</span><span class="src-sym">,</span><span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">3</span><span class="src-sym">]</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a623"></a>                <span class="src-var">$patternmatched</span>=<span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">4</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a624"></a>                <span class="src-var">$inputmatched</span>=<span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">5</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a625"></a>                </li>
+<li><a name="a626"></a>                <span class="src-key">return </span><span class="src-id">true</span><span class="src-sym">;</span></li>
+<li><a name="a627"></a>            <span class="src-sym">}</span></li>
+<li><a name="a628"></a>        <span class="src-sym">}</span></li>
+<li><a name="a629"></a>    <span class="src-sym">}</span></li>
+<li><a name="a630"></a>&nbsp;</li>
+<li><a name="a631"></a>    <span class="src-key">return </span><span class="src-id">false</span><span class="src-sym">;</span></li>
+<li><a name="a632"></a>&nbsp;</li>
+<li><a name="a633"></a><span class="src-sym">}</span></li>
+<li><a name="a634"></a>&nbsp;</li>
+<li><a name="a635"></a>&nbsp;</li>
+<li><a name="a636"></a><span class="src-doc">/**</span></li>
+<li><a name="a637"></a><span class="src-doc">* Add an entry in the GMcache table</span></li>
+<li><a name="a638"></a><span class="src-doc">*</span></li>
+<li><a name="a639"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">integer </span><span class="src-doc">                 The selected bot.</span></li>
+<li><a name="a640"></a><span class="src-doc">*</span></li>
+<li><a name="a641"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$combined </span><span class="src-doc">                 the complete input in &lt;input&gt;word word&lt;that&gt;word word&lt;topic&gt;word word format.</span></li>
+<li><a name="a642"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$mytemplate </span><span class="src-doc">               the reply to the input</span></li>
+<li><a name="a643"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$inputstarvals </span><span class="src-doc">            contents of the input star</span></li>
+<li><a name="a644"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$thatstarvals </span><span class="src-doc">             contents of the that star</span></li>
+<li><a name="a645"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$topicstarvals </span><span class="src-doc">            contents of the topic star</span></li>
+<li><a name="a646"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$patternmatched </span><span class="src-doc">           the AIML category pattern that matches the input</span></li>
+<li><a name="a647"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$inputmatched </span><span class="src-doc">             the input that matched the category.</span></li>
+<li><a name="a648"></a><span class="src-doc">*</span></li>
+<li><a name="a649"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">void </span></li>
+<li><a name="a650"></a><span class="src-doc">*/</span></li>
+<li><a name="a651"></a><span class="src-key">function </span><a href="../Interpreter/Engine/_graphnew_php.html#functionfillcache">fillcache</a><span class="src-sym">(</span><span class="src-var">$combined</span><span class="src-sym">,</span><span class="src-var">$mytemplate</span><span class="src-sym">,</span><span class="src-var">$inputstarvals</span><span class="src-sym">,</span><span class="src-var">$thatstarvals</span><span class="src-sym">,</span><span class="src-var">$topicstarvals</span><span class="src-sym">,</span><span class="src-var">$patternmatched</span><span class="src-sym">,</span><span class="src-var">$inputmatched</span><span class="src-sym">)</span></li>
+<li><a name="a652"></a><span class="src-sym">{</span></li>
+<li><a name="a653"></a>    <span class="src-key">global </span><span class="src-var">$selectbot</span><span class="src-sym">;    </span></li>
+<li><a name="a654"></a>    </li>
+<li><a name="a655"></a>    <span class="src-var">$ccquery</span>=<span class="src-str">&quot;</span><span class="src-str"><span class="src-id">insert</span> <span class="src-id">into</span> <span class="src-id">gmcache</span> (<span class="src-id">bot</span>, <span class="src-id">combined</span>,<span class="src-id">template</span>,<span class="src-id">inputstarvals</span>,<span class="src-id">thatstarvals</span>,<span class="src-id">topicstarvals</span>,<span class="src-id">patternmatched</span>,<span class="src-id">inputmatched</span>) <span class="src-id">values</span> (<span class="src-var">$selectbot</span>,'</span><span class="src-str">&quot; </span>. <a href="http://www.php.net/addslashes">addslashes</a><span class="src-sym">(</span><span class="src-var">$combined</span><span class="src-sym">) </span>. <span class="src-str">&quot;',&quot; </span>. <span class="src-var">$mytemplate </span>. <span class="src-str">&quot;,'&quot; </span>. <a href="http://www.php.net/addslashes">addslashes</a><span class="src-sym">(</span><a href="../Interpreter/Engine/_graphnew_php.html#functionarraytostring">arraytostring</a><span class="src-sym">(</span><span class="src-var">$inputstarvals</span><span class="src-sym">)) </span>. <span class="src-str">&quot;','&quot; </span>. <a href="http://www.php.net/addslashes">addslashes</a><span class="src-sym">(</span><a href="../Interpreter/Engine/_graphnew_php.html#functionarraytostring">arraytostring</a><span class="src-sym">(</span><span class="src-var">$thatstarvals</span><span class="src-sym">)) </span>. <span class="src-str">&quot;','&quot; </span>. <a href="http://www.php.net/addslashes">addslashes</a><span class="src-sym">(</span><a href="../Interpreter/Engine/_graphnew_php.html#functionarraytostring">arraytostring</a><span class="src-sym">(</span><span class="src-var">$topicstarvals</span><span class="src-sym">)) </span>. <span class="src-str">&quot;','&quot; </span>. <a href="http://www.php.net/addslashes">addslashes</a><span class="src-sym">(</span><span class="src-var">$patternmatched</span><span class="src-sym">) </span>. <span class="src-str">&quot;','&quot; </span>. <a href="http://www.php.net/addslashes">addslashes</a><span class="src-sym">(</span><span class="src-var">$inputmatched</span><span class="src-sym">) </span>. <span class="src-str">&quot;')&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a656"></a>&nbsp;</li>
+<li><a name="a657"></a>    <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$ccquery</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a658"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a659"></a>    <span class="src-sym">}</span></li>
+<li><a name="a660"></a>&nbsp;</li>
+<li><a name="a661"></a><span class="src-sym">}</span></li>
+<li><a name="a662"></a>&nbsp;</li>
+<li><a name="a663"></a>&nbsp;</li>
+<li><a name="a664"></a><span class="src-doc">/**</span></li>
+<li><a name="a665"></a><span class="src-doc">* Turn an array into a string</span></li>
+<li><a name="a666"></a><span class="src-doc">*</span></li>
+<li><a name="a667"></a><span class="src-doc">* take each element of the array and put all of them into one big string; one after the other.</span></li>
+<li><a name="a668"></a><span class="src-doc">*</span></li>
+<li><a name="a669"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">array </span><span class="src-doc-var">$myarray </span></li>
+<li><a name="a670"></a><span class="src-doc">* </span></li>
+<li><a name="a671"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">string </span><span class="src-doc">                        the contents of the array into a string.</span></li>
+<li><a name="a672"></a><span class="src-doc">*/</span></li>
+<li><a name="a673"></a><span class="src-key">function </span><a href="../Interpreter/Engine/_graphnew_php.html#functionarraytostring">arraytostring</a><span class="src-sym">(</span><span class="src-var">$myarray</span><span class="src-sym">)</span></li>
+<li><a name="a674"></a><span class="src-sym">{</span></li>
+<li><a name="a675"></a>    <span class="src-var">$retstring</span>=<span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a676"></a>&nbsp;</li>
+<li><a name="a677"></a>    <span class="src-key">for </span><span class="src-sym">(</span><span class="src-var">$x</span>=<span class="src-num">0</span><span class="src-sym">;</span><span class="src-var">$x</span>&lt;<a href="http://www.php.net/sizeof">sizeof</a><span class="src-sym">(</span><span class="src-var">$myarray</span><span class="src-sym">)</span><span class="src-sym">;</span><span class="src-var">$x</span>++<span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a678"></a>        <span class="src-var">$retstring </span>.= <span class="src-var">$myarray</span><span class="src-sym">[</span><span class="src-var">$x</span><span class="src-sym">] </span>. <span class="src-str">&quot;,&quot;</span><span class="src-sym">;    </span></li>
+<li><a name="a679"></a>    <span class="src-sym">}</span></li>
+<li><a name="a680"></a>&nbsp;</li>
+<li><a name="a681"></a>    <span class="src-var">$retstring</span>=<a href="http://www.php.net/substr">substr</a><span class="src-sym">(</span><span class="src-var">$retstring</span><span class="src-sym">,</span><span class="src-num">0</span><span class="src-sym">,</span><a href="http://www.php.net/strlen">strlen</a><span class="src-sym">(</span><span class="src-var">$retstring</span><span class="src-sym">)</span>-<span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a682"></a>&nbsp;</li>
+<li><a name="a683"></a>    <span class="src-key">return </span><span class="src-var">$retstring</span><span class="src-sym">;</span></li>
+<li><a name="a684"></a>&nbsp;</li>
+<li><a name="a685"></a><span class="src-sym">}</span></li>
+<li><a name="a686"></a>&nbsp;</li>
+<li><a name="a687"></a><span class="src-php">?&gt;</span></li>
+</ol></pre>
+</div>
+	<p class="notes" id="credit">
+		Documentation generated on Wed, 12 Jan 2005 12:24:47 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.3.0RC3</a>
+	</p>
+	</body>
+</html>

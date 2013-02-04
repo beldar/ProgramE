@@ -1,0 +1,1021 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos  -->
+			<title>File Source for util.php</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+											</head>
+		<body>
+						<h1>Source for file util.php</h1>
+<p>Documentation is available at <a href="../Interpreter/_util_php.html">util.php</a></p>
+<div class="src-code">
+<pre><ol><li><a name="a1"></a><span class="src-php">&lt;?php</span></li>
+<li><a name="a2"></a>&nbsp;</li>
+<li><a name="a3"></a><span class="src-comm">/*</span></li>
+<li><a name="a4"></a><span class="src-comm">    Program E</span></li>
+<li><a name="a5"></a><span class="src-comm">    Copyright 2002, Paul Rydell</span></li>
+<li><a name="a6"></a>    </li>
+<li><a name="a7"></a><span class="src-comm">    This file is part of Program E.</span></li>
+<li><a name="a8"></a>    </li>
+<li><a name="a9"></a><span class="src-comm">    Program E is free software; you can redistribute it and/or modify</span></li>
+<li><a name="a10"></a><span class="src-comm">    it under the terms of the GNU General Public License as published by</span></li>
+<li><a name="a11"></a><span class="src-comm">    the Free Software Foundation; either version 2 of the License, or</span></li>
+<li><a name="a12"></a><span class="src-comm">    (at your option) any later version.</span></li>
+<li><a name="a13"></a>&nbsp;</li>
+<li><a name="a14"></a><span class="src-comm">    Program E is distributed in the hope that it will be useful,</span></li>
+<li><a name="a15"></a><span class="src-comm">    but WITHOUT ANY WARRANTY; without even the implied warranty of</span></li>
+<li><a name="a16"></a><span class="src-comm">    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></li>
+<li><a name="a17"></a><span class="src-comm">    GNU General Public License for more details.</span></li>
+<li><a name="a18"></a>&nbsp;</li>
+<li><a name="a19"></a><span class="src-comm">    You should have received a copy of the GNU General Public License</span></li>
+<li><a name="a20"></a><span class="src-comm">    along with Program E; if not, write to the Free Software</span></li>
+<li><a name="a21"></a><span class="src-comm">    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</span></li>
+<li><a name="a22"></a><span class="src-comm">*/</span></li>
+<li><a name="a23"></a>&nbsp;</li>
+<li><a name="a24"></a><span class="src-doc">/**</span></li>
+<li><a name="a25"></a><span class="src-doc"> * Util.php, Utility functions</span></li>
+<li><a name="a26"></a><span class="src-doc"> * </span></li>
+<li><a name="a27"></a><span class="src-doc"> * Contains reusable functions for Program E</span></li>
+<li><a name="a28"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@author</span><span class="src-doc"> Paul Rydell</span></li>
+<li><a name="a29"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@copyright</span><span class="src-doc"> 2002</span></li>
+<li><a name="a30"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@version</span><span class="src-doc"> 0.0.8</span></li>
+<li><a name="a31"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@license</span><span class="src-doc"> http://opensource.org/licenses/gpl-license.php GNU Public License</span></li>
+<li><a name="a32"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@package</span><span class="src-doc"> Interpreter</span></li>
+<li><a name="a33"></a><span class="src-doc"> */</span></li>
+<li><a name="a34"></a>&nbsp;</li>
+<li><a name="a35"></a>&nbsp;</li>
+<li><a name="a36"></a>&nbsp;</li>
+<li><a name="a37"></a><span class="src-doc">/**</span></li>
+<li><a name="a38"></a><span class="src-doc"> * Class to hold the reponse</span></li>
+<li><a name="a39"></a><span class="src-doc"> * </span></li>
+<li><a name="a40"></a><span class="src-doc"> * Container class to hold response, input error and a bunch of other</span></li>
+<li><a name="a41"></a><span class="src-doc"> * bits of information that is used in other functions</span></li>
+<li><a name="a42"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@author</span><span class="src-doc"> Paul Rydell</span></li>
+<li><a name="a43"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@copyright</span><span class="src-doc"> 2002</span></li>
+<li><a name="a44"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@version</span><span class="src-doc"> 0.0.8</span></li>
+<li><a name="a45"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@package</span><span class="src-doc"> Interpreter</span></li>
+<li><a name="a46"></a><span class="src-doc"> */</span></li>
+<li><a name="a47"></a><span class="src-key">class </span><a href="../Interpreter/Response.html">Response</a></li>
+<li><a name="a48"></a><span class="src-sym">{</span></li>
+<li><a name="a49"></a>    <span class="src-key">var </span><a href="../Interpreter/Response.html#var$response">$response</a><span class="src-sym">;</span></li>
+<li><a name="a50"></a>    <span class="src-key">var </span><a href="../Interpreter/Response.html#var$patternsmatched">$patternsmatched</a><span class="src-sym">;</span></li>
+<li><a name="a51"></a>    <span class="src-key">var </span><a href="../Interpreter/Response.html#var$inputs">$inputs</a><span class="src-sym">;</span></li>
+<li><a name="a52"></a>    <span class="src-key">var </span><a href="../Interpreter/Response.html#var$errors">$errors</a><span class="src-sym">;</span></li>
+<li><a name="a53"></a>    <span class="src-key">var </span><a href="../Interpreter/Response.html#var$timer">$timer</a><span class="src-sym">;</span></li>
+<li><a name="a54"></a><span class="src-sym">}</span></li>
+<li><a name="a55"></a>&nbsp;</li>
+<li><a name="a56"></a><span class="src-doc">/**</span></li>
+<li><a name="a57"></a><span class="src-doc">* subs.inc has all of the substitution values and sentence splitter values</span></li>
+<li><a name="a58"></a><span class="src-doc">*/</span></li>
+<li><a name="a59"></a><span class="src-inc">require_once </span><span class="src-str">&quot;admin/subs.inc&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a60"></a>&nbsp;</li>
+<li><a name="a61"></a><span class="src-comm">// Initialize information for search replace routines</span></li>
+<li><a name="a62"></a><span class="src-var">$replacecounter</span>=<span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a63"></a><span class="src-var">$aftersearch</span>=<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a64"></a><span class="src-var">$afterreplace</span>=<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a65"></a>&nbsp;</li>
+<li><a name="a66"></a>&nbsp;</li>
+<li><a name="a67"></a><span class="src-doc">/**</span></li>
+<li><a name="a68"></a><span class="src-doc">* Create a random number based upon the present time.</span></li>
+<li><a name="a69"></a><span class="src-doc">*</span></li>
+<li><a name="a70"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">float </span><span class="src-doc">      A fully random generated floating point number.</span></li>
+<li><a name="a71"></a><span class="src-doc">*/</span></li>
+<li><a name="a72"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functionmake_seed">make_seed</a><span class="src-sym">(</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a73"></a>    list<span class="src-sym">(</span><span class="src-var">$usec</span><span class="src-sym">, </span><span class="src-var">$sec</span><span class="src-sym">) </span>= <a href="http://www.php.net/explode">explode</a><span class="src-sym">(</span><span class="src-str">' '</span><span class="src-sym">, </span><a href="http://www.php.net/microtime">microtime</a><span class="src-sym">(</span><span class="src-sym">))</span><span class="src-sym">;</span></li>
+<li><a name="a74"></a>    <span class="src-key">return </span>(float) <span class="src-var">$sec </span>+ <span class="src-sym">(</span>(float) <span class="src-var">$usec </span>* <span class="src-num">100000</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a75"></a><span class="src-sym">}</span></li>
+<li><a name="a76"></a>&nbsp;</li>
+<li><a name="a77"></a><span class="src-doc">/**</span></li>
+<li><a name="a78"></a><span class="src-doc">* This function will clean up old data in the database that is not</span></li>
+<li><a name="a79"></a><span class="src-doc">* needed according to user defined settings.</span></li>
+<li><a name="a80"></a><span class="src-doc">*</span></li>
+<li><a name="a81"></a><span class="src-doc">* Deletes entries in the database tables dstore, thatstack, thatstackindex</span></li>
+<li><a name="a82"></a><span class="src-doc">* and if set also conversationlog.</span></li>
+<li><a name="a83"></a><span class="src-doc">*</span></li>
+<li><a name="a84"></a><span class="src-doc">* </span><span class="src-doc-coretag">@uses</span><span class="src-doc"> make_seed()</span></li>
+<li><a name="a85"></a><span class="src-doc">*</span></li>
+<li><a name="a86"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">void </span><span class="src-doc">       nothing, deletes database entires</span></li>
+<li><a name="a87"></a><span class="src-doc">*/</span></li>
+<li><a name="a88"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functioncleanup">cleanup</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a89"></a>&nbsp;</li>
+<li><a name="a90"></a>    <span class="src-key">if </span><span class="src-sym">((</span><span class="src-id"><a href="../Settings/_admin_dbprefs_php.html#defineRANDOMCHANCECLEAN">RANDOMCHANCECLEAN</a> </span>== -<span class="src-num">1</span><span class="src-sym">) </span>|| <span class="src-sym">(</span><span class="src-id"><a href="../Settings/_admin_dbprefs_php.html#defineMINUTESTOKEEPDATA">MINUTESTOKEEPDATA</a> </span>== -<span class="src-num">1</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a91"></a>        <span class="src-key">return</span><span class="src-sym">;</span></li>
+<li><a name="a92"></a>    <span class="src-sym">}</span></li>
+<li><a name="a93"></a>&nbsp;</li>
+<li><a name="a94"></a>    <a href="http://www.php.net/mt_srand">mt_srand</a><span class="src-sym">(</span><a href="../Interpreter/_util_php.html#functionmake_seed">make_seed</a><span class="src-sym">(</span><span class="src-sym">))</span><span class="src-sym">;</span></li>
+<li><a name="a95"></a>    <span class="src-var">$randval </span>= <a href="http://www.php.net/mt_rand">mt_rand</a><span class="src-sym">(</span><span class="src-num">1</span><span class="src-sym">,</span><span class="src-id"><a href="../Settings/_admin_dbprefs_php.html#defineRANDOMCHANCECLEAN">RANDOMCHANCECLEAN</a></span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a96"></a>&nbsp;</li>
+<li><a name="a97"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$randval</span>==<span class="src-id"><a href="../Settings/_admin_dbprefs_php.html#defineRANDOMCHANCECLEAN">RANDOMCHANCECLEAN</a></span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a98"></a>&nbsp;</li>
+<li><a name="a99"></a>        <span class="src-key">if </span><span class="src-sym">(</span><span class="src-id"><a href="../Settings/_admin_dbprefs_php.html#defineMINUTESTOKEEPDATA">MINUTESTOKEEPDATA</a> </span>!= -<span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a100"></a>        </li>
+<li><a name="a101"></a>            <span class="src-var">$clean_dstore</span>=<span class="src-str">&quot;delete from dstore where enteredtime &lt; date_add(now(), interval - &quot; </span>. <span class="src-id"><a href="../Settings/_admin_dbprefs_php.html#defineMINUTESTOKEEPDATA">MINUTESTOKEEPDATA</a> </span>. <span class="src-str">&quot; minute)&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a102"></a>            <span class="src-var">$clean_thatstack</span>=<span class="src-str">&quot;delete from thatstack where enteredtime &lt; date_add(now(), interval - &quot; </span>. <span class="src-id"><a href="../Settings/_admin_dbprefs_php.html#defineMINUTESTOKEEPDATA">MINUTESTOKEEPDATA</a> </span>. <span class="src-str">&quot; minute)&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a103"></a>            <span class="src-var">$clean_thatindex</span>=<span class="src-str">&quot;delete from thatindex where enteredtime &lt; date_add(now(), interval - &quot; </span>. <span class="src-id"><a href="../Settings/_admin_dbprefs_php.html#defineMINUTESTOKEEPDATA">MINUTESTOKEEPDATA</a> </span>. <span class="src-str">&quot; minute)&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a104"></a>&nbsp;</li>
+<li><a name="a105"></a>            <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$clean_dstore</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a106"></a>            <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a107"></a>            <span class="src-sym">}</span></li>
+<li><a name="a108"></a>            <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$clean_thatstack</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a109"></a>            <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a110"></a>            <span class="src-sym">}</span></li>
+<li><a name="a111"></a>            <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$clean_thatindex</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a112"></a>            <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a113"></a>            <span class="src-sym">}</span></li>
+<li><a name="a114"></a>&nbsp;</li>
+<li><a name="a115"></a>        <span class="src-sym">}</span></li>
+<li><a name="a116"></a>        </li>
+<li><a name="a117"></a>        <span class="src-key">if </span><span class="src-sym">(</span><span class="src-id"><a href="../Settings/_admin_dbprefs_php.html#defineMINUTESTOKEEPCHATLOG">MINUTESTOKEEPCHATLOG</a> </span>!= -<span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a118"></a>            </li>
+<li><a name="a119"></a>            <span class="src-var">$clean_convlog</span>=<span class="src-str">&quot;delete from conversationlog where enteredtime &lt; date_add(now(), interval - &quot; </span>. <span class="src-id"><a href="../Settings/_admin_dbprefs_php.html#defineMINUTESTOKEEPCHATLOG">MINUTESTOKEEPCHATLOG</a> </span>. <span class="src-str">&quot; minute) and &quot; </span>. <a href="../Interpreter/_util_php.html#functionwhichbots">whichbots</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a120"></a>&nbsp;</li>
+<li><a name="a121"></a>            <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$clean_convlog</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a122"></a>            <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a123"></a>            <span class="src-sym">}</span></li>
+<li><a name="a124"></a>&nbsp;</li>
+<li><a name="a125"></a>        <span class="src-sym">}</span></li>
+<li><a name="a126"></a>&nbsp;</li>
+<li><a name="a127"></a>    <span class="src-sym">}</span></li>
+<li><a name="a128"></a>&nbsp;</li>
+<li><a name="a129"></a><span class="src-sym">}</span></li>
+<li><a name="a130"></a>&nbsp;</li>
+<li><a name="a131"></a><span class="src-doc">/**</span></li>
+<li><a name="a132"></a><span class="src-doc">* Check if a tag is an old style AIML tag.</span></li>
+<li><a name="a133"></a><span class="src-doc">* </span></li>
+<li><a name="a134"></a><span class="src-doc">* If it is then return its new name and the fact that it is deprecated. This</span></li>
+<li><a name="a135"></a><span class="src-doc">* information is not send back through the return value, but by using call-by-reference</span></li>
+<li><a name="a136"></a><span class="src-doc">* variable &amp;$ttag.</span></li>
+<li><a name="a137"></a><span class="src-doc">* </span></li>
+<li><a name="a138"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$tag </span><span class="src-doc">    the tag name that needs to be checked</span></li>
+<li><a name="a139"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">&amp;$ttag </span><span class="src-doc">  depreciated AIML tag name. Note, call-by-reference variable.</span></li>
+<li><a name="a140"></a><span class="src-doc">* </span></li>
+<li><a name="a141"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">boolean </span><span class="src-doc">       true/false; either it is a depreciated AIML tag or it is not.</span></li>
+<li><a name="a142"></a><span class="src-doc">*/</span></li>
+<li><a name="a143"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functionisdeprecated">isdeprecated</a><span class="src-sym">(</span><span class="src-var">$tag</span><span class="src-sym">,</span><span class="src-sym">&amp;</span><span class="src-var">$ttag</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a144"></a>&nbsp;</li>
+<li><a name="a145"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$tag</span>==<span class="src-str">&quot;FOR_FUN&quot;</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a146"></a>        <span class="src-var">$tag</span>=<span class="src-str">&quot;FORFUN&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a147"></a>    <span class="src-sym">}</span></li>
+<li><a name="a148"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$tag</span>==<span class="src-str">&quot;BOTMASTER&quot;</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a149"></a>        <span class="src-var">$tag</span>=<span class="src-str">&quot;MASTER&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a150"></a>    <span class="src-sym">}</span></li>
+<li><a name="a151"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$tag</span>==<span class="src-str">&quot;KIND_MUSIC&quot;</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a152"></a>        <span class="src-var">$tag</span>=<span class="src-str">&quot;KINDMUSIC&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a153"></a>    <span class="src-sym">}</span></li>
+<li><a name="a154"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$tag</span>==<span class="src-str">&quot;LOOK_LIKE&quot;</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a155"></a>        <span class="src-var">$tag</span>=<span class="src-str">&quot;LOOKLIKE&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a156"></a>    <span class="src-sym">}</span></li>
+<li><a name="a157"></a>&nbsp;</li>
+<li><a name="a158"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$tag</span>==<span class="src-str">&quot;TALK_ABOUT&quot;</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a159"></a>        <span class="src-var">$tag</span>=<span class="src-str">&quot;TALKABOUT&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a160"></a>    <span class="src-sym">}    </span></li>
+<li><a name="a161"></a>    <span class="src-var">$deptags</span>=<span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">&quot;NAME&quot;</span><span class="src-sym">,</span><span class="src-str">&quot;BIRTHDAY&quot;</span><span class="src-sym">,</span><span class="src-str">&quot;BIRTHPLACE&quot;</span><span class="src-sym">,</span><span class="src-str">&quot;BOYFRIEND&quot;</span><span class="src-sym">,</span><span class="src-str">&quot;FAVORITEBAND&quot;</span><span class="src-sym">,</span><span class="src-str">&quot;FAVORITEBOOK&quot;</span><span class="src-sym">,</span><span class="src-str">&quot;FAVORITECOLOR&quot;</span><span class="src-sym">,</span><span class="src-str">&quot;FAVORITEFOOD&quot;</span><span class="src-sym">,</span><span class="src-str">&quot;FAVORITESONG&quot;</span><span class="src-sym">,</span><span class="src-str">&quot;FAVORITEMOVIE&quot;</span><span class="src-sym">,</span><span class="src-str">&quot;FORFUN&quot;</span><span class="src-sym">,</span><span class="src-str">&quot;FRIENDS&quot;</span><span class="src-sym">,</span><span class="src-str">&quot;GIRLFRIEND&quot;</span><span class="src-sym">,</span><span class="src-str">&quot;KINDMUSIC&quot;</span><span class="src-sym">,</span><span class="src-str">&quot;LOCATION&quot;</span><span class="src-sym">,</span><span class="src-str">&quot;LOOKLIKE&quot;</span><span class="src-sym">,</span><span class="src-str">&quot;MASTER&quot;</span><span class="src-sym">,</span><span class="src-str">&quot;QUESTION&quot;</span><span class="src-sym">,</span><span class="src-str">&quot;SIGN&quot;</span><span class="src-sym">,</span><span class="src-str">&quot;TALKABOUT&quot;</span><span class="src-sym">,</span><span class="src-str">&quot;WEAR&quot;</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a162"></a>&nbsp;</li>
+<li><a name="a163"></a>    <span class="src-key">if </span><span class="src-sym">(</span><a href="http://www.php.net/in_array">in_array</a><span class="src-sym">(</span><span class="src-var">$tag</span><span class="src-sym">,</span><span class="src-var">$deptags</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a164"></a>        <span class="src-var">$ttag</span>=<span class="src-var">$tag</span><span class="src-sym">;</span></li>
+<li><a name="a165"></a>        <span class="src-key">return </span><span class="src-id">true</span><span class="src-sym">;</span></li>
+<li><a name="a166"></a>    <span class="src-sym">}</span></li>
+<li><a name="a167"></a>    <span class="src-key">else </span><span class="src-sym">{</span></li>
+<li><a name="a168"></a>        <span class="src-key">return </span><span class="src-id">false</span><span class="src-sym">;</span></li>
+<li><a name="a169"></a>    <span class="src-sym">}</span></li>
+<li><a name="a170"></a>&nbsp;</li>
+<li><a name="a171"></a><span class="src-sym">}</span></li>
+<li><a name="a172"></a>&nbsp;</li>
+<li><a name="a173"></a><span class="src-doc">/**</span></li>
+<li><a name="a174"></a><span class="src-doc">* Substitution routine</span></li>
+<li><a name="a175"></a><span class="src-doc">*</span></li>
+<li><a name="a176"></a><span class="src-doc">* Is used in combination with for example </span><span class="src-doc-inlinetag">{@link firstthird()}</span><span class="src-doc"> </span><span class="src-doc-inlinetag">{@link gender()}</span><span class="src-doc">. The myfunc() is called from these functions from the arrays generated in </span><span class="src-doc-inlinetag">{@link subs.inc}</span><span class="src-doc"> by </span><span class="src-doc-inlinetag">{@link makesrphp()}</span><span class="src-doc">.</span></li>
+<li><a name="a177"></a><span class="src-doc">*</span></li>
+<li><a name="a178"></a><span class="src-doc">* When doing substitution myfunc replaces the words to be substituted with ~~x~~</span></li>
+<li><a name="a179"></a><span class="src-doc">* where x is an incremented integer instead of what should eventually be substituted.</span></li>
+<li><a name="a180"></a><span class="src-doc">* Then when all substitution is done another function will go through and replace the</span></li>
+<li><a name="a181"></a><span class="src-doc">* ~~x~~ with the real value.</span></li>
+<li><a name="a182"></a><span class="src-doc">*</span></li>
+<li><a name="a183"></a><span class="src-doc">* </span><span class="src-doc-coretag">@todo</span><span class="src-doc"> Analyse if a straight replace will be more effective and efficient. Hard to see why this two-stage replace has any advantages. If not, then rename the function.</span></li>
+<li><a name="a184"></a><span class="src-doc">*</span></li>
+<li><a name="a185"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">integer </span><span class="src-doc">replacecounter  The incremented integer number for substitution.</span></li>
+<li><a name="a186"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span><span class="src-doc">aftersearch       Contains ~~replacecounter number~~</span></li>
+<li><a name="a187"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span><span class="src-doc">afterreplace      Countains the input. (Anne:Have no idea how this works, yet.)</span></li>
+<li><a name="a188"></a><span class="src-doc">*</span></li>
+<li><a name="a189"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$input </span><span class="src-doc">   The new word replacing the old word.</span></li>
+<li><a name="a190"></a><span class="src-doc">*</span></li>
+<li><a name="a191"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">string </span><span class="src-doc">         The user's input, with ~~number~~ where the words in the substitution list</span></li>
+<li><a name="a192"></a><span class="src-doc">*                          should be.</span></li>
+<li><a name="a193"></a><span class="src-doc">*/</span></li>
+<li><a name="a194"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functionmyfunc">myfunc</a><span class="src-sym">(</span><span class="src-var">$input</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a195"></a>    </li>
+<li><a name="a196"></a>    <span class="src-key">global </span><span class="src-var">$replacecounter</span><span class="src-sym">,</span><span class="src-var">$aftersearch</span><span class="src-sym">,</span><span class="src-var">$afterreplace</span><span class="src-sym">;</span></li>
+<li><a name="a197"></a>&nbsp;</li>
+<li><a name="a198"></a>    <span class="src-var">$aftersearch</span><span class="src-sym">[</span><span class="src-sym">]</span>=<span class="src-str">&quot;~~&quot; </span>. <span class="src-var">$replacecounter </span>. <span class="src-str">&quot;~~&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a199"></a>    <span class="src-var">$afterreplace</span><span class="src-sym">[</span><span class="src-sym">]</span>=<span class="src-var">$input</span><span class="src-sym">;</span></li>
+<li><a name="a200"></a>&nbsp;</li>
+<li><a name="a201"></a>    <span class="src-key">return </span><span class="src-str">&quot;~~&quot; </span>. <span class="src-var">$replacecounter</span>++ . <span class="src-str">&quot;~~&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a202"></a>&nbsp;</li>
+<li><a name="a203"></a><span class="src-sym">}</span></li>
+<li><a name="a204"></a>&nbsp;</li>
+<li><a name="a205"></a><span class="src-doc">/**</span></li>
+<li><a name="a206"></a><span class="src-doc">* Get the ID, or IP of the user</span></li>
+<li><a name="a207"></a><span class="src-doc">*</span></li>
+<li><a name="a208"></a><span class="src-doc">* Uses the server global REMOTE_ADDR.</span></li>
+<li><a name="a209"></a><span class="src-doc">* </span></li>
+<li><a name="a210"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">REMOTE_ADDR </span><span class="src-doc">    The user's remote address, i.e. LAN address.</span></li>
+<li><a name="a211"></a><span class="src-doc">*</span></li>
+<li><a name="a212"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">string </span><span class="src-doc">         IP number</span></li>
+<li><a name="a213"></a><span class="src-doc">*/</span></li>
+<li><a name="a214"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functiongetid">getid</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a215"></a>&nbsp;</li>
+<li><a name="a216"></a>    <span class="src-key">return </span><a href="http://www.php.net/getenv">getenv</a><span class="src-sym">(</span><span class="src-str">&quot;REMOTE_ADDR&quot;</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a217"></a>&nbsp;</li>
+<li><a name="a218"></a><span class="src-sym">}</span></li>
+<li><a name="a219"></a>&nbsp;</li>
+<li><a name="a220"></a><span class="src-doc">/**</span></li>
+<li><a name="a221"></a><span class="src-doc">* get the current date formatted.</span></li>
+<li><a name="a222"></a><span class="src-doc">*</span></li>
+<li><a name="a223"></a><span class="src-doc">* Should look like: Wed Nov 14 18:09:55 CST 2002</span></li>
+<li><a name="a224"></a><span class="src-doc">*</span></li>
+<li><a name="a225"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">string </span><span class="src-doc">         formated date string, Day name, Month name, day number month, time, time zone and year.</span></li>
+<li><a name="a226"></a><span class="src-doc">*</span></li>
+<li><a name="a227"></a><span class="src-doc">*/</span></li>
+<li><a name="a228"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functiongetfdate">getfdate</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a229"></a>&nbsp;</li>
+<li><a name="a230"></a>    <span class="src-key">return </span><a href="http://www.php.net/date">date</a><span class="src-sym">(</span><span class="src-str">&quot;D M j G:i:s T Y&quot;</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a231"></a>&nbsp;</li>
+<li><a name="a232"></a><span class="src-sym">}</span></li>
+<li><a name="a233"></a>&nbsp;</li>
+<li><a name="a234"></a><span class="src-doc">/**</span></li>
+<li><a name="a235"></a><span class="src-doc">* Gets the numer of AIML categories stored in the database</span></li>
+<li><a name="a236"></a><span class="src-doc">*</span></li>
+<li><a name="a237"></a><span class="src-doc">* The size of the AIML knowledgebase is counted in categories. This function</span></li>
+<li><a name="a238"></a><span class="src-doc">* will count the number of categories based upon the number of records in the</span></li>
+<li><a name="a239"></a><span class="src-doc">* templates table.</span></li>
+<li><a name="a240"></a><span class="src-doc">*</span></li>
+<li><a name="a241"></a><span class="src-doc">* </span><span class="src-doc-coretag">@uses</span><span class="src-doc"> whichbots()</span></li>
+<li><a name="a242"></a><span class="src-doc">*</span></li>
+<li><a name="a243"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">integer </span><span class="src-doc">        the number of templates in the template database.</span></li>
+<li><a name="a244"></a><span class="src-doc">*/</span></li>
+<li><a name="a245"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functiongetsize">getsize</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a246"></a>&nbsp;</li>
+<li><a name="a247"></a>    <span class="src-var">$query</span>=<span class="src-str">&quot;select count(*) from templates where &quot; </span>. <a href="../Interpreter/_util_php.html#functionwhichbots">whichbots</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;    </span></li>
+<li><a name="a248"></a>&nbsp;</li>
+<li><a name="a249"></a>    <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a250"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a251"></a>        <span class="src-key">if</span><span class="src-sym">(</span><span class="src-sym">!</span><a href="http://www.php.net/mysql_numrows">mysql_numrows</a><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a252"></a>            <span class="src-key">return </span><span class="src-num">0</span><span class="src-sym">;</span></li>
+<li><a name="a253"></a>        <span class="src-sym">}</span></li>
+<li><a name="a254"></a>        <span class="src-key">else</span><span class="src-sym">{</span></li>
+<li><a name="a255"></a>            <span class="src-key">while </span><span class="src-sym">(</span><span class="src-var">$q </span>= <a href="http://www.php.net/mysql_fetch_array">mysql_fetch_array</a><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a256"></a>                <span class="src-key">return </span><span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a257"></a>            <span class="src-sym">}</span></li>
+<li><a name="a258"></a>        <span class="src-sym">}</span></li>
+<li><a name="a259"></a>    <span class="src-sym">}</span></li>
+<li><a name="a260"></a>    <span class="src-key">return </span><span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a261"></a>&nbsp;</li>
+<li><a name="a262"></a><span class="src-sym">}</span></li>
+<li><a name="a263"></a>&nbsp;</li>
+<li><a name="a264"></a><span class="src-doc">/**</span></li>
+<li><a name="a265"></a><span class="src-doc">* Get information about the bot that was entered in the startup.xml</span></li>
+<li><a name="a266"></a><span class="src-doc">*</span></li>
+<li><a name="a267"></a><span class="src-doc">* In startup.xml there are a number of bot-varables called in AIML as &lt;bot name=&quot;foo&quot;/&gt;</span></li>
+<li><a name="a268"></a><span class="src-doc">* These are stored in the table 'bot' and this function retrieves (ex.) the value of</span></li>
+<li><a name="a269"></a><span class="src-doc">* bot-variable &quot;foo&quot;.</span></li>
+<li><a name="a270"></a><span class="src-doc">*</span></li>
+<li><a name="a271"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">integer </span><span class="src-doc">uid            is created in talk.php as $myuniqueid then transformed</span></li>
+<li><a name="a272"></a><span class="src-doc">*                                 in respond.php into $uid by reply()</span></li>
+<li><a name="a273"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">integer </span><span class="src-doc">selectbot     is created in respond.php:replybotname() as $botid</span></li>
+<li><a name="a274"></a><span class="src-doc">*                                 which in return calls reply() that turns it into $selectbot</span></li>
+<li><a name="a275"></a><span class="src-doc">*</span></li>
+<li><a name="a276"></a><span class="src-doc">* </span><span class="src-doc-coretag">@see</span><span class="src-doc"> talk.php</span></li>
+<li><a name="a277"></a><span class="src-doc">* </span><span class="src-doc-coretag">@see</span><span class="src-doc"> reply()</span></li>
+<li><a name="a278"></a><span class="src-doc">* </span><span class="src-doc-coretag">@see</span><span class="src-doc"> replybotname()</span></li>
+<li><a name="a279"></a><span class="src-doc">*</span></li>
+<li><a name="a280"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$name </span><span class="src-doc">           The name of the bot-variable of which the value is requested.</span></li>
+<li><a name="a281"></a><span class="src-doc">*</span></li>
+<li><a name="a282"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">string </span><span class="src-doc">                The value of requested bot variable.</span></li>
+<li><a name="a283"></a><span class="src-doc">*/</span></li>
+<li><a name="a284"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functionbotget">botget</a><span class="src-sym">(</span><span class="src-var">$name</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a285"></a>&nbsp;</li>
+<li><a name="a286"></a>    <span class="src-key">global </span><span class="src-var">$uid</span><span class="src-sym">, </span><span class="src-var">$selectbot</span><span class="src-sym">;        </span></li>
+<li><a name="a287"></a>&nbsp;</li>
+<li><a name="a288"></a>    <span class="src-var">$name</span>=<a href="http://www.php.net/addslashes">addslashes</a><span class="src-sym">(</span><span class="src-var">$name</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a289"></a>&nbsp;</li>
+<li><a name="a290"></a>    <span class="src-var">$query</span>=<span class="src-str">&quot;</span><span class="src-str"><span class="src-id">select</span> <span class="src-id">value</span> <span class="src-id">from</span> <span class="src-id">bot</span> <span class="src-id">where</span> <span class="src-id">name</span>='<span class="src-var">$name</span>' <span class="src-id">and</span> <span class="src-id">bot</span> = <span class="src-var">$selectbot</span></span><span class="src-str">&quot;</span><span class="src-sym">;    </span></li>
+<li><a name="a291"></a>&nbsp;</li>
+<li><a name="a292"></a>    <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a293"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a294"></a>        <span class="src-key">if</span><span class="src-sym">(</span><span class="src-sym">!</span><a href="http://www.php.net/mysql_numrows">mysql_numrows</a><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a295"></a>            <span class="src-key">return </span><span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a296"></a>        <span class="src-sym">}</span></li>
+<li><a name="a297"></a>        <span class="src-key">else</span><span class="src-sym">{</span></li>
+<li><a name="a298"></a>            <span class="src-key">while </span><span class="src-sym">(</span><span class="src-var">$q </span>= <a href="http://www.php.net/mysql_fetch_array">mysql_fetch_array</a><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a299"></a>                <span class="src-key">return </span><span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a300"></a>            <span class="src-sym">}</span></li>
+<li><a name="a301"></a>        <span class="src-sym">}</span></li>
+<li><a name="a302"></a>    <span class="src-sym">}</span></li>
+<li><a name="a303"></a>    <span class="src-key">return </span><span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a304"></a>&nbsp;</li>
+<li><a name="a305"></a><span class="src-sym">}</span></li>
+<li><a name="a306"></a>&nbsp;</li>
+<li><a name="a307"></a><span class="src-doc">/**</span></li>
+<li><a name="a308"></a><span class="src-doc">* Get a value for some variable set by the user in AIML.</span></li>
+<li><a name="a309"></a><span class="src-doc">*</span></li>
+<li><a name="a310"></a><span class="src-doc">* In the template (&lt;template&gt; ... &lt;/template&gt;) variables can be set and used during matching.</span></li>
+<li><a name="a311"></a><span class="src-doc">* after matching these variables are stored in the table dstore. This function retrieves the</span></li>
+<li><a name="a312"></a><span class="src-doc">* value of a stored variable. This type of variable is also called a 'predicate'.</span></li>
+<li><a name="a313"></a><span class="src-doc">*</span></li>
+<li><a name="a314"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">integer </span></li>
+<li><a name="a315"></a><span class="src-doc">*</span></li>
+<li><a name="a316"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">string </span><span class="src-doc">           Either the value of the stored predicate, or the constand default</span></li>
+<li><a name="a317"></a><span class="src-doc">*                            value of a predicate</span></li>
+<li><a name="a318"></a><span class="src-doc">*/</span></li>
+<li><a name="a319"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functionbget">bget</a><span class="src-sym">(</span><span class="src-var">$name</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a320"></a>&nbsp;</li>
+<li><a name="a321"></a>    <span class="src-key">global </span><span class="src-var">$uid</span><span class="src-sym">;</span></li>
+<li><a name="a322"></a>&nbsp;</li>
+<li><a name="a323"></a>    <span class="src-var">$name</span>=<a href="http://www.php.net/addslashes">addslashes</a><span class="src-sym">(</span><span class="src-var">$name</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a324"></a>&nbsp;</li>
+<li><a name="a325"></a>    <span class="src-var">$query</span>=<span class="src-str">&quot;</span><span class="src-str"><span class="src-id">select</span> <span class="src-id">value</span> <span class="src-id">from</span> <span class="src-id">dstore</span> <span class="src-id">where</span> <span class="src-id">name</span>='<span class="src-var">$name</span>' <span class="src-id">and</span> <span class="src-id">uid</span>='<span class="src-var">$uid</span>' <span class="src-id">order</span> <span class="src-id">by</span> <span class="src-id">id</span> <span class="src-id">desc</span> <span class="src-id">limit</span> 1</span><span class="src-str">&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a326"></a>&nbsp;</li>
+<li><a name="a327"></a>    <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a328"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a329"></a>        <span class="src-key">if</span><span class="src-sym">(</span><span class="src-sym">!</span><a href="http://www.php.net/mysql_numrows">mysql_numrows</a><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a330"></a>            <span class="src-key">return </span><span class="src-id"><a href="../Settings/_admin_dbprefs_php.html#defineDEFAULTPREDICATEVALUE">DEFAULTPREDICATEVALUE</a></span><span class="src-sym">;</span></li>
+<li><a name="a331"></a>        <span class="src-sym">}</span></li>
+<li><a name="a332"></a>        <span class="src-key">else</span><span class="src-sym">{</span></li>
+<li><a name="a333"></a>            <span class="src-key">while </span><span class="src-sym">(</span><span class="src-var">$q </span>= <a href="http://www.php.net/mysql_fetch_array">mysql_fetch_array</a><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a334"></a>                <span class="src-key">return </span><span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a335"></a>            <span class="src-sym">}</span></li>
+<li><a name="a336"></a>        <span class="src-sym">}</span></li>
+<li><a name="a337"></a>    <span class="src-sym">}</span></li>
+<li><a name="a338"></a>    <span class="src-key">return </span><span class="src-id"><a href="../Settings/_admin_dbprefs_php.html#defineDEFAULTPREDICATEVALUE">DEFAULTPREDICATEVALUE</a></span><span class="src-sym">;</span></li>
+<li><a name="a339"></a>&nbsp;</li>
+<li><a name="a340"></a><span class="src-sym">}</span></li>
+<li><a name="a341"></a>&nbsp;</li>
+<li><a name="a342"></a><span class="src-doc">/** </span></li>
+<li><a name="a343"></a><span class="src-doc">* Set the value for an AIML variable</span></li>
+<li><a name="a344"></a><span class="src-doc">*</span></li>
+<li><a name="a345"></a><span class="src-doc">* Function to store the variable name and it's contents into the dstore table. It doens't</span></li>
+<li><a name="a346"></a><span class="src-doc">* update the table, just the first insert.</span></li>
+<li><a name="a347"></a><span class="src-doc">*</span></li>
+<li><a name="a348"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">integer </span></li>
+<li><a name="a349"></a><span class="src-doc">*</span></li>
+<li><a name="a350"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$name </span><span class="src-doc">    The name in which the value should be stored</span></li>
+<li><a name="a351"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$value </span><span class="src-doc">   The contents of the variable.</span></li>
+<li><a name="a352"></a><span class="src-doc">* </span></li>
+<li><a name="a353"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">void </span><span class="src-doc">     doesn't return anything</span></li>
+<li><a name="a354"></a><span class="src-doc">*/</span></li>
+<li><a name="a355"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functionbset">bset</a><span class="src-sym">(</span><span class="src-var">$name</span><span class="src-sym">,</span><span class="src-var">$value</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a356"></a>&nbsp;</li>
+<li><a name="a357"></a>    <span class="src-key">global </span><span class="src-var">$uid</span><span class="src-sym">;</span></li>
+<li><a name="a358"></a>&nbsp;</li>
+<li><a name="a359"></a>    <span class="src-var">$value</span>=<a href="http://www.php.net/trim">trim</a><span class="src-sym">(</span><span class="src-var">$value</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a360"></a>    <span class="src-var">$name</span>=<a href="http://www.php.net/addslashes">addslashes</a><span class="src-sym">(</span><span class="src-var">$name</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a361"></a>    <span class="src-var">$value</span>=<a href="http://www.php.net/addslashes">addslashes</a><span class="src-sym">(</span><span class="src-var">$value</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a362"></a>&nbsp;</li>
+<li><a name="a363"></a>    <span class="src-var">$query</span>=<span class="src-str">&quot;</span><span class="src-str"><span class="src-id">insert</span> <span class="src-id">into</span> <span class="src-id">dstore</span> (<span class="src-id">uid</span>,<span class="src-id">name</span>,<span class="src-id">value</span>) <span class="src-id">values</span> ('<span class="src-var">$uid</span>','<span class="src-var">$name</span>','<span class="src-var">$value</span>')</span><span class="src-str">&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a364"></a>    <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a365"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a366"></a>    <span class="src-sym">}</span></li>
+<li><a name="a367"></a>&nbsp;</li>
+<li><a name="a368"></a><span class="src-sym">}</span></li>
+<li><a name="a369"></a>&nbsp;</li>
+<li><a name="a370"></a><span class="src-doc">/**</span></li>
+<li><a name="a371"></a><span class="src-doc">* Store the clients inputs into the database.</span></li>
+<li><a name="a372"></a><span class="src-doc">*</span></li>
+<li><a name="a373"></a><span class="src-doc">* This is an array because it separates on .'s and other sentence splitters. Stores these in the</span></li>
+<li><a name="a374"></a><span class="src-doc">* dstore table of the database.</span></li>
+<li><a name="a375"></a><span class="src-doc">*</span></li>
+<li><a name="a376"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">integer </span></li>
+<li><a name="a377"></a><span class="src-doc">*</span></li>
+<li><a name="a378"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">array </span><span class="src-doc-var">$inputsarray </span><span class="src-doc">  Contains multiple inputs (i.e. sentences) of a user</span></li>
+<li><a name="a379"></a><span class="src-doc">*</span></li>
+<li><a name="a380"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">void </span><span class="src-doc">               nothing</span></li>
+<li><a name="a381"></a><span class="src-doc">*/</span></li>
+<li><a name="a382"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functionaddinputs">addinputs</a><span class="src-sym">(</span><span class="src-var">$inputsarray</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a383"></a>&nbsp;</li>
+<li><a name="a384"></a>    <span class="src-key">global </span><span class="src-var">$uid</span><span class="src-sym">;</span></li>
+<li><a name="a385"></a>&nbsp;</li>
+<li><a name="a386"></a>    <span class="src-var">$query</span>=<span class="src-str">&quot;insert into dstore (uid,name,value) values &quot;</span><span class="src-sym">;</span></li>
+<li><a name="a387"></a>&nbsp;</li>
+<li><a name="a388"></a>    <span class="src-key">for </span><span class="src-sym">(</span><span class="src-var">$x</span>=<span class="src-num">0</span><span class="src-sym">;</span><span class="src-var">$x</span>&lt;<a href="http://www.php.net/sizeof">sizeof</a><span class="src-sym">(</span><span class="src-var">$inputsarray</span><span class="src-sym">)</span><span class="src-sym">;</span><span class="src-var">$x</span>++<span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a389"></a>&nbsp;</li>
+<li><a name="a390"></a>        <span class="src-var">$value</span>=<a href="http://www.php.net/addslashes">addslashes</a><span class="src-sym">(</span><a href="http://www.php.net/trim">trim</a><span class="src-sym">(</span><span class="src-var">$inputsarray</span><span class="src-sym">[</span><span class="src-var">$x</span><span class="src-sym">]</span><span class="src-sym">))</span><span class="src-sym">;</span></li>
+<li><a name="a391"></a>&nbsp;</li>
+<li><a name="a392"></a>        <span class="src-var">$query</span>.=<span class="src-str">&quot;</span><span class="src-str">('<span class="src-var">$uid</span>','<span class="src-id">input</span>','<span class="src-var">$value</span>'),</span><span class="src-str">&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a393"></a>&nbsp;</li>
+<li><a name="a394"></a>    <span class="src-sym">}</span></li>
+<li><a name="a395"></a>&nbsp;</li>
+<li><a name="a396"></a>    <span class="src-var">$query</span>=<a href="http://www.php.net/substr">substr</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">,</span><span class="src-num">0</span><span class="src-sym">,</span><span class="src-sym">(</span><a href="http://www.php.net/strlen">strlen</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">)</span>-<span class="src-num">1</span><span class="src-sym">))</span><span class="src-sym">;</span></li>
+<li><a name="a397"></a>    <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a398"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a399"></a>    <span class="src-sym">}</span></li>
+<li><a name="a400"></a>&nbsp;</li>
+<li><a name="a401"></a><span class="src-sym">}</span></li>
+<li><a name="a402"></a>&nbsp;</li>
+<li><a name="a403"></a><span class="src-doc">/**</span></li>
+<li><a name="a404"></a><span class="src-doc">* Store the bots responses into the database</span></li>
+<li><a name="a405"></a><span class="src-doc">*</span></li>
+<li><a name="a406"></a><span class="src-doc">* This is an array because it separates on .'s and other sentence splitters. Stores these in the</span></li>
+<li><a name="a407"></a><span class="src-doc">* thatindex table of the database.</span></li>
+<li><a name="a408"></a><span class="src-doc">*</span></li>
+<li><a name="a409"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">integer </span></li>
+<li><a name="a410"></a><span class="src-doc">*</span></li>
+<li><a name="a411"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">array </span><span class="src-doc-var">$inputsarray </span><span class="src-doc">  Contains multiple inputs (sentences) of the bot</span></li>
+<li><a name="a412"></a><span class="src-doc">*</span></li>
+<li><a name="a413"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">void </span><span class="src-doc">               nothing</span></li>
+<li><a name="a414"></a><span class="src-doc">*/</span></li>
+<li><a name="a415"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functionaddthats">addthats</a><span class="src-sym">(</span><span class="src-var">$inputsarray</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a416"></a>&nbsp;</li>
+<li><a name="a417"></a>    <span class="src-key">global </span><span class="src-var">$uid</span><span class="src-sym">;</span></li>
+<li><a name="a418"></a>&nbsp;</li>
+<li><a name="a419"></a>&nbsp;</li>
+<li><a name="a420"></a>    <span class="src-var">$query</span>=<span class="src-str">&quot;</span><span class="src-str"><span class="src-id">insert</span> <span class="src-id">into</span> <span class="src-id">thatindex</span> (<span class="src-id">uid</span>) <span class="src-id">values</span> ('<span class="src-var">$uid</span>')</span><span class="src-str">&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a421"></a>&nbsp;</li>
+<li><a name="a422"></a>    <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a423"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a424"></a>    <span class="src-sym">}</span></li>
+<li><a name="a425"></a>    <span class="src-var">$thatidx</span>=<a href="http://www.php.net/mysql_insert_id">mysql_insert_id</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a426"></a>&nbsp;</li>
+<li><a name="a427"></a>    <span class="src-var">$query</span>=<span class="src-str">&quot;insert into thatstack (thatid,value) values &quot;</span><span class="src-sym">;</span></li>
+<li><a name="a428"></a>&nbsp;</li>
+<li><a name="a429"></a>    <span class="src-key">for </span><span class="src-sym">(</span><span class="src-var">$x</span>=<span class="src-num">0</span><span class="src-sym">;</span><span class="src-var">$x</span>&lt;<a href="http://www.php.net/sizeof">sizeof</a><span class="src-sym">(</span><span class="src-var">$inputsarray</span><span class="src-sym">)</span><span class="src-sym">;</span><span class="src-var">$x</span>++<span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a430"></a>&nbsp;</li>
+<li><a name="a431"></a>        <span class="src-var">$value</span>=<a href="http://www.php.net/trim">trim</a><span class="src-sym">(</span><span class="src-var">$inputsarray</span><span class="src-sym">[</span><span class="src-var">$x</span><span class="src-sym">]</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a432"></a>        </li>
+<li><a name="a433"></a>        <span class="src-var">$value</span>=<a href="http://www.php.net/strip_tags">strip_tags</a><span class="src-sym">(</span><span class="src-var">$value</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a434"></a>        <span class="src-var">$value</span>=<a href="http://www.php.net/addslashes">addslashes</a><span class="src-sym">(</span><span class="src-var">$value</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a435"></a>&nbsp;</li>
+<li><a name="a436"></a>        <span class="src-var">$query</span>.=<span class="src-str">&quot;</span><span class="src-str">(<span class="src-var">$thatidx</span>,'<span class="src-var">$value</span>'),</span><span class="src-str">&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a437"></a>        </li>
+<li><a name="a438"></a>    <span class="src-sym">}</span></li>
+<li><a name="a439"></a>&nbsp;</li>
+<li><a name="a440"></a>    <span class="src-var">$query</span>=<a href="http://www.php.net/substr">substr</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">,</span><span class="src-num">0</span><span class="src-sym">,</span><span class="src-sym">(</span><a href="http://www.php.net/strlen">strlen</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">)</span>-<span class="src-num">1</span><span class="src-sym">))</span><span class="src-sym">;</span></li>
+<li><a name="a441"></a>&nbsp;</li>
+<li><a name="a442"></a>    <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a443"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a444"></a>    <span class="src-sym">}</span></li>
+<li><a name="a445"></a>&nbsp;</li>
+<li><a name="a446"></a><span class="src-sym">}</span></li>
+<li><a name="a447"></a>&nbsp;</li>
+<li><a name="a448"></a><span class="src-doc">/**</span></li>
+<li><a name="a449"></a><span class="src-doc">* Logs the whole input and response</span></li>
+<li><a name="a450"></a><span class="src-doc">*</span></li>
+<li><a name="a451"></a><span class="src-doc">* Saves the input and response into the conversationlog table of the database.</span></li>
+<li><a name="a452"></a><span class="src-doc">*</span></li>
+<li><a name="a453"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$input </span><span class="src-doc">     The user's input.</span></li>
+<li><a name="a454"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$reponse </span><span class="src-doc">   The bot's response to the user's input.</span></li>
+<li><a name="a455"></a><span class="src-doc">*</span></li>
+<li><a name="a456"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">integer </span></li>
+<li><a name="a457"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">integer </span></li>
+<li><a name="a458"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">void </span><span class="src-doc">             nothing</span></li>
+<li><a name="a460"></a><span class="src-doc">*/</span></li>
+<li><a name="a461"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functionlogconversation">logconversation</a><span class="src-sym">(</span><span class="src-var">$input</span><span class="src-sym">,</span><span class="src-var">$response</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a462"></a>&nbsp;</li>
+<li><a name="a463"></a>    <span class="src-key">global </span><span class="src-var">$uid</span><span class="src-sym">, </span><span class="src-var">$selectbot</span><span class="src-sym">;</span></li>
+<li><a name="a464"></a>&nbsp;</li>
+<li><a name="a465"></a>    <span class="src-var">$input</span>=<a href="http://www.php.net/addslashes">addslashes</a><span class="src-sym">(</span><span class="src-var">$input</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a466"></a>    <span class="src-var">$response</span>=<a href="http://www.php.net/addslashes">addslashes</a><span class="src-sym">(</span><span class="src-var">$response</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a467"></a>&nbsp;</li>
+<li><a name="a468"></a>    <span class="src-var">$query</span>=<span class="src-str">&quot;</span><span class="src-str"><span class="src-id">insert</span> <span class="src-id">into</span> <span class="src-id">conversationlog</span> (<span class="src-id">uid</span>,<span class="src-id">input</span>,<span class="src-id">response</span>,<span class="src-id">bot</span>) <span class="src-id">values</span> ('<span class="src-var">$uid</span>','<span class="src-var">$input</span>','<span class="src-var">$response</span>',<span class="src-var">$selectbot</span>)</span><span class="src-str">&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a469"></a>    <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a470"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a471"></a>    <span class="src-sym">}</span></li>
+<li><a name="a472"></a>&nbsp;</li>
+<li><a name="a473"></a><span class="src-sym">}</span></li>
+<li><a name="a474"></a>&nbsp;</li>
+<li><a name="a475"></a><span class="src-doc">/**</span></li>
+<li><a name="a476"></a><span class="src-doc">* Get the previous thing the bot said</span></li>
+<li><a name="a477"></a><span class="src-doc">*</span></li>
+<li><a name="a478"></a><span class="src-doc">* Retrieve from the thatindex table the previous output, per sentence, of what the bot said from the thatindex en thatstack table.</span></li>
+<li><a name="a479"></a><span class="src-doc">* </span></li>
+<li><a name="a480"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">integer </span></li>
+<li><a name="a481"></a><span class="src-doc">* </span></li>
+<li><a name="a482"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">integer </span><span class="src-doc-var">$index </span><span class="src-doc">     Number between 1-5, 1 representing the previous bot output and 5 the 5th last bot output.</span></li>
+<li><a name="a483"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">integer </span><span class="src-doc-var">$offset </span><span class="src-doc">    Bot output is saved per sentence. So 1 would be last sentence, 3 would be third last sentence of that bot output.</span></li>
+<li><a name="a484"></a><span class="src-doc">*</span></li>
+<li><a name="a485"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">string </span><span class="src-doc">            The requested sentence of the bot's output</span></li>
+<li><a name="a486"></a><span class="src-doc">*/</span></li>
+<li><a name="a487"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functiongetthat">getthat</a><span class="src-sym">(</span><span class="src-var">$index</span><span class="src-sym">,</span><span class="src-var">$offset</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a488"></a>&nbsp;</li>
+<li><a name="a489"></a>    <span class="src-key">global </span><span class="src-var">$uid</span><span class="src-sym">;</span></li>
+<li><a name="a490"></a>&nbsp;</li>
+<li><a name="a491"></a>    <span class="src-var">$index</span>=<span class="src-var">$index</span>-<span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a492"></a>    <span class="src-var">$offset</span>=<span class="src-var">$offset</span>-<span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a493"></a>&nbsp;</li>
+<li><a name="a494"></a>    <span class="src-var">$query</span>=<span class="src-str">&quot;</span><span class="src-str"><span class="src-id">select</span> <span class="src-id">id</span> <span class="src-id">from</span> <span class="src-id">thatindex</span> <span class="src-id">where</span> <span class="src-id">uid</span>='<span class="src-var">$uid</span>' <span class="src-id">order</span> <span class="src-id">by</span> <span class="src-id">id</span> <span class="src-id">desc</span> <span class="src-id">limit</span> <span class="src-var">$index</span>,1</span><span class="src-str">&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a495"></a>    </li>
+<li><a name="a496"></a>    </li>
+<li><a name="a497"></a>    <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a498"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a499"></a>        <span class="src-key">if</span><span class="src-sym">(</span><span class="src-sym">!</span><a href="http://www.php.net/mysql_numrows">mysql_numrows</a><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a500"></a>            <span class="src-key">return </span><span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a501"></a>        <span class="src-sym">}</span></li>
+<li><a name="a502"></a>        <span class="src-key">else</span><span class="src-sym">{</span></li>
+<li><a name="a503"></a>            <span class="src-key">while </span><span class="src-sym">(</span><span class="src-var">$q </span>= <a href="http://www.php.net/mysql_fetch_array">mysql_fetch_array</a><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a504"></a>                <span class="src-var">$thatid</span>=<span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a505"></a>            <span class="src-sym">}</span></li>
+<li><a name="a506"></a>        <span class="src-sym">}</span></li>
+<li><a name="a507"></a>    <span class="src-sym">}</span></li>
+<li><a name="a508"></a>    </li>
+<li><a name="a509"></a>&nbsp;</li>
+<li><a name="a510"></a>    <span class="src-var">$query</span>=<span class="src-str">&quot;</span><span class="src-str"><span class="src-id">select</span> <span class="src-id">value</span> <span class="src-id">from</span> <span class="src-id">thatstack</span> <span class="src-id">where</span> <span class="src-id">thatid</span>=<span class="src-var">$thatid</span> <span class="src-id">order</span> <span class="src-id">by</span> <span class="src-id">id</span> <span class="src-id">desc</span> <span class="src-id">limit</span> <span class="src-var">$offset</span>,1</span><span class="src-str">&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a511"></a>&nbsp;</li>
+<li><a name="a512"></a>&nbsp;</li>
+<li><a name="a513"></a>    <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a514"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a515"></a>        <span class="src-key">if</span><span class="src-sym">(</span><span class="src-sym">!</span><a href="http://www.php.net/mysql_numrows">mysql_numrows</a><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a516"></a>            <span class="src-key">return </span><span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a517"></a>        <span class="src-sym">}</span></li>
+<li><a name="a518"></a>        <span class="src-key">else</span><span class="src-sym">{</span></li>
+<li><a name="a519"></a>            <span class="src-key">while </span><span class="src-sym">(</span><span class="src-var">$q </span>= <a href="http://www.php.net/mysql_fetch_array">mysql_fetch_array</a><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a520"></a>                <span class="src-key">return </span><span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a521"></a>            <span class="src-sym">}</span></li>
+<li><a name="a522"></a>        <span class="src-sym">}</span></li>
+<li><a name="a523"></a>    <span class="src-sym">}</span></li>
+<li><a name="a524"></a>    <span class="src-key">return </span><span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a525"></a>&nbsp;</li>
+<li><a name="a526"></a><span class="src-sym">}</span></li>
+<li><a name="a527"></a>&nbsp;</li>
+<li><a name="a528"></a><span class="src-doc">/**</span></li>
+<li><a name="a529"></a><span class="src-doc">* Get the previous thing the client said</span></li>
+<li><a name="a530"></a><span class="src-doc">*</span></li>
+<li><a name="a531"></a><span class="src-doc">* Retrieve the entire previous input of the user from the dstore table.</span></li>
+<li><a name="a532"></a><span class="src-doc">* </span></li>
+<li><a name="a533"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">integer </span></li>
+<li><a name="a534"></a><span class="src-doc">* </span></li>
+<li><a name="a535"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">string </span><span class="src-doc">        The previous input of the user.</span></li>
+<li><a name="a536"></a><span class="src-doc">*/</span></li>
+<li><a name="a537"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functiongetinput">getinput</a><span class="src-sym">(</span><span class="src-var">$index</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a538"></a>&nbsp;</li>
+<li><a name="a539"></a>    <span class="src-key">global </span><span class="src-var">$uid</span><span class="src-sym">;</span></li>
+<li><a name="a540"></a>&nbsp;</li>
+<li><a name="a541"></a>    <span class="src-var">$offset</span>=<span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a542"></a>&nbsp;</li>
+<li><a name="a543"></a>    <span class="src-var">$query</span>=<span class="src-str">&quot;</span><span class="src-str"><span class="src-id">select</span> <span class="src-id">value</span> <span class="src-id">from</span> <span class="src-id">dstore</span> <span class="src-id">where</span> <span class="src-id">uid</span>='<span class="src-var">$uid</span>' <span class="src-id">and</span> <span class="src-id">name</span>='<span class="src-id">input</span>' <span class="src-id">order</span> <span class="src-id">by</span> <span class="src-id">id</span> <span class="src-id">desc</span> <span class="src-id">limit</span> <span class="src-var">$index</span>,<span class="src-var">$offset</span></span><span class="src-str">&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a544"></a>&nbsp;</li>
+<li><a name="a545"></a>    <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a546"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a547"></a>        <span class="src-key">if</span><span class="src-sym">(</span><span class="src-sym">!</span><a href="http://www.php.net/mysql_numrows">mysql_numrows</a><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a548"></a>            <span class="src-key">return </span><span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a549"></a>        <span class="src-sym">}</span></li>
+<li><a name="a550"></a>        <span class="src-key">else</span><span class="src-sym">{</span></li>
+<li><a name="a551"></a>            <span class="src-key">while </span><span class="src-sym">(</span><span class="src-var">$q </span>= <a href="http://www.php.net/mysql_fetch_array">mysql_fetch_array</a><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a552"></a>                <span class="src-key">return </span><span class="src-var">$q</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a553"></a>            <span class="src-sym">}</span></li>
+<li><a name="a554"></a>        <span class="src-sym">}</span></li>
+<li><a name="a555"></a>    <span class="src-sym">}</span></li>
+<li><a name="a556"></a>    <span class="src-key">return </span><span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a557"></a>&nbsp;</li>
+<li><a name="a558"></a><span class="src-sym">}</span></li>
+<li><a name="a559"></a>&nbsp;</li>
+<li><a name="a560"></a><span class="src-doc">/**</span></li>
+<li><a name="a561"></a><span class="src-doc">* Take the user input and do all substitutions and split it into sentences</span></li>
+<li><a name="a562"></a><span class="src-doc">*</span></li>
+<li><a name="a563"></a><span class="src-doc">* The matching process searches a match for every sentence and in the end combines all</span></li>
+<li><a name="a564"></a><span class="src-doc">* those individual matches into one reply. This funtion splits the sentences of the user's</span></li>
+<li><a name="a565"></a><span class="src-doc">* input, replaces the words that need to be subtituted (found in startup.xml).</span></li>
+<li><a name="a566"></a><span class="src-doc">* </span></li>
+<li><a name="a567"></a><span class="src-doc">* </span></li>
+<li><a name="a568"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span><span class="src-doc">contractsearch</span></li>
+<li><a name="a569"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span><span class="src-doc">contractreplace</span></li>
+<li><a name="a570"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">mixed </span><span class="src-doc">abbrevsearch             not used in this function</span></li>
+<li><a name="a571"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">mixed </span><span class="src-doc">removepunct              used in this function, but code is commented out.</span></li>
+<li><a name="a572"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span><span class="src-doc">likeperiodsearch</span></li>
+<li><a name="a573"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span><span class="src-doc">likeperiodreplace</span></li>
+<li><a name="a574"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span><span class="src-doc">aftersearch</span></li>
+<li><a name="a575"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span><span class="src-doc">afterreplace</span></li>
+<li><a name="a576"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">integer </span><span class="src-doc">replacecounter</span></li>
+<li><a name="a577"></a><span class="src-doc">*</span></li>
+<li><a name="a578"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$input </span><span class="src-doc">                  The unchanged user input.</span></li>
+<li><a name="a579"></a><span class="src-doc">*</span></li>
+<li><a name="a580"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">array </span><span class="src-doc">                         each individual sentence, ready for matching.</span></li>
+<li><a name="a581"></a><span class="src-doc">*/</span></li>
+<li><a name="a582"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functionnormalsentences">normalsentences</a><span class="src-sym">(</span><span class="src-var">$input</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a583"></a>&nbsp;</li>
+<li><a name="a584"></a>    <span class="src-key">global </span><span class="src-var">$contractsearch</span><span class="src-sym">,</span><span class="src-var">$contractreplace</span><span class="src-sym">,</span><span class="src-var">$abbrevsearch</span><span class="src-sym">,</span><span class="src-var">$abbrevreplace</span><span class="src-sym">,</span><span class="src-var">$removepunct</span><span class="src-sym">,</span><span class="src-var">$likeperiodsearch</span><span class="src-sym">,</span><span class="src-var">$likeperiodreplace</span><span class="src-sym">,</span><span class="src-var">$aftersearch</span><span class="src-sym">,</span><span class="src-var">$afterreplace</span><span class="src-sym">,</span><span class="src-var">$replacecounter</span><span class="src-sym">;</span></li>
+<li><a name="a585"></a>&nbsp;</li>
+<li><a name="a586"></a>    <span class="src-var">$cfull</span>=<span class="src-var">$input</span><span class="src-sym">;</span></li>
+<li><a name="a587"></a>&nbsp;</li>
+<li><a name="a588"></a>    <span class="src-var">$cfull</span>=<a href="http://www.php.net/preg_replace">preg_replace</a><span class="src-sym">(</span><span class="src-var">$contractsearch</span><span class="src-sym">,</span><span class="src-var">$contractreplace</span><span class="src-sym">,</span><span class="src-var">$cfull</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a589"></a>    </li>
+<li><a name="a590"></a>    <span class="src-var">$cfull</span>=<a href="http://www.php.net/str_replace">str_replace</a><span class="src-sym">(</span><span class="src-var">$aftersearch</span><span class="src-sym">,</span><span class="src-var">$afterreplace</span><span class="src-sym">,</span><span class="src-var">$cfull</span><span class="src-sym">)</span><span class="src-sym">;    </span></li>
+<li><a name="a591"></a>&nbsp;</li>
+<li><a name="a592"></a>    <span class="src-var">$replacecounter</span>=<span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a593"></a>    <span class="src-var">$aftersearch</span>=<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a594"></a>    <span class="src-var">$afterreplace</span>=<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a595"></a>&nbsp;</li>
+<li><a name="a596"></a>    <span class="src-comm">//$cfull=str_replace($removepunct,&quot;&quot;,$cfull);</span></li>
+<li><a name="a597"></a>    <span class="src-var">$cfull</span>=<a href="http://www.php.net/str_replace">str_replace</a><span class="src-sym">(</span><span class="src-var">$likeperiodsearch</span><span class="src-sym">,</span><span class="src-var">$likeperiodreplace</span><span class="src-sym">,</span><span class="src-var">$cfull</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a598"></a>&nbsp;</li>
+<li><a name="a599"></a>    <span class="src-var">$newsentences</span>=<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a600"></a>&nbsp;</li>
+<li><a name="a601"></a>    <span class="src-comm">// Now split based on .'s</span></li>
+<li><a name="a602"></a>    <span class="src-var">$cfulls</span>=<a href="http://www.php.net/split">split</a><span class="src-sym">(</span><span class="src-str">&quot;\.&quot;</span><span class="src-sym">,</span><span class="src-var">$cfull</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a603"></a>&nbsp;</li>
+<li><a name="a604"></a>    <span class="src-key">for </span><span class="src-sym">(</span><span class="src-var">$x</span>=<span class="src-num">0</span><span class="src-sym">;</span><span class="src-var">$x</span>&lt;<a href="http://www.php.net/sizeof">sizeof</a><span class="src-sym">(</span><span class="src-var">$cfulls</span><span class="src-sym">)</span><span class="src-sym">;</span><span class="src-var">$x</span>++<span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a605"></a>        <span class="src-key">if </span><span class="src-sym">(</span><a href="http://www.php.net/trim">trim</a><span class="src-sym">(</span><span class="src-var">$cfulls</span><span class="src-sym">[</span><span class="src-var">$x</span><span class="src-sym">]</span><span class="src-sym">)</span>==<span class="src-str">&quot;&quot;</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a606"></a>&nbsp;</li>
+<li><a name="a607"></a>        <span class="src-sym">}</span></li>
+<li><a name="a608"></a>        <span class="src-key">else </span><span class="src-sym">{</span></li>
+<li><a name="a609"></a>            <span class="src-var">$newsentences</span><span class="src-sym">[</span><span class="src-sym">]</span>=<span class="src-var">$cfulls</span><span class="src-sym">[</span><span class="src-var">$x</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a610"></a>        <span class="src-sym">}</span></li>
+<li><a name="a611"></a>    <span class="src-sym">}</span></li>
+<li><a name="a612"></a>&nbsp;</li>
+<li><a name="a613"></a>    <span class="src-key">return </span><span class="src-var">$newsentences</span><span class="src-sym">;</span></li>
+<li><a name="a614"></a><span class="src-sym">}</span></li>
+<li><a name="a615"></a>&nbsp;</li>
+<li><a name="a616"></a>&nbsp;</li>
+<li><a name="a617"></a><span class="src-doc">/**</span></li>
+<li><a name="a618"></a><span class="src-doc">* Reverse the gender of a phrase</span></li>
+<li><a name="a619"></a><span class="src-doc">*</span></li>
+<li><a name="a620"></a><span class="src-doc">* Replaces, for example, 'he' in the string to 'she'. The gender related words and phrases that are used</span></li>
+<li><a name="a621"></a><span class="src-doc">* can be found in subs.inc and originally in the startup.xml</span></li>
+<li><a name="a622"></a><span class="src-doc">*</span></li>
+<li><a name="a623"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span><span class="src-doc">gendersearch</span></li>
+<li><a name="a624"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span><span class="src-doc">genderreplace</span></li>
+<li><a name="a625"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span></li>
+<li><a name="a626"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span></li>
+<li><a name="a627"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">integer </span></li>
+<li><a name="a628"></a><span class="src-doc">*</span></li>
+<li><a name="a629"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$input </span><span class="src-doc">          The string where the gender related words/phrases need to be replaced</span></li>
+<li><a name="a630"></a><span class="src-doc">* </span></li>
+<li><a name="a631"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">string </span><span class="src-doc">                The string containing where the gender related words have been replaced.</span></li>
+<li><a name="a632"></a><span class="src-doc">*/</span></li>
+<li><a name="a633"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functiongender">gender</a><span class="src-sym">(</span><span class="src-var">$input</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a634"></a>&nbsp;</li>
+<li><a name="a635"></a>    <span class="src-key">global </span><span class="src-var">$gendersearch</span><span class="src-sym">,</span><span class="src-var">$genderreplace</span><span class="src-sym">,</span><span class="src-var">$aftersearch</span><span class="src-sym">,</span><span class="src-var">$afterreplace</span><span class="src-sym">,</span><span class="src-var">$replacecounter</span><span class="src-sym">;</span></li>
+<li><a name="a636"></a>&nbsp;</li>
+<li><a name="a637"></a>    <span class="src-var">$newinput</span>=<a href="http://www.php.net/preg_replace">preg_replace</a><span class="src-sym">(</span><span class="src-var">$gendersearch</span><span class="src-sym">,</span><span class="src-var">$genderreplace</span><span class="src-sym">,</span><span class="src-var">$input</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a638"></a>&nbsp;</li>
+<li><a name="a639"></a>    <span class="src-var">$newinput</span>=<a href="http://www.php.net/str_replace">str_replace</a><span class="src-sym">(</span><span class="src-var">$aftersearch</span><span class="src-sym">,</span><span class="src-var">$afterreplace</span><span class="src-sym">,</span><span class="src-var">$newinput</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a640"></a>    </li>
+<li><a name="a641"></a>    <span class="src-var">$replacecounter</span>=<span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a642"></a>    <span class="src-var">$aftersearch</span>=<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a643"></a>    <span class="src-var">$afterreplace</span>=<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a644"></a>&nbsp;</li>
+<li><a name="a645"></a>    <span class="src-key">return </span><span class="src-var">$newinput</span><span class="src-sym">;</span></li>
+<li><a name="a646"></a>&nbsp;</li>
+<li><a name="a647"></a><span class="src-sym">}</span></li>
+<li><a name="a648"></a>&nbsp;</li>
+<li><a name="a649"></a><span class="src-doc">/** </span></li>
+<li><a name="a650"></a><span class="src-doc">* Do a first to third person replacement</span></li>
+<li><a name="a651"></a><span class="src-doc">*</span></li>
+<li><a name="a652"></a><span class="src-doc">* Replaces, for example, &quot;I was&quot; to &quot;he or she was&quot;. he gender related words and phrases that are used</span></li>
+<li><a name="a653"></a><span class="src-doc">* can be found in subs.inc and originally in the startup.xml</span></li>
+<li><a name="a654"></a><span class="src-doc">* </span></li>
+<li><a name="a655"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span><span class="src-doc">firstthirdsearch</span></li>
+<li><a name="a656"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span><span class="src-doc">firstthirdreplace</span></li>
+<li><a name="a657"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span></li>
+<li><a name="a658"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span></li>
+<li><a name="a659"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span></li>
+<li><a name="a660"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span></li>
+<li><a name="a661"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">integer </span></li>
+<li><a name="a662"></a><span class="src-doc">*</span></li>
+<li><a name="a663"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$input </span><span class="src-doc">          The string where the first-&gt;third related words/phrases need to be replaced</span></li>
+<li><a name="a664"></a><span class="src-doc">* </span></li>
+<li><a name="a665"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">string </span><span class="src-doc">                The string containing where the first-&gt;third related words have been replaced.</span></li>
+<li><a name="a666"></a><span class="src-doc">*/</span></li>
+<li><a name="a667"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functionfirstthird">firstthird</a><span class="src-sym">(</span><span class="src-var">$input</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a668"></a>&nbsp;</li>
+<li><a name="a669"></a>    <span class="src-key">global </span><span class="src-var">$firstthirdsearch</span><span class="src-sym">,</span><span class="src-var">$firstthirdreplace</span><span class="src-sym">,</span><span class="src-var">$aftersearch</span><span class="src-sym">,</span><span class="src-var">$afterreplace</span><span class="src-sym">,</span><span class="src-var">$contractsearch</span><span class="src-sym">,</span><span class="src-var">$contractreplace</span><span class="src-sym">,</span><span class="src-var">$replacecounter</span><span class="src-sym">;</span></li>
+<li><a name="a670"></a>&nbsp;</li>
+<li><a name="a671"></a>    <span class="src-var">$newinput</span>=<a href="http://www.php.net/preg_replace">preg_replace</a><span class="src-sym">(</span><span class="src-var">$firstthirdsearch</span><span class="src-sym">,</span><span class="src-var">$firstthirdreplace</span><span class="src-sym">,</span><span class="src-var">$input</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a672"></a>&nbsp;</li>
+<li><a name="a673"></a>    <span class="src-var">$newinput</span>=<a href="http://www.php.net/str_replace">str_replace</a><span class="src-sym">(</span><span class="src-var">$aftersearch</span><span class="src-sym">,</span><span class="src-var">$afterreplace</span><span class="src-sym">,</span><span class="src-var">$newinput</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a674"></a>    </li>
+<li><a name="a675"></a>    <span class="src-var">$replacecounter</span>=<span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a676"></a>    <span class="src-var">$aftersearch</span>=<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a677"></a>    <span class="src-var">$afterreplace</span>=<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a678"></a>&nbsp;</li>
+<li><a name="a679"></a>    <span class="src-key">return </span><span class="src-var">$newinput</span><span class="src-sym">;</span></li>
+<li><a name="a680"></a>&nbsp;</li>
+<li><a name="a681"></a><span class="src-sym">}</span></li>
+<li><a name="a682"></a>&nbsp;</li>
+<li><a name="a683"></a><span class="src-doc">/**</span></li>
+<li><a name="a684"></a><span class="src-doc">* Do a first to second person replacement</span></li>
+<li><a name="a685"></a><span class="src-doc">*</span></li>
+<li><a name="a686"></a><span class="src-doc">* Replaces, for example, &quot;with you&quot; to &quot;with me&quot;. he gender related words and phrases that are used</span></li>
+<li><a name="a687"></a><span class="src-doc">* can be found in subs.inc and originally in the startup.xml</span></li>
+<li><a name="a688"></a><span class="src-doc">*</span></li>
+<li><a name="a689"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span></li>
+<li><a name="a690"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span></li>
+<li><a name="a691"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span></li>
+<li><a name="a692"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span></li>
+<li><a name="a693"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">integer </span></li>
+<li><a name="a694"></a><span class="src-doc">*</span></li>
+<li><a name="a695"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$input </span><span class="src-doc">          The string where the first-&gt;second related words/phrases need to be replaced</span></li>
+<li><a name="a696"></a><span class="src-doc">* </span></li>
+<li><a name="a697"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">string </span><span class="src-doc">                The string containing where the first-&gt;second related words have been replaced.</span></li>
+<li><a name="a698"></a><span class="src-doc">*/</span></li>
+<li><a name="a699"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functionfirstsecond">firstsecond</a><span class="src-sym">(</span><span class="src-var">$input</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a700"></a>&nbsp;</li>
+<li><a name="a701"></a>    <span class="src-key">global </span><span class="src-var">$firstsecondsearch</span><span class="src-sym">,</span><span class="src-var">$firstsecondreplace</span><span class="src-sym">,</span><span class="src-var">$aftersearch</span><span class="src-sym">,</span><span class="src-var">$afterreplace</span><span class="src-sym">,</span><span class="src-var">$replacecounter</span><span class="src-sym">;</span></li>
+<li><a name="a702"></a>&nbsp;</li>
+<li><a name="a703"></a>    <span class="src-var">$newinput</span>=<a href="http://www.php.net/preg_replace">preg_replace</a><span class="src-sym">(</span><span class="src-var">$firstsecondsearch</span><span class="src-sym">,</span><span class="src-var">$firstsecondreplace</span><span class="src-sym">,</span><span class="src-var">$input</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a704"></a>&nbsp;</li>
+<li><a name="a705"></a>    <span class="src-var">$newinput</span>=<a href="http://www.php.net/str_replace">str_replace</a><span class="src-sym">(</span><span class="src-var">$aftersearch</span><span class="src-sym">,</span><span class="src-var">$afterreplace</span><span class="src-sym">,</span><span class="src-var">$newinput</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a706"></a>    </li>
+<li><a name="a707"></a>    <span class="src-var">$replacecounter</span>=<span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a708"></a>    <span class="src-var">$aftersearch</span>=<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a709"></a>    <span class="src-var">$afterreplace</span>=<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a710"></a>&nbsp;</li>
+<li><a name="a711"></a>    <span class="src-key">return </span><span class="src-var">$newinput</span><span class="src-sym">;</span></li>
+<li><a name="a712"></a>&nbsp;</li>
+<li><a name="a713"></a><span class="src-sym">}</span></li>
+<li><a name="a714"></a>&nbsp;</li>
+<li><a name="a715"></a><span class="src-doc">/**</span></li>
+<li><a name="a716"></a><span class="src-doc">* Insert gossip into the database</span></li>
+<li><a name="a717"></a><span class="src-doc">*</span></li>
+<li><a name="a718"></a><span class="src-doc">* Gossip is an AIML tag where the user can store bits of information from one user and then</span></li>
+<li><a name="a719"></a><span class="src-doc">* reuse is in the conversation of another user. It is the only tag that behaves this way. Stores</span></li>
+<li><a name="a720"></a><span class="src-doc">* value into the gossip table of the database.</span></li>
+<li><a name="a721"></a><span class="src-doc">*</span></li>
+<li><a name="a722"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$gossip </span><span class="src-doc">         The string that needs to be saved.</span></li>
+<li><a name="a723"></a><span class="src-doc">*</span></li>
+<li><a name="a724"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">void </span><span class="src-doc">                  Nothing.</span></li>
+<li><a name="a725"></a><span class="src-doc">*/</span></li>
+<li><a name="a726"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functioninsertgossip">insertgossip</a><span class="src-sym">(</span><span class="src-var">$gossip</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a727"></a>&nbsp;</li>
+<li><a name="a728"></a>    <span class="src-key">global </span><span class="src-var">$selectbot</span><span class="src-sym">;</span></li>
+<li><a name="a729"></a>&nbsp;</li>
+<li><a name="a730"></a>    <span class="src-var">$gossip</span>=<a href="http://www.php.net/addslashes">addslashes</a><span class="src-sym">(</span><span class="src-var">$gossip</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a731"></a>&nbsp;</li>
+<li><a name="a732"></a>    <span class="src-var">$query</span>=<span class="src-str">&quot;</span><span class="src-str"><span class="src-id">insert</span> <span class="src-id">into</span> <span class="src-id">gossip</span> (<span class="src-id">gossip</span>,<span class="src-id">bot</span>) <span class="src-id">values</span> ('<span class="src-var">$gossip</span>',</span><span class="src-str">&quot; </span>. <span class="src-var">$selectbot </span>. <span class="src-str">&quot;)&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a733"></a>    <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$query</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a734"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a735"></a>    <span class="src-sym">}</span></li>
+<li><a name="a736"></a>&nbsp;</li>
+<li><a name="a737"></a><span class="src-sym">}</span></li>
+<li><a name="a738"></a>&nbsp;</li>
+<li><a name="a739"></a><span class="src-doc">/**</span></li>
+<li><a name="a740"></a><span class="src-doc">* Get the child nodes of the XML tree</span></li>
+<li><a name="a741"></a><span class="src-doc">*</span></li>
+<li><a name="a742"></a><span class="src-doc">* Retrieve the child nodes of the XML tree. This is a recursive function.</span></li>
+<li><a name="a743"></a><span class="src-doc">*</span></li>
+<li><a name="a744"></a><span class="src-doc">* </span><span class="src-doc-coretag">@uses</span><span class="src-doc"> GetChildren()</span></li>
+<li><a name="a745"></a><span class="src-doc">* </span></li>
+<li><a name="a746"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">array </span><span class="src-doc-var">$vals </span></li>
+<li><a name="a747"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">integer </span><span class="src-doc-var">&amp;$i </span><span class="src-doc">                 call-by-reference variable for, most likely, GetXMLTree()</span></li>
+<li><a name="a748"></a><span class="src-doc">*</span></li>
+<li><a name="a749"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">array </span><span class="src-doc">                      The child nodes in an array.</span></li>
+<li><a name="a750"></a><span class="src-doc">*/</span></li>
+<li><a name="a751"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functionGetChildren">GetChildren</a><span class="src-sym">(</span><span class="src-var">$vals</span><span class="src-sym">, </span><span class="src-sym">&amp;</span><span class="src-var">$i</span><span class="src-sym">) </span><span class="src-sym">{ </span></li>
+<li><a name="a752"></a>&nbsp;</li>
+<li><a name="a753"></a>    <span class="src-var">$children </span>= <span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">; </span></li>
+<li><a name="a754"></a>    </li>
+<li><a name="a755"></a>    <span class="src-key">if </span><span class="src-sym">(</span>isset<span class="src-sym">(</span><span class="src-var">$vals</span><span class="src-sym">[</span><span class="src-var">$i</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'value'</span><span class="src-sym">]</span><span class="src-sym">)) </span></li>
+<li><a name="a756"></a>        <a href="http://www.php.net/array_push">array_push</a><span class="src-sym">(</span><span class="src-var">$children</span><span class="src-sym">, </span><span class="src-var">$vals</span><span class="src-sym">[</span><span class="src-var">$i</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'value'</span><span class="src-sym">]</span><span class="src-sym">)</span><span class="src-sym">; </span></li>
+<li><a name="a757"></a>&nbsp;</li>
+<li><a name="a758"></a>    <span class="src-key">while </span><span class="src-sym">(</span>++<span class="src-var">$i </span>&lt; <a href="http://www.php.net/count">count</a><span class="src-sym">(</span><span class="src-var">$vals</span><span class="src-sym">)) </span><span class="src-sym">{ </span></li>
+<li><a name="a759"></a>        </li>
+<li><a name="a760"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-sym">!</span>isset<span class="src-sym">(</span><span class="src-var">$vals</span><span class="src-sym">[</span><span class="src-var">$i</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'attributes'</span><span class="src-sym">]</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a761"></a>        <span class="src-var">$vals</span><span class="src-sym">[</span><span class="src-var">$i</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'attributes'</span><span class="src-sym">]</span>=<span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a762"></a>    <span class="src-sym">}</span></li>
+<li><a name="a763"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-sym">!</span>isset<span class="src-sym">(</span><span class="src-var">$vals</span><span class="src-sym">[</span><span class="src-var">$i</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'value'</span><span class="src-sym">]</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a764"></a>        <span class="src-var">$vals</span><span class="src-sym">[</span><span class="src-var">$i</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'value'</span><span class="src-sym">]</span>=<span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a765"></a>    <span class="src-sym">}</span></li>
+<li><a name="a766"></a>    </li>
+<li><a name="a767"></a>        <span class="src-key">switch </span><span class="src-sym">(</span><span class="src-var">$vals</span><span class="src-sym">[</span><span class="src-var">$i</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'type'</span><span class="src-sym">]</span><span class="src-sym">) </span><span class="src-sym">{ </span></li>
+<li><a name="a768"></a>            <span class="src-key">case </span><span class="src-str">'cdata'</span>: </li>
+<li><a name="a769"></a>            <a href="http://www.php.net/array_push">array_push</a><span class="src-sym">(</span><span class="src-var">$children</span><span class="src-sym">, </span><span class="src-var">$vals</span><span class="src-sym">[</span><span class="src-var">$i</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'value'</span><span class="src-sym">]</span><span class="src-sym">)</span><span class="src-sym">; </span></li>
+<li><a name="a770"></a>            <span class="src-key">break</span><span class="src-sym">; </span></li>
+<li><a name="a771"></a>        </li>
+<li><a name="a772"></a>            <span class="src-key">case </span><span class="src-str">'complete'</span>: </li>
+<li><a name="a773"></a>            <a href="http://www.php.net/array_push">array_push</a><span class="src-sym">(</span><span class="src-var">$children</span><span class="src-sym">, </span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'tag' </span>=&gt; <span class="src-var">$vals</span><span class="src-sym">[</span><span class="src-var">$i</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'tag'</span><span class="src-sym">]</span><span class="src-sym">, </span><span class="src-str">'attributes' </span>=&gt; <span class="src-var">$vals</span><span class="src-sym">[</span><span class="src-var">$i</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'attributes'</span><span class="src-sym">]</span><span class="src-sym">, </span><span class="src-str">'value' </span>=&gt; <span class="src-var">$vals</span><span class="src-sym">[</span><span class="src-var">$i</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'value'</span><span class="src-sym">]</span><span class="src-sym">))</span><span class="src-sym">; </span></li>
+<li><a name="a774"></a>            <span class="src-key">break</span><span class="src-sym">; </span></li>
+<li><a name="a775"></a>            </li>
+<li><a name="a776"></a>            <span class="src-key">case </span><span class="src-str">'open'</span>: </li>
+<li><a name="a777"></a>            <a href="http://www.php.net/array_push">array_push</a><span class="src-sym">(</span><span class="src-var">$children</span><span class="src-sym">, </span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'tag' </span>=&gt; <span class="src-var">$vals</span><span class="src-sym">[</span><span class="src-var">$i</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'tag'</span><span class="src-sym">]</span><span class="src-sym">,</span><span class="src-str">'attributes' </span>=&gt; <span class="src-var">$vals</span><span class="src-sym">[</span><span class="src-var">$i</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'attributes'</span><span class="src-sym">]</span><span class="src-sym">, </span><span class="src-str">'children' </span>=&gt; <a href="../Interpreter/_util_php.html#functionGetChildren">GetChildren</a><span class="src-sym">(</span><span class="src-var">$vals</span><span class="src-sym">,</span><span class="src-var">$i</span><span class="src-sym">)))</span><span class="src-sym">; </span></li>
+<li><a name="a778"></a>            <span class="src-key">break</span><span class="src-sym">; </span></li>
+<li><a name="a779"></a>&nbsp;</li>
+<li><a name="a780"></a>            <span class="src-key">case </span><span class="src-str">'close'</span>: </li>
+<li><a name="a781"></a>            <span class="src-key">return </span><span class="src-var">$children</span><span class="src-sym">; </span></li>
+<li><a name="a782"></a>        <span class="src-sym">} </span></li>
+<li><a name="a783"></a>    <span class="src-sym">} </span></li>
+<li><a name="a784"></a><span class="src-sym">} </span></li>
+<li><a name="a785"></a>&nbsp;</li>
+<li><a name="a786"></a><span class="src-doc">/**</span></li>
+<li><a name="a787"></a><span class="src-doc">* Get an XML tree</span></li>
+<li><a name="a788"></a><span class="src-doc">*</span></li>
+<li><a name="a789"></a><span class="src-doc">* Create an XML tree in array form from a large string.</span></li>
+<li><a name="a790"></a><span class="src-doc">*</span></li>
+<li><a name="a791"></a><span class="src-doc">* </span><span class="src-doc-coretag">@uses</span><span class="src-doc"> GetChildren()</span></li>
+<li><a name="a792"></a><span class="src-doc">*</span></li>
+<li><a name="a793"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$data </span><span class="src-doc">              Large string that needs to be turned into XML data.</span></li>
+<li><a name="a794"></a><span class="src-doc">*</span></li>
+<li><a name="a795"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">array </span><span class="src-doc">                    Multi dimensional array in an XML way containing XML data.</span></li>
+<li><a name="a796"></a><span class="src-doc">*/</span></li>
+<li><a name="a797"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functionGetXMLTree">GetXMLTree</a><span class="src-sym">(</span><span class="src-var">$data</span><span class="src-sym">) </span><span class="src-sym">{ </span></li>
+<li><a name="a798"></a>&nbsp;</li>
+<li><a name="a799"></a>    <span class="src-var">$p </span>= <a href="http://www.php.net/xml_parser_create">xml_parser_create</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">; </span></li>
+<li><a name="a800"></a>    <a href="http://www.php.net/xml_parser_set_option">xml_parser_set_option</a><span class="src-sym">(</span><span class="src-var">$p</span><span class="src-sym">,</span><span class="src-id">XML_OPTION_CASE_FOLDING</span><span class="src-sym">,</span><span class="src-num">0</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a801"></a>    </li>
+<li><a name="a802"></a>    <a href="http://www.php.net/xml_parse_into_struct">xml_parse_into_struct</a><span class="src-sym">(</span><span class="src-var">$p</span><span class="src-sym">, </span><span class="src-var">$data</span><span class="src-sym">, </span><span class="src-var">$vals</span><span class="src-sym">, </span><span class="src-var">$index</span><span class="src-sym">)</span><span class="src-sym">; </span></li>
+<li><a name="a803"></a>    <a href="http://www.php.net/xml_parser_free">xml_parser_free</a><span class="src-sym">(</span><span class="src-var">$p</span><span class="src-sym">)</span><span class="src-sym">; </span></li>
+<li><a name="a804"></a>&nbsp;</li>
+<li><a name="a805"></a>    <span class="src-var">$tree </span>= <span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">; </span></li>
+<li><a name="a806"></a>    <span class="src-var">$i </span>= <span class="src-num">0</span><span class="src-sym">; </span></li>
+<li><a name="a807"></a>&nbsp;</li>
+<li><a name="a808"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-sym">!</span>isset<span class="src-sym">(</span><span class="src-var">$vals</span><span class="src-sym">[</span><span class="src-var">$i</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'attributes'</span><span class="src-sym">]</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a809"></a>        <span class="src-var">$vals</span><span class="src-sym">[</span><span class="src-var">$i</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'attributes'</span><span class="src-sym">]</span>=<span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a810"></a>    <span class="src-sym">}</span></li>
+<li><a name="a811"></a>&nbsp;</li>
+<li><a name="a812"></a>    <a href="http://www.php.net/array_push">array_push</a><span class="src-sym">(</span><span class="src-var">$tree</span><span class="src-sym">, </span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'tag' </span>=&gt; <span class="src-var">$vals</span><span class="src-sym">[</span><span class="src-var">$i</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'tag'</span><span class="src-sym">]</span><span class="src-sym">, </span><span class="src-str">'attributes' </span>=&gt; <span class="src-var">$vals</span><span class="src-sym">[</span><span class="src-var">$i</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'attributes'</span><span class="src-sym">]</span><span class="src-sym">, </span><span class="src-str">'children' </span>=&gt; <a href="../Interpreter/_util_php.html#functionGetChildren">GetChildren</a><span class="src-sym">(</span><span class="src-var">$vals</span><span class="src-sym">, </span><span class="src-var">$i</span><span class="src-sym">)))</span><span class="src-sym">; </span></li>
+<li><a name="a813"></a>    <span class="src-key">return </span><span class="src-var">$tree</span><span class="src-sym">; </span></li>
+<li><a name="a814"></a>&nbsp;</li>
+<li><a name="a815"></a><span class="src-sym">} </span></li>
+<li><a name="a816"></a>&nbsp;</li>
+<li><a name="a817"></a><span class="src-doc">/**</span></li>
+<li><a name="a818"></a><span class="src-doc">* Start a timer</span></li>
+<li><a name="a819"></a><span class="src-doc">*</span></li>
+<li><a name="a820"></a><span class="src-doc">* Save the start time of the to be timed script</span></li>
+<li><a name="a821"></a><span class="src-doc">* </span></li>
+<li><a name="a822"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span><span class="src-doc">ss_timing_start_times          contains the start moments of the script</span></li>
+<li><a name="a823"></a><span class="src-doc">*</span></li>
+<li><a name="a824"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$name </span><span class="src-doc">                         default value is 'default' Makes it possibe to time more than</span></li>
+<li><a name="a825"></a><span class="src-doc">*                                               event in one script.</span></li>
+<li><a name="a826"></a><span class="src-doc">*</span></li>
+<li><a name="a827"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">void </span><span class="src-doc">                                nothing</span></li>
+<li><a name="a828"></a><span class="src-doc">*/</span></li>
+<li><a name="a829"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functionss_timing_start">ss_timing_start</a> <span class="src-sym">(</span><span class="src-var">$name </span>= <span class="src-str">'default'</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a830"></a>    <span class="src-key">global </span><span class="src-var">$ss_timing_start_times</span><span class="src-sym">;</span></li>
+<li><a name="a831"></a>    <span class="src-var">$ss_timing_start_times</span><span class="src-sym">[</span><span class="src-var">$name</span><span class="src-sym">] </span>= <a href="http://www.php.net/explode">explode</a><span class="src-sym">(</span><span class="src-str">' '</span><span class="src-sym">, </span><a href="http://www.php.net/microtime">microtime</a><span class="src-sym">(</span><span class="src-sym">))</span><span class="src-sym">;</span></li>
+<li><a name="a832"></a><span class="src-sym">}</span></li>
+<li><a name="a833"></a>&nbsp;</li>
+<li><a name="a834"></a><span class="src-doc">/**</span></li>
+<li><a name="a835"></a><span class="src-doc">* Stop a timer</span></li>
+<li><a name="a836"></a><span class="src-doc">*</span></li>
+<li><a name="a837"></a><span class="src-doc">* Save the stop time of the to be timed script</span></li>
+<li><a name="a838"></a><span class="src-doc">* </span></li>
+<li><a name="a839"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span><span class="src-doc">ss_timing_stop_times          contains the stop moments of a script</span></li>
+<li><a name="a840"></a><span class="src-doc">*</span></li>
+<li><a name="a841"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$name </span><span class="src-doc">                         default value is 'default' Makes it possibe to time more than</span></li>
+<li><a name="a842"></a><span class="src-doc">*                                               event in one script.</span></li>
+<li><a name="a843"></a><span class="src-doc">*</span></li>
+<li><a name="a844"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">void </span><span class="src-doc">                                nothing</span></li>
+<li><a name="a845"></a><span class="src-doc">*/</span></li>
+<li><a name="a846"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functionss_timing_stop">ss_timing_stop</a> <span class="src-sym">(</span><span class="src-var">$name </span>= <span class="src-str">'default'</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a847"></a>    <span class="src-key">global </span><span class="src-var">$ss_timing_stop_times</span><span class="src-sym">;</span></li>
+<li><a name="a848"></a>    <span class="src-var">$ss_timing_stop_times</span><span class="src-sym">[</span><span class="src-var">$name</span><span class="src-sym">] </span>= <a href="http://www.php.net/explode">explode</a><span class="src-sym">(</span><span class="src-str">' '</span><span class="src-sym">, </span><a href="http://www.php.net/microtime">microtime</a><span class="src-sym">(</span><span class="src-sym">))</span><span class="src-sym">;</span></li>
+<li><a name="a849"></a><span class="src-sym">}</span></li>
+<li><a name="a850"></a>&nbsp;</li>
+<li><a name="a851"></a><span class="src-doc">/**</span></li>
+<li><a name="a852"></a><span class="src-doc">* Retrieve timer data</span></li>
+<li><a name="a853"></a><span class="src-doc">*</span></li>
+<li><a name="a854"></a><span class="src-doc">* Get the running time the timed script</span></li>
+<li><a name="a855"></a><span class="src-doc">* </span></li>
+<li><a name="a856"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span><span class="src-doc">ss_timing_start_times          contains the start and finish moments of the script</span></li>
+<li><a name="a857"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span><span class="src-doc">ss_timing_stop_times          contains the stop moments of a script</span></li>
+<li><a name="a858"></a><span class="src-doc">*</span></li>
+<li><a name="a859"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$name </span><span class="src-doc">                         default value is 'default' Makes it possibe to time more than</span></li>
+<li><a name="a860"></a><span class="src-doc">*                                               event in one script.</span></li>
+<li><a name="a861"></a><span class="src-doc">*</span></li>
+<li><a name="a862"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">string </span><span class="src-doc">                               the formated running time of the timed stript.</span></li>
+<li><a name="a863"></a><span class="src-doc">*/</span></li>
+<li><a name="a864"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functionss_timing_current">ss_timing_current</a> <span class="src-sym">(</span><span class="src-var">$name </span>= <span class="src-str">'default'</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a865"></a>    <span class="src-key">global </span><span class="src-var">$ss_timing_start_times</span><span class="src-sym">, </span><span class="src-var">$ss_timing_stop_times</span><span class="src-sym">;</span></li>
+<li><a name="a866"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-sym">!</span>isset<span class="src-sym">(</span><span class="src-var">$ss_timing_start_times</span><span class="src-sym">[</span><span class="src-var">$name</span><span class="src-sym">]</span><span class="src-sym">)) </span><span class="src-sym">{</span></li>
+<li><a name="a867"></a>        <span class="src-key">return </span><span class="src-num">0</span><span class="src-sym">;</span></li>
+<li><a name="a868"></a>    <span class="src-sym">}</span></li>
+<li><a name="a869"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-sym">!</span>isset<span class="src-sym">(</span><span class="src-var">$ss_timing_stop_times</span><span class="src-sym">[</span><span class="src-var">$name</span><span class="src-sym">]</span><span class="src-sym">)) </span><span class="src-sym">{</span></li>
+<li><a name="a870"></a>        <span class="src-var">$stop_time </span>= <a href="http://www.php.net/explode">explode</a><span class="src-sym">(</span><span class="src-str">' '</span><span class="src-sym">, </span><a href="http://www.php.net/microtime">microtime</a><span class="src-sym">(</span><span class="src-sym">))</span><span class="src-sym">;</span></li>
+<li><a name="a871"></a>    <span class="src-sym">}</span></li>
+<li><a name="a872"></a>    <span class="src-key">else </span><span class="src-sym">{</span></li>
+<li><a name="a873"></a>        <span class="src-var">$stop_time </span>= <span class="src-var">$ss_timing_stop_times</span><span class="src-sym">[</span><span class="src-var">$name</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a874"></a>    <span class="src-sym">}</span></li>
+<li><a name="a875"></a>    <span class="src-comm">// do the big numbers first so the small ones aren't lost</span></li>
+<li><a name="a876"></a>    <span class="src-var">$current </span>= <span class="src-var">$stop_time</span><span class="src-sym">[</span><span class="src-num">1</span><span class="src-sym">] </span>- <span class="src-var">$ss_timing_start_times</span><span class="src-sym">[</span><span class="src-var">$name</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-num">1</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a877"></a>    <span class="src-var">$current </span>+= <span class="src-var">$stop_time</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">] </span>- <span class="src-var">$ss_timing_start_times</span><span class="src-sym">[</span><span class="src-var">$name</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a878"></a>    <span class="src-key">return </span><span class="src-var">$current</span><span class="src-sym">;</span></li>
+<li><a name="a879"></a><span class="src-sym">}</span></li>
+<li><a name="a880"></a>&nbsp;</li>
+<li><a name="a881"></a><span class="src-doc">/**</span></li>
+<li><a name="a882"></a><span class="src-doc">* Change the case of the keys of an array to all uppercase</span></li>
+<li><a name="a883"></a><span class="src-doc">*</span></li>
+<li><a name="a884"></a><span class="src-doc">* Array keys can be number or strings. If strings then it's a good habit to use only uppercase.</span></li>
+<li><a name="a885"></a><span class="src-doc">* This is sadly not always the case. This function makes sure that they are.</span></li>
+<li><a name="a886"></a><span class="src-doc">*</span></li>
+<li><a name="a887"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">array </span><span class="src-doc">             Array suspected of having mixed case array keys.</span></li>
+<li><a name="a888"></a><span class="src-doc">*</span></li>
+<li><a name="a889"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">array </span><span class="src-doc">            Array containing only uppercase array keys.</span></li>
+<li><a name="a890"></a><span class="src-doc">*/</span></li>
+<li><a name="a891"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functionupperkeysarray">upperkeysarray</a><span class="src-sym">(</span><span class="src-var">$testa</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a892"></a>    </li>
+<li><a name="a893"></a>    <span class="src-var">$newtesta</span>=<span class="src-var">$testa</span><span class="src-sym">;</span></li>
+<li><a name="a894"></a>    <span class="src-key">if </span><span class="src-sym">(</span><a href="http://www.php.net/is_array">is_array</a><span class="src-sym">(</span><span class="src-var">$testa</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a895"></a>        <span class="src-var">$newtesta</span>=<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a896"></a>        <span class="src-var">$newkeys</span>=<a href="http://www.php.net/array_keys">array_keys</a><span class="src-sym">(</span><span class="src-var">$testa</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a897"></a>        <span class="src-key">for </span><span class="src-sym">(</span><span class="src-var">$x</span>=<span class="src-num">0</span><span class="src-sym">;</span><span class="src-var">$x</span>&lt;<a href="http://www.php.net/sizeof">sizeof</a><span class="src-sym">(</span><span class="src-var">$newkeys</span><span class="src-sym">)</span><span class="src-sym">;</span><span class="src-var">$x</span>++<span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a898"></a>            <span class="src-var">$newtesta</span><span class="src-sym">[</span><a href="http://www.php.net/strtoupper">strtoupper</a><span class="src-sym">(</span><span class="src-var">$newkeys</span><span class="src-sym">[</span><span class="src-var">$x</span><span class="src-sym">]</span><span class="src-sym">)</span><span class="src-sym">]</span>=<span class="src-var">$testa</span><span class="src-sym">[</span><span class="src-var">$newkeys</span><span class="src-sym">[</span><span class="src-var">$x</span><span class="src-sym">]]</span><span class="src-sym">;</span></li>
+<li><a name="a899"></a>        <span class="src-sym">}</span></li>
+<li><a name="a900"></a>    <span class="src-sym">}</span></li>
+<li><a name="a901"></a>    <span class="src-key">return </span><span class="src-var">$newtesta</span><span class="src-sym">;</span></li>
+<li><a name="a902"></a>&nbsp;</li>
+<li><a name="a903"></a><span class="src-sym">}</span></li>
+<li><a name="a904"></a>&nbsp;</li>
+<li><a name="a905"></a><span class="src-doc">/**</span></li>
+<li><a name="a906"></a><span class="src-doc">* Check to see if a tag is a custom tag.</span></li>
+<li><a name="a907"></a><span class="src-doc">*</span></li>
+<li><a name="a908"></a><span class="src-doc">* Program E supports additional, non AIML 1.0x specified, custom tags. This function checks to see if</span></li>
+<li><a name="a909"></a><span class="src-doc">* the encountered XML tag is indeed a custom AIML tag. If it is a custom tag, it will then the</span></li>
+<li><a name="a910"></a><span class="src-doc">* appropriate function to use in &amp;$functicall.</span></li>
+<li><a name="a911"></a><span class="src-doc">*</span></li>
+<li><a name="a912"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">array </span><span class="src-doc">cttags            contains all the custom tags. Array is created by loadcustomtags()</span></li>
+<li><a name="a913"></a><span class="src-doc">*</span></li>
+<li><a name="a914"></a><span class="src-doc">* </span><span class="src-doc-coretag">@see</span><span class="src-doc"> loadcustomtags()</span></li>
+<li><a name="a915"></a><span class="src-doc">* </span></li>
+<li><a name="a916"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$tagname </span><span class="src-doc">         name of the tag to be checked</span></li>
+<li><a name="a917"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">&amp;$functocall </span><span class="src-doc">            call-by-reference variable used to send back the function name that</span></li>
+<li><a name="a918"></a><span class="src-doc">*                                  needs to be called to process the tag's contents.</span></li>
+<li><a name="a919"></a><span class="src-doc">* </span></li>
+<li><a name="a920"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">boolean </span><span class="src-doc">                 true/false</span></li>
+<li><a name="a921"></a><span class="src-doc">*/</span></li>
+<li><a name="a922"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functioniscustomtag">iscustomtag</a><span class="src-sym">(</span><span class="src-var">$tagname</span><span class="src-sym">,</span><span class="src-sym">&amp;</span><span class="src-var">$functocall</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a923"></a>&nbsp;</li>
+<li><a name="a924"></a>    <span class="src-key">global </span><span class="src-var">$cttags</span><span class="src-sym">;</span></li>
+<li><a name="a925"></a>&nbsp;</li>
+<li><a name="a926"></a>    <span class="src-key">if </span><span class="src-sym">(</span><a href="http://www.php.net/in_array">in_array</a><span class="src-sym">(</span><a href="http://www.php.net/strtoupper">strtoupper</a><span class="src-sym">(</span><span class="src-var">$tagname</span><span class="src-sym">)</span><span class="src-sym">,</span><span class="src-var">$cttags</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a927"></a>        <span class="src-var">$functocall</span>=<span class="src-str">&quot;ct_&quot; </span>. <span class="src-var">$tagname</span><span class="src-sym">;</span></li>
+<li><a name="a928"></a>        <span class="src-key">return </span><span class="src-id">true</span><span class="src-sym">;</span></li>
+<li><a name="a929"></a>    <span class="src-sym">}</span></li>
+<li><a name="a930"></a>    <span class="src-key">else </span><span class="src-sym">{</span></li>
+<li><a name="a931"></a>        <span class="src-key">return </span><span class="src-id">false</span><span class="src-sym">;</span></li>
+<li><a name="a932"></a>    <span class="src-sym">}</span></li>
+<li><a name="a933"></a>&nbsp;</li>
+<li><a name="a934"></a><span class="src-sym">}</span></li>
+<li><a name="a935"></a>&nbsp;</li>
+<li><a name="a936"></a><span class="src-doc">/**</span></li>
+<li><a name="a937"></a><span class="src-doc">* Load all custom tags</span></li>
+<li><a name="a938"></a><span class="src-doc">*</span></li>
+<li><a name="a939"></a><span class="src-doc">* Create a global accessible array with all custom tags, based upon the custom tag functions (ct_FunctionName()).</span></li>
+<li><a name="a940"></a><span class="src-doc">*</span></li>
+<li><a name="a941"></a><span class="src-doc">* </span><span class="src-doc-coretag">@see</span><span class="src-doc"> customtags.php</span></li>
+<li><a name="a942"></a><span class="src-doc">*</span></li>
+<li><a name="a943"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">void </span></li>
+<li><a name="a944"></a><span class="src-doc">*/</span></li>
+<li><a name="a945"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functionloadcustomtags">loadcustomtags</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a946"></a>&nbsp;</li>
+<li><a name="a947"></a>    <span class="src-key">global </span><span class="src-var">$cttags</span><span class="src-sym">;</span></li>
+<li><a name="a948"></a>    <span class="src-var">$cttags</span>=<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a949"></a>&nbsp;</li>
+<li><a name="a950"></a>    <span class="src-var">$definedfuncs </span>= <a href="http://www.php.net/get_defined_functions">get_defined_functions</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a951"></a>    <span class="src-var">$definedfuncs</span>=<span class="src-var">$definedfuncs</span><span class="src-sym">[</span><span class="src-str">&quot;user&quot;</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a952"></a>&nbsp;</li>
+<li><a name="a953"></a>    <span class="src-comm">// find all funcs in [&quot;user&quot;] funcs that match ct_??? and register each function and tag name</span></li>
+<li><a name="a954"></a>    <span class="src-key">foreach</span><span class="src-sym">(</span><span class="src-var">$definedfuncs </span><span class="src-key">as </span><span class="src-var">$x</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a955"></a>        <span class="src-key">if </span><span class="src-sym">(</span><a href="http://www.php.net/substr">substr</a><span class="src-sym">(</span><span class="src-var">$x</span><span class="src-sym">,</span><span class="src-num">0</span><span class="src-sym">,</span><span class="src-num">3</span><span class="src-sym">)</span>==<span class="src-str">&quot;ct_&quot;</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a956"></a>            <span class="src-var">$cttags</span><span class="src-sym">[</span><span class="src-sym">]</span>=<a href="http://www.php.net/strtoupper">strtoupper</a><span class="src-sym">(</span><a href="http://www.php.net/substr">substr</a><span class="src-sym">(</span><span class="src-var">$x</span><span class="src-sym">,</span><span class="src-num">3</span><span class="src-sym">,</span><a href="http://www.php.net/strlen">strlen</a><span class="src-sym">(</span><span class="src-var">$x</span><span class="src-sym">)))</span><span class="src-sym">;</span></li>
+<li><a name="a957"></a>        <span class="src-sym">}</span></li>
+<li><a name="a958"></a>    <span class="src-sym">}</span></li>
+<li><a name="a959"></a>&nbsp;</li>
+<li><a name="a960"></a><span class="src-sym">}</span></li>
+<li><a name="a961"></a>&nbsp;</li>
+<li><a name="a962"></a><span class="src-doc">/**</span></li>
+<li><a name="a963"></a><span class="src-doc">* Look up the bot's ID number</span></li>
+<li><a name="a964"></a><span class="src-doc">*</span></li>
+<li><a name="a965"></a><span class="src-doc">* From the bot's name, retrieve it's bot ID number from the bots table in the database. This</span></li>
+<li><a name="a966"></a><span class="src-doc">* funtion requires that each bot has a uniqe name to function.</span></li>
+<li><a name="a967"></a><span class="src-doc">*</span></li>
+<li><a name="a968"></a><span class="src-doc">* </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$botname </span><span class="src-doc">               The bot's name.</span></li>
+<li><a name="a969"></a><span class="src-doc">*</span></li>
+<li><a name="a970"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">integer </span><span class="src-doc">                      The bot ID that belongs to the unique botname.</span></li>
+<li><a name="a971"></a><span class="src-doc">*/</span></li>
+<li><a name="a972"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functionlookupbotid">lookupbotid</a><span class="src-sym">(</span><span class="src-var">$botname</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a973"></a>&nbsp;</li>
+<li><a name="a974"></a>    <span class="src-var">$name</span>=<a href="http://www.php.net/addslashes">addslashes</a><span class="src-sym">(</span><span class="src-var">$botname</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a975"></a>    <span class="src-var">$q</span>=<span class="src-str">&quot;</span><span class="src-str"><span class="src-id">select</span> <span class="src-id">id</span> <span class="src-id">from</span> <span class="src-id">bots</span> <span class="src-id">where</span> <span class="src-id">botname</span>='<span class="src-var">$name</span>'</span><span class="src-str">&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a976"></a>    <span class="src-var">$selectcode </span>= <a href="http://www.php.net/mysql_query">mysql_query</a><span class="src-sym">(</span><span class="src-var">$q</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a977"></a>    <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a978"></a>        <span class="src-key">while </span><span class="src-sym">(</span><span class="src-var">$q </span>= <a href="http://www.php.net/mysql_fetch_array">mysql_fetch_array</a><span class="src-sym">(</span><span class="src-var">$selectcode</span><span class="src-sym">))</span><span class="src-sym">{</span></li>
+<li><a name="a979"></a>                <span class="src-key">return </span><span class="src-var">$q</span><span class="src-sym">[</span><span class="src-str">&quot;id&quot;</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a980"></a>        <span class="src-sym">}</span></li>
+<li><a name="a981"></a>    <span class="src-sym">}</span></li>
+<li><a name="a982"></a>    <span class="src-key">return </span>-<span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a983"></a>&nbsp;</li>
+<li><a name="a984"></a><span class="src-sym">}</span></li>
+<li><a name="a985"></a>&nbsp;</li>
+<li><a name="a986"></a>&nbsp;</li>
+<li><a name="a987"></a><span class="src-doc">/**</span></li>
+<li><a name="a988"></a><span class="src-doc">* Which bot is selected</span></li>
+<li><a name="a989"></a><span class="src-doc">*</span></li>
+<li><a name="a990"></a><span class="src-doc">* Returns the bit of SQL query that limits the results to the selected bot.</span></li>
+<li><a name="a991"></a><span class="src-doc">* </span></li>
+<li><a name="a992"></a><span class="src-doc">* </span><span class="src-doc-coretag">@global </span><span class="src-doc-type">string </span><span class="src-doc">selectbot              The currently selected bot. The bot the user is chatting to.</span></li>
+<li><a name="a993"></a><span class="src-doc">*</span></li>
+<li><a name="a994"></a><span class="src-doc">* </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">string </span><span class="src-doc">                       The bit of SQL query that limits the results to the selected bot.</span></li>
+<li><a name="a995"></a><span class="src-doc">*/</span></li>
+<li><a name="a996"></a><span class="src-key">function </span><a href="../Interpreter/_util_php.html#functionwhichbots">whichbots</a><span class="src-sym">(</span><span class="src-sym">)</span></li>
+<li><a name="a997"></a><span class="src-sym">{</span></li>
+<li><a name="a998"></a>    <span class="src-key">global </span><span class="src-var">$selectbot</span><span class="src-sym">;</span></li>
+<li><a name="a999"></a>&nbsp;</li>
+<li><a name="a1000"></a>    <span class="src-key">return </span><span class="src-str">&quot;</span><span class="src-str"><span class="src-id">bot</span>=<span class="src-var">$selectbot</span></span><span class="src-str">&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a1001"></a><span class="src-sym">}</span></li>
+<li><a name="a1002"></a>&nbsp;</li>
+<li><a name="a1003"></a><span class="src-php">?&gt;</span></li>
+</ol></pre>
+</div>
+	<p class="notes" id="credit">
+		Documentation generated on Wed, 12 Jan 2005 12:24:51 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.3.0RC3</a>
+	</p>
+	</body>
+</html>
