@@ -113,7 +113,16 @@ function ct_add($xmlnode,$inputstar,$thatstar,$topicstar){
 function ct_if($xmlnode,$inputstar,$thatstar,$topicstar){
     $ch = array();
     $s = false;
-    if(bget($xmlnode['attributes']['name'])==$xmlnode['attributes']['value']){
+    $condition = false;
+    if(isset($xmlnode['attributes']['value']))
+        $condition = bget($xmlnode['attributes']['name'])==$xmlnode['attributes']['value'];
+    elseif(isset($xmlnode['attributes']['contains']))
+        $condition = preg_match('/'.$xmlnode['attributes']['contains'].'/i', bget($xmlnode['attributes']['name']))==1?true:false;
+    elseif(isset($xmlnode['attributes']['exists'])){
+        $precondition = bget($xmlnode['attributes']['name'])==DEFAULTPREDICATEVALUE;
+        $condition = $precondition != (bool)$xmlnode['attributes']['exists'];
+    }
+    if($condition){
         //If condition is satisfied, so we process every child before the 'else' tag (if there is any)
         foreach($xmlnode["children"] as $i=>$c){
             if(isset($c['tag']) && $c['tag']=='else') break;

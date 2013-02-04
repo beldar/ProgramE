@@ -331,7 +331,7 @@ function bget($name){
 		}
 		else{
 			while ($q = mysql_fetch_array($selectcode)){
-				return $q[0];
+				return ($q[0]=='' ? DEFAULTPREDICATEVALUE:$q[0]);
 			}
 		}
 	}
