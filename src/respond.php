@@ -664,7 +664,7 @@ function handlenode($xmlnode,$inputstar,$thatstar,$topicstar){
 			$indexes="";
 		}
 
-		$indexes = split (",", $indexes);
+		$indexes = explode(",", $indexes);
 
 		if (sizeof($indexes)<2){
 			$indexes=array();
