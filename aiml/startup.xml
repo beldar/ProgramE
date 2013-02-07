@@ -45,6 +45,13 @@
             "sentence"-ending characters into characters that will not be
             identified as sentence enders.-->
         <input>
+            <substitute find="á" replace="a"/>
+            <substitute find="à" replace="a"/>
+            <substitute find="é" replace="e"/>
+            <substitute find="è" replace="e"/>
+            <substitute find="í" replace="i"/>
+            <substitute find="ó" replace="o"/>
+            <substitute find="ò" replace="o"/>
             <substitute find="=reply" replace=""/>
             <substitute find="name=reset" replace=""/>
             <substitute find=":-)" replace=" smile "/>

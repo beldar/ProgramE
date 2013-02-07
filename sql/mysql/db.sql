@@ -24,64 +24,64 @@
 # Table structure for table `bot`
 #
 
-CREATE TABLE bot (
+CREATE TABLE IF NOT EXISTS bot (
   id int(11) NOT NULL auto_increment,
   bot tinyint(4) NOT NULL default '0',
   name varchar(255) NOT NULL default '',
   value text NOT NULL,
   PRIMARY KEY  (id),
   KEY botname (bot,name)
-) TYPE=MyISAM;
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 # --------------------------------------------------------
 
 #
 # Table structure for table `bots`
 #
 
-CREATE TABLE bots (
+CREATE TABLE IF NOT EXISTS bots (
   id tinyint(3) unsigned NOT NULL auto_increment,
   botname varchar(255) NOT NULL default '',
   PRIMARY KEY  (botname),
   KEY id (id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 # --------------------------------------------------------
 
 #
 # Table structure for table `conversationlog`
 #
 
-CREATE TABLE conversationlog (
+CREATE TABLE IF NOT EXISTS conversationlog (
   bot tinyint(3) unsigned NOT NULL default '0',
   id int(11) NOT NULL auto_increment,
   input text,
   response text,
   uid varchar(255) default NULL,
-  enteredtime timestamp(14) NOT NULL,
+  enteredtime timestamp NOT NULL,
   PRIMARY KEY  (id),
   KEY botid (bot)
-) TYPE=MyISAM;
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 # --------------------------------------------------------
 
 #
 # Table structure for table `dstore`
 #
 
-CREATE TABLE dstore (
+CREATE TABLE IF NOT EXISTS dstore (
   uid varchar(255) default NULL,
   name text,
   value text,
-  enteredtime timestamp(14) NOT NULL,
+  enteredtime timestamp NOT NULL,
   id int(11) NOT NULL auto_increment,
   PRIMARY KEY  (id),
   KEY nameidx (name(40))
-) TYPE=MyISAM;
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 # --------------------------------------------------------
 
 #
 # Table structure for table `gmcache`
 #
 
-CREATE TABLE gmcache (
+CREATE TABLE IF NOT EXISTS gmcache (
   id int(11) NOT NULL auto_increment,
   bot tinyint(3) unsigned NOT NULL default '0',
   template int(11) NOT NULL default '0',
@@ -93,27 +93,27 @@ CREATE TABLE gmcache (
   combined text NOT NULL,
   PRIMARY KEY  (id),
   KEY combined (bot,combined(255))
-) TYPE=MyISAM;
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 # --------------------------------------------------------
 
 #
 # Table structure for table `gossip`
 #
 
-CREATE TABLE gossip (
+CREATE TABLE IF NOT EXISTS gossip (
   bot tinyint(3) unsigned NOT NULL default '0',
   gossip text,
   id int(11) NOT NULL auto_increment,
   PRIMARY KEY  (id),
   KEY botidx (bot)
-) TYPE=MyISAM;
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 # --------------------------------------------------------
 
 #
 # Table structure for table `patterns`
 #
 
-CREATE TABLE patterns (
+CREATE TABLE IF NOT EXISTS patterns (
   bot tinyint(3) unsigned NOT NULL default '0',
   id int(11) NOT NULL auto_increment,
   word varchar(255) default NULL,
@@ -123,14 +123,14 @@ CREATE TABLE patterns (
   PRIMARY KEY  (id),
   KEY wordparent (parent,word),
   KEY botid (bot)
-) TYPE=MyISAM;
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 # --------------------------------------------------------
 
 #
 # Table structure for table `templates`
 #
 
-CREATE TABLE templates (
+CREATE TABLE IF NOT EXISTS templates (
   bot tinyint(3) unsigned NOT NULL default '0',
   id int(11) NOT NULL default '0',
   template text NOT NULL,
@@ -139,32 +139,32 @@ CREATE TABLE templates (
   topic varchar(255) default NULL,
   PRIMARY KEY  (id),
   KEY bot (id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 # --------------------------------------------------------
 
 #
 # Table structure for table `thatindex`
 #
 
-CREATE TABLE thatindex (
+CREATE TABLE IF NOT EXISTS thatindex (
   uid varchar(255) default NULL,
-  enteredtime timestamp(14) NOT NULL,
+  enteredtime timestamp NOT NULL,
   id int(11) NOT NULL auto_increment,
   PRIMARY KEY  (id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 # --------------------------------------------------------
 
 #
 # Table structure for table `thatstack`
 #
 
-CREATE TABLE thatstack (
+CREATE TABLE IF NOT EXISTS thatstack (
   thatid int(11) NOT NULL default '0',
   id int(11) NOT NULL auto_increment,
   value varchar(255) default NULL,
-  enteredtime timestamp(14) NOT NULL,
+  enteredtime timestamp NOT NULL,
   PRIMARY KEY  (id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
     
 

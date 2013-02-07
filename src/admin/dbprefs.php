@@ -89,7 +89,7 @@ define('CACHE_CONTROL', 0);
 define("PROGRAMEVERSION","v0.1");
 
 // This is where all the AIML and startup.xml resides
-$rootdir="../../aiml_test/";
+$rootdir="../../aiml/";
 
 $DB_HOST="localhost";
 $DB_UNAME="root";
